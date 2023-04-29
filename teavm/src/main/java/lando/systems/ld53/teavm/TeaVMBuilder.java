@@ -22,7 +22,8 @@ public class TeaVMBuilder {
         // teaBuildConfiguration.additionalAssetsClasspathFiles.add("lando/systems/ld53/asset.extension");
 
         // Register any classes or packages that require reflection here:
-        // TeaReflectionSupplier.addReflectionClass("lando.systems.ld53.reflect");
+//         TeaReflectionSupplier.addReflectionClass("lando.systems.ld53.reflect");
+        TeaReflectionSupplier.addReflectionClass("com.kotcrab.vis.ui.widget");
 
         TeaVMTool tool = TeaBuilder.config(teaBuildConfiguration);
         tool.setMainClass(TeaVMLauncher.class.getName());

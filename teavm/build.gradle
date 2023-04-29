@@ -6,6 +6,7 @@ plugins {
 gretty {
   contextPath = '/'
   extraResourceBase 'build/dist/webapp'
+  httpPort = 8888
 }
 
 sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
