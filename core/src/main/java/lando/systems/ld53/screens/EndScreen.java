@@ -1,5 +1,7 @@
 package lando.systems.ld53.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -80,6 +82,10 @@ public class EndScreen extends BaseScreen {
 
     @Override
     public void update(float dt) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new TitleScreen());
+            return;
+        }
         accum += dt;
         titleLabel.update(dt);
         themeLabel.update(dt);

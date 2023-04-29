@@ -111,7 +111,7 @@ public class TitleScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.audioManager.stopAllSounds();
-                //TODO: Handle InputProcessor
+                Gdx.input.setInputProcessor(null);
                 game.setScreen(new GameScreen());
             }
         });
@@ -133,7 +133,6 @@ public class TitleScreen extends BaseScreen {
         creditButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //TODO: Handle screen transition
                 Gdx.input.setInputProcessor(null);
                 game.setScreen(new EndScreen(game));
             }
