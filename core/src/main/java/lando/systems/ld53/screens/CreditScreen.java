@@ -11,7 +11,7 @@ import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.utils.typinglabel.TypingLabel;
 
-public class EndScreen extends BaseScreen {
+public class CreditScreen extends BaseScreen {
 
     private final TypingLabel titleLabel;
     private final TypingLabel themeLabel;
@@ -23,46 +23,45 @@ public class EndScreen extends BaseScreen {
 
     private final Animation<TextureRegion> catAnimation;
     private final Animation<TextureRegion> dogAnimation;
-    //private final TextureRegion background;
+    private final Animation<TextureRegion> kittenAnimation;
+    private final TextureRegion background;
 
-    private final String title = "{GRADIENT=purple;cyan}Banana Republic: Nuclear Power Plantain{ENDGRADIENT}";
-    private final String theme = "Made for Ludum Dare 49: Unstable";
+    private final String title = "{GRADIENT=purple;cyan}Code of Duty: NO ROSSMAN EDITION{ENDGRADIENT}";
+    private final String theme = "Made for Ludum Dare 53: Deliver";
 
     private final String thanks = "{GRADIENT=purple;cyan}Thanks for playing our game!{ENDGRADIENT}";
     private final String developers = "{COLOR=gray}Developed by:{COLOR=white}\n {GRADIENT=white;gray}Brian Ploeckelman{ENDGRADIENT} \n {GRADIENT=white;gray}Doug Graham{ENDGRADIENT} \n {GRADIENT=white;gray}Jeffrey Hwang{ENDGRADIENT}";
-    private final String rossman = "{GRADIENT=gray;black}...also Brian Rossman\n(better late than never){ENDGRADIENT}";
+    private final String rossman = "{GRADIENT=gray;white}...also Brian Rossman\n(for blowing up our game){ENDGRADIENT}";
     private final String artists = "{COLOR=gray}Art by:{COLOR=white}\n {GRADIENT=white;gray}Matt Neumann{ENDGRADIENT}";
-    private final String emotionalSupport = "{COLOR=cyan}Emotional Support:{COLOR=white}\n  Asuka and     Cherry";
+    private final String emotionalSupport = "{COLOR=cyan}Emotional Support:{COLOR=white}\n  Asuka,     Osha\n  and Cherry";
     private final String music = "{COLOR=gray}Sound by:{COLOR=white}\n {GRADIENT=white;gray}Pete Valeo{ENDGRADIENT}";
     private final String libgdx = "Made with {COLOR=red}<3{COLOR=white}\nand LibGDX";
-    private final String disclaimer = "{GRADIENT=black;gray}Disclaimer:{ENDGRADIENT}  {GRADIENT=gold;yellow}{JUMP=.2}{WAVE=0.8;1.1;1.1}No bananas were harmed in the making of this game{ENDWAVE}{ENDJUMP}{ENDGRADIENT}";
+    private final String disclaimer = "{GRADIENT=black;gray}Disclaimer:{ENDGRADIENT}  {GRADIENT=gold;yellow}{JUMP=.2}{WAVE=0.8;1.1;1.1}No binaries were harmed in the making of this game{ENDWAVE}{ENDJUMP}{ENDGRADIENT}";
 
     private float accum = 0f;
 
-    public EndScreen(Main game) {
+    public CreditScreen(Main game) {
         super();
 
-        titleLabel = new TypingLabel(game.assets.smallFont, title.toLowerCase(), 0f, Config.Screen.window_height / 2f + 290f);
+        titleLabel = new TypingLabel(game.assets.font, title.toLowerCase(), 0f, Config.Screen.window_height - 15f);
         titleLabel.setWidth(Config.Screen.window_width);
         titleLabel.setFontScale(1f);
 
-        themeLabel = new TypingLabel(game.assets.smallFont, theme.toLowerCase(), 0f, Config.Screen.window_height / 2f + 220f);
+        themeLabel = new TypingLabel(game.assets.smallFont, theme.toLowerCase(), 0f, Config.Screen.window_height - 70f);
         themeLabel.setWidth(Config.Screen.window_width);
         themeLabel.setFontScale(1f);
 
-        leftCreditLabel = new TypingLabel(game.assets.smallFont, developers.toLowerCase() + "\n\n\n\n" + emotionalSupport.toLowerCase() + "\n\n", 75f, Config.Screen.window_height / 2f + 135f);
+        leftCreditLabel = new TypingLabel(game.assets.smallFont, developers.toLowerCase() + "\n\n" + emotionalSupport.toLowerCase() + "\n\n", 75f, Config.Screen.window_height / 2f + 135f);
         leftCreditLabel.setWidth(Config.Screen.window_width / 2f - 150f);
         leftCreditLabel.setLineAlign(Align.left);
         leftCreditLabel.setFontScale(1f);
 
-        rossmanLabel = new TypingLabel(game.assets.smallFont, rossman.toLowerCase(), 110f, Config.Screen.window_height / 2f - 35f);
+        rossmanLabel = new TypingLabel(game.assets.smallFont, rossman.toLowerCase(), 200f, 165f);
         rossmanLabel.setWidth(Config.Screen.window_width / 2f - 150f);
         rossmanLabel.setLineAlign(Align.left);
         rossmanLabel.setFontScale(0.4f);
 
-        catAnimation = game.assets.cherry;
-        dogAnimation = game.assets.asuka;
-        //background = game.assets.atlas.findRegion("lando");
+        background = game.assets.pixelRegion;
 
         rightCreditLabel = new TypingLabel(game.assets.smallFont, artists.toLowerCase() + "\n\n" + music.toLowerCase() + "\n\n" + libgdx.toLowerCase(), Config.Screen.window_width / 2 + 75f, Config.Screen.window_height / 2f + 135f);
         rightCreditLabel.setWidth(Config.Screen.window_width / 2f - 150f);
@@ -78,6 +77,11 @@ public class EndScreen extends BaseScreen {
         disclaimerLabel.setWidth(Config.Screen.window_width);
         thanksLabel.setLineAlign(Align.center);
         disclaimerLabel.setFontScale(.6f);
+
+        catAnimation = game.assets.cherry;
+        dogAnimation = game.assets.asuka;
+        kittenAnimation = game.assets.osha;
+
     }
 
     @Override
@@ -123,8 +127,10 @@ public class EndScreen extends BaseScreen {
             if (accum > 7.5) {
                 TextureRegion catTexture = catAnimation.getKeyFrame(accum);
                 TextureRegion dogTexture = dogAnimation.getKeyFrame(accum);
-                batch.draw(catTexture, 330f, 180f);
-                batch.draw(dogTexture, 60f, 175f);
+                TextureRegion kittenTexture = kittenAnimation.getKeyFrame(accum);
+                batch.draw(kittenTexture, 200f, 275f);
+                batch.draw(dogTexture, 60f, 275f);
+                batch.draw(catTexture, 270f, 250f);
             }
             batch.setColor(Color.WHITE);
         }

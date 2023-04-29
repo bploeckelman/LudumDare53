@@ -4,14 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import lando.systems.ld53.Assets;
-import lando.systems.ld53.Main;
 import lando.systems.ld53.screens.BaseScreen;
-import lando.systems.ld53.screens.EndScreen;
+import lando.systems.ld53.screens.CreditScreen;
 import lando.systems.ld53.screens.GameScreen;
 
 public class TitleScreenUI extends Group {
@@ -69,7 +66,7 @@ public class TitleScreenUI extends Group {
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.input.setInputProcessor(null);
                 screen.exitingScreen = true;
-                screen.game.setScreen(new EndScreen(screen.game));
+                screen.game.setScreen(new CreditScreen(screen.game));
             }
         });
 
