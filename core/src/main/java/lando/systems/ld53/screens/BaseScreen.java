@@ -16,6 +16,7 @@ import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.utils.screenshake.CameraShaker;
 import lombok.var;
 
@@ -27,6 +28,7 @@ public abstract class BaseScreen implements Disposable {
     public final SpriteBatch batch;
     public final Vector3 pointerPos;
     public final OrthographicCamera windowCamera;
+    public AudioManager audioManager;
 
     public OrthographicCamera worldCamera;
     public CameraShaker screenShaker;
@@ -41,6 +43,7 @@ public abstract class BaseScreen implements Disposable {
         this.batch = assets.batch;
         this.pointerPos = new Vector3();
         this.windowCamera = game.windowCamera;
+        this.audioManager = game.audioManager;
 
         this.worldCamera = new OrthographicCamera();
         this.screenShaker = new CameraShaker(worldCamera);

@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.kotcrab.vis.ui.VisUI;
 import de.damios.guacamole.gdx.graphics.NestableFrameBuffer;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.screens.BaseScreen;
 import lando.systems.ld53.screens.TitleScreen;
 import lando.systems.ld53.utils.Time;
@@ -29,6 +30,7 @@ public class Main extends ApplicationAdapter {
     public FrameBuffer frameBuffer;
     public TextureRegion frameBufferRegion;
     public OrthographicCamera windowCamera;
+    public AudioManager audioManager;
 
     public BaseScreen screen;
 
@@ -65,6 +67,8 @@ public class Main extends ApplicationAdapter {
         Tween.registerAccessor(Vector2.class, new Vector2Accessor());
         Tween.registerAccessor(Vector3.class, new Vector3Accessor());
         Tween.registerAccessor(OrthographicCamera.class, new CameraAccessor());
+
+        audioManager = new AudioManager(assets, tween);
 
         Pixmap.Format format = Pixmap.Format.RGBA8888;
         int width = Config.Screen.framebuffer_width;
