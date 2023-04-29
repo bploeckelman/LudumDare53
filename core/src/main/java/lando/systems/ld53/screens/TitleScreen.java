@@ -24,7 +24,7 @@ public class TitleScreen extends BaseScreen {
         worldCamera.update();
         Gdx.input.setInputProcessor(uiStage);
 
-        background = assets.gdx;
+        background = assets.titleScreen;
     }
 
     @Override
@@ -52,11 +52,9 @@ public class TitleScreen extends BaseScreen {
         batch.setProjectionMatrix(worldCamera.combined);
         batch.begin();
         {
-            float w = background.getWidth();
-            float h = background.getHeight();
             float width = worldCamera.viewportWidth;
             float height = worldCamera.viewportHeight;
-            batch.draw(background, (width - w) / 2f, (height - h) / 2f);
+            batch.draw(background, 0, 0, width, height);
 
             batch.draw(dog,
                  width / 2,  height * 2 / 3,

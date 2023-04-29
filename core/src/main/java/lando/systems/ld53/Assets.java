@@ -36,6 +36,7 @@ public class Assets implements Disposable {
 
     public Texture pixel;
     public Texture gdx;
+    public Texture titleScreen;
 
     public TextureRegion pixelRegion;
 
@@ -130,6 +131,7 @@ public class Assets implements Disposable {
             mgr.load("i18n/strings", I18NBundle.class);
 
             mgr.load("images/libgdx.png", Texture.class);
+            mgr.load("images/title-screen.png", Texture.class);
 
             mgr.load("fonts/outfit-medium-20px.fnt", BitmapFont.class);
             mgr.load("fonts/outfit-medium-40px.fnt", BitmapFont.class);
@@ -153,6 +155,7 @@ public class Assets implements Disposable {
         strings = mgr.get("i18n/strings", I18NBundle.class);
 
         gdx = mgr.get("images/libgdx.png");
+        titleScreen = mgr.get("images/title-screen.png");
 
         smallFont = mgr.get("fonts/outfit-medium-20px.fnt");
         font      = mgr.get("fonts/outfit-medium-40px.fnt");
