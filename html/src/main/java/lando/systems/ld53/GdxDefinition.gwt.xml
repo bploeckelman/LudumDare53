@@ -14,6 +14,12 @@
   <inherits name="libgdx_screenmanager" />
   <inherits name="libgdx_screenmanager_gwt" />
   <inherits name="space.earlygrey.shapedrawer" />
+  <inherits name="regexodus" />
+
+
+    <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.utils.typinglabel.TypingGlyph" />
+  <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.utils.typinglabel.effects" />
+
   <entry-point class="lando.systems.ld53.gwt.GwtLauncher" />
   <set-configuration-property name="gdx.assetpath" value="../assets" />
   <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>

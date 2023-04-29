@@ -12,5 +12,6 @@ dependencies {
   api "org.mini2Dx:universal-tween-engine:$universalTweenVersion"
   api "org.projectlombok:lombok:$lombokVersion"
   api "space.earlygrey:shapedrawer:$shapeDrawerVersion"
+  implementation "com.github.tommyettinger:regexodus:$regexodusVersion"
   annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }

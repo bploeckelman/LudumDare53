@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.I18NBundle;
@@ -41,6 +42,23 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> asuka;
     public Animation<TextureRegion> cherry;
     public Animation<TextureRegion> osha;
+
+    public Array<ShaderProgram> randomTransitions;
+    public ShaderProgram starWarsShader;
+    public ShaderProgram blindsShader;
+    public ShaderProgram fadeShader;
+    public ShaderProgram radialShader;
+    public ShaderProgram doomShader;
+    public ShaderProgram pizelizeShader;
+    public ShaderProgram doorwayShader;
+    public ShaderProgram crosshatchShader;
+    public ShaderProgram rippleShader;
+    public ShaderProgram heartShader;
+    public ShaderProgram stereoShader;
+    public ShaderProgram circleCropShader;
+    public ShaderProgram cubeShader;
+    public ShaderProgram dreamyShader;
+    public ShaderProgram flameShader;
 
     public InputPrompts inputPrompts;
 
@@ -190,6 +208,26 @@ public class Assets implements Disposable {
         NinePatches.metal_green                     = new NinePatch(atlas.findRegion("ninepatch/metal-green"),             12, 12, 12, 12);
         NinePatches.metal_yellow                    = new NinePatch(atlas.findRegion("ninepatch/metal-yellow"),            12, 12, 12, 12);
         NinePatches.shear                           = new NinePatch(atlas.findRegion("ninepatch/shear"),                   75, 75, 12, 12);
+
+        //Shaders
+        randomTransitions = new Array<>();
+        blindsShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/blinds.frag");
+        fadeShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/dissolve.frag");
+        radialShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/radial.frag");
+        doomShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/doomdrip.frag");
+        pizelizeShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/pixelize.frag");
+        doorwayShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/doorway.frag");
+        crosshatchShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/crosshatch.frag");
+        rippleShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/ripple.frag");
+        heartShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/heart.frag");
+        stereoShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/stereo.frag");
+        circleCropShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/circlecrop.frag");
+        cubeShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/cube.frag");
+        dreamyShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/dreamy.frag");
+        flameShader = loadShader("shaders/default.vert", "shaders/flame.frag");
+        starWarsShader = loadShader("shaders/default.vert", "shaders/starwars.frag");
+        randomTransitions.add(radialShader);
+        randomTransitions.add(pizelizeShader);
 
         //Sounds
         coin1 = mgr.get("audio/sounds/coin1.ogg", Sound.class);

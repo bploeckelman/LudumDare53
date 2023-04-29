@@ -38,7 +38,6 @@ public class TitleScreen extends BaseScreen {
         Gdx.input.setInputProcessor(uiStage);
 
         background = assets.gdx;
-
     }
 
     @Override
@@ -57,10 +56,6 @@ public class TitleScreen extends BaseScreen {
             Gdx.app.exit();
         }
 
-        if (Gdx.input.justTouched()) {
-            game.screen = new GameScreen();
-            return;
-        }
     }
 
     @Override
@@ -110,14 +105,14 @@ public class TitleScreen extends BaseScreen {
         float top = windowCamera.viewportHeight * (1f / 4f);
 
         startGameButton = new TextButton("Start Game", titleScreenButtonStyle);
-//        Gdx.app.log("startbuttonwidth&height", "width: " + startGameButton.getWidth() + " & height: " + startGameButton.getHeight());
         startGameButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         startGameButton.setPosition(left, top);
         startGameButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.audioManager.stopAllSounds();
-                //TODO: Handle screen transition
+                //TODO: Handle InputProcessor
+                game.setScreen(new GameScreen());
             }
         });
 
@@ -139,6 +134,8 @@ public class TitleScreen extends BaseScreen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 //TODO: Handle screen transition
+                Gdx.input.setInputProcessor(null);
+                game.setScreen(new EndScreen(game));
             }
         });
 

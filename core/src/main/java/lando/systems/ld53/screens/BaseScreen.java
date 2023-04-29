@@ -74,20 +74,9 @@ public abstract class BaseScreen implements Disposable {
         uiStage.act(delta);
     }
 
-    public void render(SpriteBatch batch) {
-        ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+    public void renderFrameBuffers(SpriteBatch batch )  {}
 
-        batch.setProjectionMatrix(worldCamera.combined);
-        batch.begin();
-        {
-            batch.setColor(Color.SKY);
-            batch.draw(assets.pixelRegion, 0, 0, worldCamera.viewportWidth, worldCamera.viewportHeight);
-            batch.setColor(Color.WHITE);
-        }
-        batch.end();
-
-        uiStage.draw();
-    }
+    public abstract void render(SpriteBatch batch);
 
     protected void initializeUI() {
         skin = VisUI.getSkin();
@@ -97,5 +86,9 @@ public abstract class BaseScreen implements Disposable {
 
         // extend and setup any per-screen ui widgets in here...
     }
+
+
+
+
 
 }

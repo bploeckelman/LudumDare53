@@ -1,20 +1,23 @@
 package lando.systems.ld53;
 
+import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
+import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.kotcrab.vis.ui.VisUI;
-import de.damios.guacamole.gdx.graphics.NestableFrameBuffer;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.screens.BaseScreen;
 import lando.systems.ld53.screens.TitleScreen;
@@ -32,7 +35,15 @@ public class Main extends ApplicationAdapter {
     public OrthographicCamera windowCamera;
     public AudioManager audioManager;
 
-    public BaseScreen screen;
+    public BaseScreen currentScreen;
+    private BaseScreen nextScreen;
+    private MutableFloat transitionPercent;
+    private FrameBuffer transitionFBO;
+    private FrameBuffer originalFBO;
+    Texture originalTexture;
+    Texture transitionTexture;
+    ShaderProgram transitionShader;
+    boolean transitioning;
 
     public Main() {
         Main.game = this;
@@ -85,7 +96,17 @@ public class Main extends ApplicationAdapter {
         windowCamera.setToOrtho(false, Config.Screen.window_width, Config.Screen.window_height);
         windowCamera.update();
 
-        screen = new TitleScreen();
+        transitionPercent = new MutableFloat(0);
+        transitionFBO = new FrameBuffer(Pixmap.Format.RGB888, Config.Screen.window_width, Config.Screen.window_height, false);
+        transitionTexture = transitionFBO.getColorBufferTexture();
+
+        originalFBO = new FrameBuffer(Pixmap.Format.RGB888, Config.Screen.window_width, Config.Screen.window_height, false);
+        originalTexture = originalFBO.getColorBufferTexture();
+
+        transitioning = false;
+
+
+        currentScreen = new TitleScreen();
     }
 
     public void update(float delta) {
@@ -110,23 +131,91 @@ public class Main extends ApplicationAdapter {
         Time.previous_elapsed = Time.elapsed_millis();
 
         // update systems
-        screen.update(delta);
+        currentScreen.update(delta);
     }
 
     @Override
     public void render() {
         update(Time.delta);
-        screen.render(assets.batch);
+
+        ScreenUtils.clear(Color.DARK_GRAY);
+
+        currentScreen.renderFrameBuffers(assets.batch);
+
+        if (nextScreen != null) {
+            nextScreen.update(Time.delta);
+            nextScreen.renderFrameBuffers(assets.batch);
+            transitionFBO.begin();
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            nextScreen.render(assets.batch);
+            transitionFBO.end();
+
+            originalFBO.begin();
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+            currentScreen.render(assets.batch);
+            originalFBO.end();
+
+            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+            assets.batch.setShader(transitionShader);
+            assets.batch.setProjectionMatrix(windowCamera.combined);
+            assets.batch.begin();
+            originalTexture.bind(1);
+            transitionShader.setUniformi("u_texture1", 1);
+            transitionTexture.bind(0);
+            transitionShader.setUniformf("u_percent", transitionPercent.floatValue());
+            assets.batch.setColor(Color.WHITE);
+            assets.batch.draw(transitionTexture, 0,0, Config.Screen.window_width, Config.Screen.window_height);
+            assets.batch.end();
+            assets.batch.setShader(null);
+        } else {
+            currentScreen.render(assets.batch);
+        }
     }
 
     @Override
     public void dispose() {
-        if (screen != null) {
-            screen.dispose();
+        if (currentScreen != null) {
+            currentScreen.dispose();
         }
 
         frameBuffer.dispose();
         assets.dispose();
+    }
+
+    public void setScreen(BaseScreen currentScreen) {
+        setScreen(currentScreen, null, .25f);
+    }
+
+    public void setScreen(final BaseScreen newScreen, ShaderProgram transitionType, float transitionSpeed) {
+        if (nextScreen != null) return;
+        if (transitioning) return; // only want one transition
+        if (currentScreen == null) {
+            currentScreen = newScreen;
+        } else {
+            transitioning = true;
+            if (transitionType == null) {
+                transitionShader = assets.randomTransitions.get(MathUtils.random(assets.randomTransitions.size - 1));
+            } else {
+                transitionShader = transitionType;
+            }
+            transitionPercent.setValue(0);
+            Timeline.createSequence()
+                .pushPause(.1f)
+                .push(Tween.call((i, baseTween) -> nextScreen = newScreen))
+                .push(Tween.to(transitionPercent, 1, transitionSpeed)
+                    .target(1))
+                .push(Tween.call((i, baseTween) -> {
+                    currentScreen = nextScreen;
+                    nextScreen = null;
+                    transitioning = false;
+                }))
+                .start(tween);
+        }
+    }
+
+    public BaseScreen getScreen() {
+        return currentScreen;
     }
 
 }

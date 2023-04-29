@@ -28,7 +28,7 @@ public class GameScreen extends BaseScreen {
         super.update(delta);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            game.screen = new TitleScreen();
+            game.setScreen(new TitleScreen());
             return;
         }
 
