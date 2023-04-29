@@ -44,6 +44,9 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> cherry;
     public Animation<TextureRegion> osha;
 
+    public Animation<TextureRegion> playerIdle;
+    public Animation<TextureRegion> playerMove;
+
     public Array<ShaderProgram> randomTransitions;
     public ShaderProgram starWarsShader;
     public ShaderProgram blindsShader;
@@ -167,6 +170,9 @@ public class Assets implements Disposable {
         cherry = new Animation<>(0.1f, atlas.findRegions("pets/cat"), Animation.PlayMode.LOOP);
         asuka = new Animation<>(0.1f, atlas.findRegions("pets/dog"), Animation.PlayMode.LOOP);
         osha = new Animation<>(.1f, atlas.findRegions("pets/kitten"), Animation.PlayMode.LOOP);
+
+        playerIdle = new Animation<>(.1f, atlas.findRegions("player/reapo-idle-a"), Animation.PlayMode.LOOP);
+        playerMove = new Animation<>(.1f, atlas.findRegions("player/reapo-move-a"), Animation.PlayMode.LOOP);
 
         // initialize patch values
         Patch.debug.ninePatch        = new NinePatch(atlas.findRegion("ninepatch/debug"), 2, 2, 2, 2);

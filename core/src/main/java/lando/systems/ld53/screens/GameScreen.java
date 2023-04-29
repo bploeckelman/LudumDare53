@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.entities.Player;
 import lando.systems.ld53.world.Map;
 
 public class GameScreen extends BaseScreen {
 
     private Map map;
+    private Player player;
 
     public GameScreen() {
         super();
@@ -19,6 +21,7 @@ public class GameScreen extends BaseScreen {
         worldCamera.update();
 
         map = new Map("maps/test.tmx");
+        player = new Player(game.assets);
 
         Gdx.input.setInputProcessor(uiStage);
     }
@@ -31,7 +34,7 @@ public class GameScreen extends BaseScreen {
             game.setScreen(new TitleScreen());
             return;
         }
-
+        player.update(delta);
         map.update(delta);
     }
 
@@ -44,6 +47,7 @@ public class GameScreen extends BaseScreen {
         batch.setProjectionMatrix(worldCamera.combined);
         batch.begin();
         {
+            player.render(batch);
         }
         batch.end();
 
