@@ -46,6 +46,7 @@ dependencies {
   implementation "com.kotcrab.vis:vis-ui:$visUiVersion:sources"
   implementation "org.mini2Dx:universal-tween-engine:$universalTweenVersion:sources"
   implementation "space.earlygrey:shapedrawer:$shapeDrawerVersion:sources"
+  implementation "com.github.tommyettinger:regexodus:$regexodusVersion:sources"
   implementation project(':core')
 
 //// You can use the lines below instead of the "com.badlogicgames.gdx:gdx-backend-gwt" dependencies.
