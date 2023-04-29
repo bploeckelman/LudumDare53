@@ -2,7 +2,6 @@ package lando.systems.ld53.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
@@ -20,7 +19,7 @@ public class GameScreen extends BaseScreen {
         worldCamera.setToOrtho(false, Config.Screen.framebuffer_width, Config.Screen.framebuffer_height);
         worldCamera.update();
 
-        map = new Map("maps/test.tmx");
+        map = new Map("maps/test-80x80.tmx");
         player = new Player(game.assets);
 
         Gdx.input.setInputProcessor(uiStage);

@@ -9,11 +9,13 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.CircleMapObject;
+import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -38,13 +40,14 @@ public class Map {
     private final TiledMap map;
     private final Layers layers;
     private final OrthoCachedTiledMapRenderer renderer;
-    private final Array<PolylineMapObject> boundaries;
+    private final Array<PolygonMapObject> polygonObjects;
+    private final Array<PolylineMapObject> polylineObjects;
     private final Array<CircleMapObject> circleObjects;
+
+    public final Array<Vector2> polylineEndpoints;
 
     private final Vector2 v1 = new Vector2();
     private final Vector2 v2 = new Vector2();
-
-    private PolylineMapObject exteriorBoundary;
 
     public Map(String fileName) {
         // load the map and create the renderer
@@ -78,26 +81,24 @@ public class Map {
         }
 
         // load collision objects
-        // TODO(brian) - is it necessary to separate the 'exterior' polylines from any other ones?
-        boolean missingExterior = true;
         MapObjects collisionObjects = layers.collision.getObjects();
-        this.boundaries = collisionObjects.getByType(PolylineMapObject.class);
-        for (PolylineMapObject boundary : boundaries) {
-            MapProperties props = boundary.getProperties();
-            String type = (String) props.get("type");
-            if (type != null && type.equalsIgnoreCase("exterior")) {
-                this.exteriorBoundary = boundary;
-                missingExterior = false;
-                break;
+        this.polygonObjects = collisionObjects.getByType(PolygonMapObject.class);
+        this.polylineObjects = collisionObjects.getByType(PolylineMapObject.class);
+        this.circleObjects = collisionObjects.getByType(CircleMapObject.class);
+
+        // extract polyline endpoints for easy access by the collision system
+        this.polylineEndpoints = new Array<>();
+        for (int i = 0; i < polylineObjects.size; i++) {
+            Polyline polyline = polylineObjects.get(i).getPolyline();
+            float[] verts = polyline.getTransformedVertices();
+            int numVerts = polyline.getVertices().length;
+            for (int v = 0; v < numVerts; v += 2) {
+                v1.set(verts[v], verts[v + 1]);
+                v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
+                polylineEndpoints.add(v1.cpy(), v2.cpy());
             }
         }
-        if (missingExterior || boundaries.isEmpty()) {
-            throw new GdxRuntimeException("Missing map boundary");
-        }
-
-        this.circleObjects = collisionObjects.getByType(CircleMapObject.class);
     }
-
 
     public void update(float delta) {
         // TODO - update game objects that require updating
@@ -116,18 +117,35 @@ public class Map {
             batch.setProjectionMatrix(camera.combined);
             batch.begin();
             {
-                for (int i = 0; i < boundaries.size; i++) {
-                    Polyline boundary = boundaries.get(i).getPolyline();
-                    float[] verts = boundary.getTransformedVertices();
-                    int numVerts = boundary.getVertices().length;
+                for (int i = 0; i < polylineObjects.size; i++) {
+                    Polyline polyline = polylineObjects.get(i).getPolyline();
+                    float[] verts = polyline.getTransformedVertices();
+                    int numVerts = polyline.getVertices().length;
                     for (int v = 0; v < numVerts; v += 2) {
-                        v1.set(verts[i], verts[i + 1]);
-                        v2.set(verts[(i + 2) % numVerts], verts[(i + 3) % numVerts]);
+                        v1.set(verts[v], verts[v + 1]);
+                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
                         shapes.line(v1, v2, Color.MAGENTA, 6f);
                     }
                     for (int v = 0; v < numVerts; v += 2) {
-                        v1.set(verts[i], verts[i + 1]);
-                        v2.set(verts[(i + 2) % numVerts], verts[(i + 3) % numVerts]);
+                        v1.set(verts[v], verts[v + 1]);
+                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
+                        shapes.filledCircle(v1, 10f, Color.GOLD);
+                        shapes.filledCircle(v2, 10f, Color.GOLD);
+                    }
+                }
+
+                for (int i = 0; i < polygonObjects.size; i++) {
+                    Polygon polygon = polygonObjects.get(i).getPolygon();
+                    float[] verts = polygon.getTransformedVertices();
+                    int numVerts = polygon.getVertexCount();
+                    for (int v = 0; v < numVerts; v += 2) {
+                        v1.set(verts[v], verts[v + 1]);
+                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
+                        shapes.line(v1, v2, Color.VIOLET, 6f);
+                    }
+                    for (int v = 0; v < numVerts; v += 2) {
+                        v1.set(verts[v], verts[v + 1]);
+                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
                         shapes.filledCircle(v1, 10f, Color.YELLOW);
                         shapes.filledCircle(v2, 10f, Color.YELLOW);
                     }

@@ -115,9 +115,6 @@ public class Main extends ApplicationAdapter {
     }
 
     public void update(float delta) {
-        // handle top level input
-        if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) Config.Debug.general = !Config.Debug.general;
-
         // update things that must update every tick
         Time.update();
         tween.update(Time.delta);
