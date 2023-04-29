@@ -7,7 +7,6 @@ dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
   api "com.github.crykn.guacamole:core:$guacamoleVersion"
   api "com.github.crykn.guacamole:gdx:$guacamoleVersion"
-  api "com.github.crykn:libgdx-screenmanager:$screenManagerVersion"
   api "com.github.tommyettinger:formic:$formicVersion"
   api "com.kotcrab.vis:vis-ui:$visUiVersion"
   api "org.mini2Dx:universal-tween-engine:$universalTweenVersion"

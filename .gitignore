@@ -1,3 +1,6 @@
+assets/sprites/sprites*.atlas
+assets/sprites/sprites*.png
+
 ## Gradle:
 .gradle/
 gradle-app.setting
