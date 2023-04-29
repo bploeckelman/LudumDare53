@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.ui.TitleScreenUI;
@@ -78,7 +77,7 @@ public class TitleScreen extends BaseScreen {
     @Override
     public void initializeUI() {
         super.initializeUI();
-        TitleScreenUI titleScreenUI = new TitleScreenUI(game, skin);
+        TitleScreenUI titleScreenUI = new TitleScreenUI(this);
         uiStage.addActor(titleScreenUI);
     }
 

@@ -29,12 +29,13 @@ public abstract class BaseScreen implements Disposable {
     public final Vector3 pointerPos;
     public final OrthographicCamera windowCamera;
     public AudioManager audioManager;
+    public boolean exitingScreen;
 
     public OrthographicCamera worldCamera;
     public CameraShaker screenShaker;
 
     protected Stage uiStage;
-    protected Skin skin;
+    public Skin skin;
 
     public BaseScreen() {
         this.game = Main.game;
@@ -44,6 +45,7 @@ public abstract class BaseScreen implements Disposable {
         this.pointerPos = new Vector3();
         this.windowCamera = game.windowCamera;
         this.audioManager = game.audioManager;
+        this.exitingScreen = false;
 
         this.worldCamera = new OrthographicCamera();
         this.screenShaker = new CameraShaker(worldCamera);

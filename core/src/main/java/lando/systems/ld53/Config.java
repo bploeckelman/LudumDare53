@@ -8,6 +8,7 @@ public class Config {
         public static boolean general = false;
         public static boolean shaders = false;
         public static boolean ui = false;
+        public static boolean show_launch_screen = false;
     }
 
     public static class Screen {

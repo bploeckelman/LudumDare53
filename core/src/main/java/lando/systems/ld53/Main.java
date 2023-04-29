@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 import aurelienribon.tweenengine.primitives.MutableFloat;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.screens.BaseScreen;
+import lando.systems.ld53.screens.LaunchScreen;
 import lando.systems.ld53.screens.TitleScreen;
 import lando.systems.ld53.utils.Time;
 import lando.systems.ld53.utils.accessors.*;
@@ -105,8 +107,11 @@ public class Main extends ApplicationAdapter {
 
         transitioning = false;
 
-
-        currentScreen = new TitleScreen();
+        if (Gdx.app.getType() == Application.ApplicationType.WebGL || Config.Debug.show_launch_screen) {
+            setScreen(new LaunchScreen());
+        } else {
+            setScreen(new TitleScreen());
+        }
     }
 
     public void update(float delta) {
