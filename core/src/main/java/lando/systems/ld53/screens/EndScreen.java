@@ -82,7 +82,7 @@ public class EndScreen extends BaseScreen {
 
     @Override
     public void update(float dt) {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isTouched()) {
             game.setScreen(new TitleScreen());
             return;
         }
