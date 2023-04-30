@@ -3,7 +3,7 @@ package lando.systems.ld53.physics;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 
-public class Collision implements Comparable, Pool.Poolable{
+public class Collision implements Comparable<Collision>, Pool.Poolable {
     public double t;
     public Vector2 position;
     public Vector2 normal;
@@ -23,7 +23,6 @@ public class Collision implements Comparable, Pool.Poolable{
         this.col1 = col1;
         this.col2 = col2;
     }
-
 
     @Override
     public void reset() {
@@ -60,12 +59,8 @@ public class Collision implements Comparable, Pool.Poolable{
     }
 
     @Override
-    public int compareTo(Object o) {
-        if (o instanceof Collision) {
-            Collision other = (Collision) o;
-            return Double.compare(this.t, other.t);
-        }
-        return 0;
+    public int compareTo(Collision o) {
+        return Double.compare(this.t, o.t);
     }
 
 }
