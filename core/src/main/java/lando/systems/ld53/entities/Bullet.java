@@ -11,6 +11,7 @@ import lando.systems.ld53.Assets;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
+import lando.systems.ld53.physics.test.TestBall;
 
 public class Bullet implements Entity, Collidable, Pool.Poolable {
 
@@ -156,6 +157,9 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
     @Override
     public boolean shouldCollideWith(Collidable object) {
         if (object instanceof WallSegment) {
+            return false;
+        }
+        if (object instanceof TestBall) {
             return false;
         }
         return true;
