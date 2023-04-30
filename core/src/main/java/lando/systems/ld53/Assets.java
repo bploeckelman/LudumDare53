@@ -92,6 +92,7 @@ public class Assets implements Disposable {
     public ShaderProgram dreamyShader;
     public ShaderProgram flameShader;
     public ShaderProgram cooldownShader;
+    public ShaderProgram influencerShader;
 
     public InputPrompts inputPrompts;
 
@@ -394,6 +395,8 @@ public class Assets implements Disposable {
         flameShader = loadShader("shaders/default.vert", "shaders/flame.frag");
         starWarsShader = loadShader("shaders/default.vert", "shaders/starwars.frag");
         cooldownShader = loadShader("shaders/default.vert", "shaders/cooldown.frag");
+        influencerShader = loadShader("shaders/default.vert", "shaders/influencer.frag");
+
         randomTransitions.add(radialShader);
         randomTransitions.add(pizelizeShader);
 

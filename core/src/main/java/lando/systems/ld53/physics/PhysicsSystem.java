@@ -252,14 +252,15 @@ public class PhysicsSystem {
 
     private void addInfluence(Collidable c, Array<Influencer> influencers, double dt) {
         for (Influencer i : influencers){
-
-            float rangeSquare = i.getRange() * i.getRange();
-            tempVec2.set(i.getPosition()).sub(c.getPosition());
-            float dist2 = tempVec2.len2();
-            if (rangeSquare > dist2) {
-                tempVec2.nor();
-                float strength = (rangeSquare - dist2)/rangeSquare * i.getStrength();
-                c.getVelocity().add((float)(tempVec2.x * strength * dt), (float)(tempVec2.y * strength * dt));
+            if (i.shouldEffect(c)) {
+                float rangeSquare = i.getRange() * i.getRange();
+                tempVec2.set(i.getPosition()).sub(c.getPosition());
+                float dist2 = tempVec2.len2();
+                if (rangeSquare > dist2) {
+                    tempVec2.nor();
+                    float strength = (rangeSquare - dist2) / rangeSquare * i.getStrength();
+                    c.getVelocity().add((float) (tempVec2.x * strength * dt), (float) (tempVec2.y * strength * dt));
+                }
             }
         }
     }

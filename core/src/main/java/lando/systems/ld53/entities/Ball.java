@@ -27,8 +27,10 @@ public class Ball implements Entity, Collidable {
     public float mass = 8f;
     public float friction = 0.9f;
     private final Vector2 velocity = new Vector2();
+    public boolean collected;
 
     public Ball(Assets assets, float x, float y) {
+        this.collected = false;
         this.animation = assets.ball;
         this.animTime = 0f;
         this.keyframe = animation.getKeyFrame(0f);

@@ -24,7 +24,7 @@ import lando.systems.ld53.world.Map;
 public class GameScreen extends BaseScreen {
 
     private Map map;
-    private Ball ball;
+    private Array<Ball> balls;
     private Player player;
     private Enemy enemy;
     private BulletEnemy bulletEnemy;
@@ -49,12 +49,15 @@ public class GameScreen extends BaseScreen {
         bullets = new Array<>();
 
         map = new Map("maps/test-80x80.tmx");
-        ball = new Ball(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
         enemy = new Enemy(assets, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
+        Ball ball = new Ball(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
+        balls = new Array<>();
+        balls.add(ball);
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
 
         influencers = new Array<>();
+        influencers.addAll(map.goals);
         physicsObjects = new Array<>();
         physicsSystem = new PhysicsSystem(new Rectangle(0,0, Config.Screen.window_width, Config.Screen.window_height));
 
@@ -66,6 +69,8 @@ public class GameScreen extends BaseScreen {
         }
         influencers.add(new TestAttractor(new Vector2(400, 500)));
         influencers.add(new TestRepulser(new Vector2(700, 450)));
+
+
 
         Gdx.input.setInputProcessor(uiStage);
 
@@ -122,7 +127,7 @@ public class GameScreen extends BaseScreen {
         physicsObjects.addAll(map.pegs);
         physicsObjects.addAll(testBalls);
         physicsObjects.addAll(bullets);
-        physicsObjects.add(ball);
+        physicsObjects.addAll(balls);
         physicsObjects.add(player);
         physicsObjects.add(enemy);
 
@@ -139,12 +144,21 @@ public class GameScreen extends BaseScreen {
                 bullets.removeIndex(i);
             }
         }
+        for (Ball b : balls) {
+            b.update(delta);
+        }
 
-        ball.update(delta);
         bulletEnemy.update(delta);
         enemy.update(delta);
         player.update(delta);
         map.update(delta);
+        for (Goal goal : map.goals){
+            for (int i = balls.size -1 ; i >= 0; i--){
+                Ball b = balls.get(i);
+                goal.tryToCollectPackage(b);
+                if (b.collected) balls.removeIndex(i);
+            }
+        }
 
         trapezoid.update();
 //        topGameUI.update(player.getStaminaPercentage());
@@ -176,7 +190,9 @@ public class GameScreen extends BaseScreen {
             }
 
             // moving stuff after everything
-            ball.render(batch);
+            for (Ball b : balls){
+                b.render(batch);
+            }
             for (Bullet bullet : bullets) {
                 bullet.render(batch);
             }

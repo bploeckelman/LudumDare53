@@ -5,8 +5,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import lando.systems.ld53.physics.Collidable;
+import lando.systems.ld53.physics.Influencer;
 
-public class Goal implements Entity {
+public class Goal implements Entity, Influencer {
 
     public enum Type {
         cyan
@@ -15,6 +18,9 @@ public class Goal implements Entity {
     }
 
     private final Rectangle bounds;
+    private final Vector2 attractorPosition;
+    private final float range;
+    private final float strength;
     private final Type type;
 
     private TextureRegion keyframe;
@@ -27,6 +33,10 @@ public class Goal implements Entity {
         this.type = Type.valueOf(colorProp);
         this.keyframe = type.anim.getKeyFrame(0f);
         this.animTime = 0f;
+        this.attractorPosition = new Vector2();
+        bounds.getCenter(attractorPosition);
+        this.range = Math.max(bounds.width, bounds.height);
+        this.strength = 900;
     }
 
     @Override
@@ -35,9 +45,43 @@ public class Goal implements Entity {
         keyframe = type.anim.getKeyFrame(animTime);
     }
 
+    public void tryToCollectPackage(Ball b) {
+        float dist = b.getPosition().dst(attractorPosition);
+        if (dist < range /3f) {
+            // TODO: Collected it do things like score
+            b.collected = true;
+        }
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
+
+    @Override
+    public float getStrength() {
+        return strength;
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return attractorPosition;
+    }
+
+    @Override
+    public float getRange() {
+        return range;
+    }
+
+    @Override
+    public boolean shouldEffect(Collidable c) {
+        if (c instanceof Ball) return true;
+        return false;
+    }
+
+    @Override
+    public void debugRender(SpriteBatch batch) {
+
+    }
 }
