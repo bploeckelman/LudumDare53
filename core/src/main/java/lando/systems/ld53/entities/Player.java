@@ -68,11 +68,23 @@ public class Player implements Entity{
         if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))  movementVector.y -= 1;
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) movementVector.x = 1;
         if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))  movementVector.x -= 1;
-        if (movementVector.equals(Vector2.Zero) && isAttacking == false) {
+        movementVector.nor();
+        position.add(movementVector.x * tempSpeed * delta, movementVector.y * tempSpeed * delta);
+        // Player is attacking
+        if (isAttacking) {
+            if (currentPlayerAnimation.isAnimationFinished(attackTime)) {
+                currentState = State.idle;
+                attackTime = 0;
+                isAttacking = false;
+            }
+        }
+        // Player is not moving
+        else if (movementVector.equals(Vector2.Zero)) {
             currentState = State.idle;
             currentDirection = Direction.down;
         }
-        else if (isAttacking == false) {
+        // Player is moving
+        else {
             if (movementVector.x > 0) {
                 currentState = State.walk_right;
                 currentDirection = Direction.right;
@@ -104,39 +116,16 @@ public class Player implements Entity{
                 }
             }
         }
+        // If player slashes
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            isAttacking = true;
-            switch (currentDirection) {
-                case top:
-                    currentState = State.slash_up;
-                    break;
-                case down:
-                    currentState = State.slash_down;
-                    break;
-                case left:
-                    currentState = State.slash_left;
-                    break;
-                case top_left:
-                    currentState = State.slash_left;
-                    break;
-                case down_left:
-                    currentState = State.slash_left;
-                    break;
-                case right:
-                    currentState = State.slash_right;
-                    break;
-                case top_right:
-                    currentState = State.slash_right;
-                    break;
-                case down_right:
-                    currentState = State.slash_right;
-                    break;
-            }
+            handleSlash();
         }
+        // If player does 360
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             isAttacking = true;
             currentState = State.slash_360;
         }
+        //set player image based on currentState
         currentPlayerAnimation = animations.get(currentState);
         if (isAttacking) {
             attackTime += delta;
@@ -144,17 +133,40 @@ public class Player implements Entity{
         } else {
             playerImage = currentPlayerAnimation.getKeyFrame(animTime);
         }
-        if (currentPlayerAnimation.isAnimationFinished(attackTime)) {
-            currentState = State.idle;
-            attackTime = 0;
-            isAttacking = false;
-        }
-        movementVector.nor();
-        position.add(movementVector.x * tempSpeed * delta, movementVector.y * tempSpeed * delta);
     }
 
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(playerImage, position.x, position.y);
+    }
+
+    private void handleSlash() {
+        isAttacking = true;
+        switch (currentDirection) {
+            case top:
+                currentState = State.slash_up;
+                break;
+            case down:
+                currentState = State.slash_down;
+                break;
+            case left:
+                currentState = State.slash_left;
+                break;
+            case top_left:
+                currentState = State.slash_left;
+                break;
+            case down_left:
+                currentState = State.slash_left;
+                break;
+            case right:
+                currentState = State.slash_right;
+                break;
+            case top_right:
+                currentState = State.slash_right;
+                break;
+            case down_right:
+                currentState = State.slash_right;
+                break;
+        }
     }
 }
