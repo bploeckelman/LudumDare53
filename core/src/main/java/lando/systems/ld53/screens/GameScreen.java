@@ -18,7 +18,6 @@ import lando.systems.ld53.physics.test.TestAttractor;
 import lando.systems.ld53.physics.test.TestBall;
 import lando.systems.ld53.physics.test.TestRepulser;
 import lando.systems.ld53.ui.IndividualSkillUI;
-import lando.systems.ld53.ui.TopGameUI;
 import lando.systems.ld53.ui.TopTrapezoid;
 import lando.systems.ld53.world.Map;
 
@@ -50,8 +49,8 @@ public class GameScreen extends BaseScreen {
 
         map = new Map("maps/test-80x80.tmx");
         ball = new Ball(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
-        player = new Player(assets);
-        enemy = new Enemy(assets, player.position.x - 200f, player.position.y + 80f);
+        player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
+        enemy = new Enemy(assets, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
 
         influencers = new Array<>();
@@ -147,20 +146,28 @@ public class GameScreen extends BaseScreen {
         batch.setProjectionMatrix(worldCamera.combined);
         batch.begin();
         {
-            for (Peg peg : map.pegs) {
-                peg.render(batch);
-            }
+            // goals before players/enemies
             for (Goal goal : map.goals) {
                 goal.render(batch);
             }
+
+            // players/enemies
             bulletEnemy.render(batch);
             enemy.render(batch);
             player.render(batch);
+
+            // pegs after players/enemies
+            for (Peg peg : map.pegs) {
+                peg.render(batch);
+            }
+
+            // moving stuff after everything
             ball.render(batch);
             for (Bullet bullet : bullets) {
                 bullet.render(batch);
             }
 
+            // debug drawing
             if (Config.Debug.general){
                 for (Collidable collidable : physicsObjects) {
                     collidable.renderDebug(assets.shapes);

@@ -10,7 +10,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
-import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.audio.AudioManager;
@@ -22,33 +21,38 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 import java.util.HashMap;
 
 public class Player implements Entity, Collidable {
-    private static float RADIUS = 50;
-    float COLLISION_MARGIN = 10f;
-    private final float SPEED = 600f;
-    private final float MAX_STAMINA = 10f; // seconds to charge fully
-    private final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
 
-    private final Animation<TextureRegion> playerIdle;
-    private Animation<TextureRegion> currentPlayerAnimation;
-    private TextureRegion playerImage;
+    private static final Vector2 COLLISION_OFFSET = new Vector2(0, -22f);
+    private static final float COLLISION_RADIUS = 25;
+    private static final float RENDER_SIZE = 120f;
+    private static final float SPEED = 600f;
+    private static final float MAX_STAMINA = 10f; // seconds to charge fully
+    private static final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
+
+    private final HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
+    private final Vector2 position;
+    private final Vector2 movement;
+    private final Vector2 velocity;
+    private final Rectangle renderBounds;
+    private final Rectangle collisionBounds;
+    private final CollisionShapeCircle collisionShape;
+
+    private Animation<TextureRegion> animation;
+    private TextureRegion keyframe;
     private State currentState;
-    public SpecialAbility currentAbility;
+    private Direction currentDirection;
+
+    private boolean isAttacking = false;
+    private boolean isStunned = false;
     private float animTimer = 0;
     private float attackTimer = 0;
     private float stunTimer = 0;
-    private float stamina;
-    private Direction currentDirection;
-    public Vector2 position;
-    public Vector2 movementVector;
-    private Vector2 velocity;
-    private Rectangle collisionBounds;
-    private CollisionShapeCircle collisionShape;
-    private HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
-    private boolean isAttacking = false;
-    private boolean isStunned = false;
+    private float stamina = MAX_STAMINA;
 
     public float mass = 20f;
     public float friction = 0.1f;
+    public SpecialAbility currentAbility = SpecialAbility.slash_360;
+
     public enum SpecialAbility {
         //TODO: some descriptions are non-sense, make it sensical.
         slash_360(InputPrompts.Type.key_light_at, "@ attack!", "Slash your 1 360 degrees"),
@@ -81,22 +85,30 @@ public class Player implements Entity, Collidable {
         slash_360,
         stun,
     }
-
     public enum Direction { up, down, left, right, up_left, up_right, down_left, down_right }
 
-    public Player(Assets assets) {
-        playerIdle = assets.playerIdleDown;
-        currentPlayerAnimation = playerIdle;
-        currentDirection = Direction.down;
-        currentAbility = SpecialAbility.slash_360;
-
-        position = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
+    public Player(Assets assets, float x, float y) {
+        this.position = new Vector2(x, y);
+        this.movement = new Vector2();
         this.velocity = new Vector2();
-        this.collisionShape = new CollisionShapeCircle(RADIUS, position.x, position.y);
-        this.collisionBounds = new Rectangle(new Rectangle(position.x - RADIUS - COLLISION_MARGIN, position.y - RADIUS - COLLISION_MARGIN, (RADIUS+COLLISION_MARGIN)*2f , (RADIUS+COLLISION_MARGIN)*2f));
-        stamina = MAX_STAMINA;
 
-        movementVector = new Vector2();
+        this.collisionShape = new CollisionShapeCircle(
+            COLLISION_RADIUS,
+            position.x + COLLISION_OFFSET.x,
+            position.y + COLLISION_OFFSET.y
+        );
+        this.collisionBounds = new Rectangle(
+            position.x - COLLISION_RADIUS + COLLISION_OFFSET.x,
+            position.y - COLLISION_RADIUS + COLLISION_OFFSET.y,
+            COLLISION_RADIUS * 2f,
+            COLLISION_RADIUS * 2f
+        );
+        this.renderBounds = new Rectangle(
+            position.x - (RENDER_SIZE / 2f),
+            position.y - (RENDER_SIZE / 2f),
+            RENDER_SIZE, RENDER_SIZE
+        );
+
         animations.put(State.idle_down, assets.playerIdleDown);
         animations.put(State.idle_up, assets.playerIdleUp);
         animations.put(State.idle_left, assets.playerIdleLeft);
@@ -111,6 +123,9 @@ public class Player implements Entity, Collidable {
         animations.put(State.slash_down, assets.playerSlashDown);
         animations.put(State.slash_360, assets.playerSlash360);
         animations.put(State.stun, assets.playerStun);
+
+        animation = animations.get(State.idle_down);
+        currentDirection = Direction.down;
     }
 
     @Override
@@ -119,16 +134,16 @@ public class Player implements Entity, Collidable {
         stamina = MathUtils.clamp(stamina, 0f, MAX_STAMINA);
 
         animTimer += delta;
-        movementVector.setZero();
-        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))    movementVector.y = 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))  movementVector.y -= 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) movementVector.x = 1;
-        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))  movementVector.x -= 1;
-        movementVector.nor();
+        movement.setZero();
+        if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))    movement.y = 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))  movement.y -= 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) movement.x = 1;
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))  movement.x -= 1;
+        movement.nor();
         //position.add(movementVector.x * tempSpeed * delta, movementVector.y * tempSpeed * delta);
         // Player is attacking, so keep going without changing state if anim not finished
         if (isAttacking) {
-            if (currentPlayerAnimation.isAnimationFinished(attackTimer)) {
+            if (animation.isAnimationFinished(attackTimer)) {
                 currentState = State.idle_down;
                 attackTimer = 0;
                 isAttacking = false;
@@ -136,14 +151,14 @@ public class Player implements Entity, Collidable {
         }
         //player is stunned, so keep going without changing state if anim not finished
         else if (isStunned) {
-            if (currentPlayerAnimation.isAnimationFinished(stunTimer)) {
+            if (animation.isAnimationFinished(stunTimer)) {
                 currentState = State.idle_down;
                 stunTimer = 0;
                 isStunned = false;
             }
         }
         // Player is not moving
-        else if (movementVector.equals(Vector2.Zero)) {
+        else if (movement.equals(Vector2.Zero)) {
             switch (currentDirection) {
                 case up:
                     currentState = State.idle_up;
@@ -161,38 +176,36 @@ public class Player implements Entity, Collidable {
                 case down_right:
                     currentState = State.idle_right;
                     break;
-
-
             }
         }
         // Player is moving
         else {
-            if (movementVector.x > 0) {
+            if (movement.x > 0) {
                 currentState = State.walk_right;
                 currentDirection = Direction.right;
-                if (movementVector.y > 0) {
+                if (movement.y > 0) {
                     currentDirection = Direction.up_right;
                 }
-                else if (movementVector.y < 0) {
+                else if (movement.y < 0) {
                     currentDirection = Direction.down_right;
                 }
             }
-            else if (movementVector.x < 0) {
+            else if (movement.x < 0) {
                 currentState = State.walk_left;
                 currentDirection = Direction.left;
-                if (movementVector.y > 0) {
+                if (movement.y > 0) {
                     currentDirection = Direction.up_left;
                 }
-                else if (movementVector.y < 0) {
+                else if (movement.y < 0) {
                     currentDirection = Direction.down_left;
                 }
             }
             else {
-                if (movementVector.y > 0) {
+                if (movement.y > 0) {
                     currentState = State.walk_up;
                     currentDirection = Direction.up;
                 }
-                else if (movementVector.y < 0) {
+                else if (movement.y < 0) {
                     currentState = State.walk_down;
                     currentDirection = Direction.down;
                 }
@@ -217,18 +230,18 @@ public class Player implements Entity, Collidable {
             }
         }
         //set player image based on currentState
-        currentPlayerAnimation = animations.get(currentState);
+        animation = animations.get(currentState);
         if (isAttacking) {
             attackTimer += delta;
-            playerImage = currentPlayerAnimation.getKeyFrame(attackTimer);
+            keyframe = animation.getKeyFrame(attackTimer);
         }
         else if (isStunned) {
             stunTimer += delta;
-            playerImage = currentPlayerAnimation.getKeyFrame(stunTimer);
+            keyframe = animation.getKeyFrame(stunTimer);
         }
         else {
-            playerImage = currentPlayerAnimation.getKeyFrame(animTimer);
-            velocity.add(movementVector.x * SPEED * delta, movementVector.y * SPEED * delta);
+            keyframe = animation.getKeyFrame(animTimer);
+            velocity.add(movement.x * SPEED * delta, movement.y * SPEED * delta);
         }
     }
 
@@ -238,7 +251,7 @@ public class Player implements Entity, Collidable {
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(playerImage, position.x - RADIUS, position.y - RADIUS, RADIUS*2f, RADIUS*2f);
+        batch.draw(keyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
     }
 
     private static final Color debugColor = new Color(50f / 255f, 205f / 255f, 50f / 255f, 0.5f); // Color.LIME half alpha
@@ -299,14 +312,23 @@ public class Player implements Entity, Collidable {
 
     @Override
     public Vector2 getPosition() {
-        return position;
+        return collisionShape.center;
     }
 
     @Override
     public void setPosition(float x, float y) {
-        this.position.set(x, y);
-        collisionShape.center.set(position);
-        this.collisionBounds = new Rectangle(position.x - RADIUS, position.y - RADIUS, RADIUS*2f, RADIUS*2f);
+        collisionShape.center.set(x, y);
+        position.set(
+            collisionShape.center.x - COLLISION_OFFSET.x,
+            collisionShape.center.y - COLLISION_OFFSET.y);
+        collisionBounds.set(
+            position.x - COLLISION_RADIUS + COLLISION_OFFSET.x,
+            position.y - COLLISION_RADIUS + COLLISION_OFFSET.y,
+            COLLISION_RADIUS * 2f,
+            COLLISION_RADIUS * 2f);
+        renderBounds.setPosition(
+            position.x - (renderBounds.width / 2f),
+            position.y - (renderBounds.height / 2f));
     }
 
     @Override
