@@ -28,7 +28,10 @@ public class Player implements Entity{
     private boolean isAttacking = false;
 
     public enum State {
-        idle,
+        idle_down,
+        idle_up,
+        idle_left,
+        idle_right,
         walk_left,
         walk_right,
         walk_up,
@@ -40,15 +43,18 @@ public class Player implements Entity{
         slash_360,
     }
 
-    public enum Direction { top, down, left, right, top_left, top_right, down_left, down_right }
+    public enum Direction { up, down, left, right, up_left, up_right, down_left, down_right }
 
     public Player(Assets assets) {
-        playerIdle = assets.playerIdle;
+        playerIdle = assets.playerIdleDown;
         currentPlayerAnimation = playerIdle;
         currentDirection = Direction.down;
-        position = new Vector2(Config.Screen.window_width / 2, Config.Screen.window_height / 2);
+        position = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
         movementVector = new Vector2();
-        animations.put(State.idle, assets.playerIdle);
+        animations.put(State.idle_down, assets.playerIdleDown);
+        animations.put(State.idle_up, assets.playerIdleUp);
+        animations.put(State.idle_left, assets.playerIdleLeft);
+        animations.put(State.idle_right, assets.playerIdleRight);
         animations.put(State.walk_left, assets.playerWalkLeft);
         animations.put(State.walk_right, assets.playerWalkRight);
         animations.put(State.walk_up, assets.playerWalkUp);
@@ -73,14 +79,33 @@ public class Player implements Entity{
         // Player is attacking
         if (isAttacking) {
             if (currentPlayerAnimation.isAnimationFinished(attackTime)) {
-                currentState = State.idle;
+                currentState = State.idle_down;
                 attackTime = 0;
                 isAttacking = false;
             }
         }
         // Player is not moving
         else if (movementVector.equals(Vector2.Zero)) {
-            currentState = State.idle;
+            switch (currentDirection) {
+                case up:
+                    currentState = State.idle_up;
+                    break;
+                case down:
+                    currentState = State.idle_down;
+                    break;
+                case left:
+                case up_left:
+                case down_left:
+                    currentState = State.idle_left;
+                    break;
+                case right:
+                case up_right:
+                case down_right:
+                    currentState = State.idle_right;
+                    break;
+
+
+            }
         }
         // Player is moving
         else {
@@ -88,7 +113,7 @@ public class Player implements Entity{
                 currentState = State.walk_right;
                 currentDirection = Direction.right;
                 if (movementVector.y > 0) {
-                    currentDirection = Direction.top_right;
+                    currentDirection = Direction.up_right;
                 }
                 else if (movementVector.y < 0) {
                     currentDirection = Direction.down_right;
@@ -98,7 +123,7 @@ public class Player implements Entity{
                 currentState = State.walk_left;
                 currentDirection = Direction.left;
                 if (movementVector.y > 0) {
-                    currentDirection = Direction.top_left;
+                    currentDirection = Direction.up_left;
                 }
                 else if (movementVector.y < 0) {
                     currentDirection = Direction.down_left;
@@ -107,7 +132,7 @@ public class Player implements Entity{
             else {
                 if (movementVector.y > 0) {
                     currentState = State.walk_up;
-                    currentDirection = Direction.top;
+                    currentDirection = Direction.up;
                 }
                 else if (movementVector.y < 0) {
                     currentState = State.walk_down;
@@ -142,27 +167,19 @@ public class Player implements Entity{
     private void handleSlash() {
         isAttacking = true;
         switch (currentDirection) {
-            case top:
+            case up:
                 currentState = State.slash_up;
                 break;
             case down:
                 currentState = State.slash_down;
                 break;
             case left:
-                currentState = State.slash_left;
-                break;
-            case top_left:
-                currentState = State.slash_left;
-                break;
+            case up_left:
             case down_left:
                 currentState = State.slash_left;
                 break;
             case right:
-                currentState = State.slash_right;
-                break;
-            case top_right:
-                currentState = State.slash_right;
-                break;
+            case up_right:
             case down_right:
                 currentState = State.slash_right;
                 break;
