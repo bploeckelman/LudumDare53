@@ -23,7 +23,7 @@ public class Player implements Entity{
     private Direction currentDirection;
     public Vector2 position;
     public Vector2 movementVector;
-    private float tempSpeed = 200f; //TODO: Replace speed usage with physics system
+    private float tempSpeed = 400f; //TODO: Replace speed usage with physics system
     private HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
     private boolean isAttacking = false;
 
