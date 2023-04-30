@@ -25,6 +25,8 @@ public class AudioManager implements Disposable {
         , coin
         , swoosh
         , bigswoosh
+        , grunt
+        , pop
 
 
     }
@@ -53,6 +55,17 @@ public class AudioManager implements Disposable {
         putSound(Sounds.coin, assets.coin1);
         putSound(Sounds.swoosh, assets.swoosh1);
         putSound(Sounds.bigswoosh, assets.bigSwoosh1);
+        putSound(Sounds.grunt, assets.grunt1);
+        putSound(Sounds.grunt, assets.grunt2);
+        putSound(Sounds.grunt, assets.grunt3);
+        putSound(Sounds.grunt, assets.grunt4);
+        putSound(Sounds.grunt, assets.grunt5);
+        putSound(Sounds.grunt, assets.grunt6);
+        putSound(Sounds.grunt, assets.grunt7);
+        putSound(Sounds.pop, assets.pop1);
+        putSound(Sounds.pop, assets.pop2);
+        putSound(Sounds.pop, assets.pop3);
+        putSound(Sounds.pop, assets.pop4);
 
         musics.put(Musics.level1Thin, assets.level1Thin);
         musics.put(Musics.level1Full, assets.level1Full);
@@ -60,8 +73,8 @@ public class AudioManager implements Disposable {
         //musics.put(Musics.mainTheme, assets.mainTheme);
         //musics.put(Musics.mainTheme, assets.mainTheme);
 
-        musicVolume = new MutableFloat(0.75f);
-        soundVolume = new MutableFloat(0.75f);
+        musicVolume = new MutableFloat(0.15f);
+        soundVolume = new MutableFloat(0.85f);
 
         isMusicMuted = false;
         isSoundMuted = false;

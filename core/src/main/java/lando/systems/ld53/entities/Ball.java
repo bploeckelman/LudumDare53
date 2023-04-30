@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
+import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
@@ -105,6 +107,7 @@ public class Ball implements Entity, Collidable {
 
     @Override
     public void collidedWith(Collidable object) {
+        Main.game.audioManager.playSound(AudioManager.Sounds.pop);
 
     }
 

@@ -102,6 +102,17 @@ public class Assets implements Disposable {
     public Sound coin1;
     public Sound swoosh1;
     public Sound bigSwoosh1;
+    public Sound grunt1;
+    public Sound grunt2;
+    public Sound grunt3;
+    public Sound grunt4;
+    public Sound grunt5;
+    public Sound grunt6;
+    public Sound grunt7;
+    public Sound pop1;
+    public Sound pop2;
+    public Sound pop3;
+    public Sound pop4;
 
     public enum Patch {
         debug, panel, metal, glass,
@@ -180,6 +191,17 @@ public class Assets implements Disposable {
             mgr.load("audio/sounds/coin1.ogg", Sound.class);
             mgr.load("audio/sounds/swoosh1.ogg", Sound.class);
             mgr.load("audio/sounds/bigswoosh1.ogg", Sound.class);
+            mgr.load("audio/sounds/grunt1.ogg", Sound.class);
+            mgr.load("audio/sounds/grunt2.ogg", Sound.class);
+            mgr.load("audio/sounds/grunt3.ogg", Sound.class);
+            mgr.load("audio/sounds/grunt4.ogg", Sound.class);
+            mgr.load("audio/sounds/grunt5.ogg", Sound.class);
+            mgr.load("audio/sounds/grunt6.ogg", Sound.class);
+            mgr.load("audio/sounds/grunt7.ogg", Sound.class);
+            mgr.load("audio/sounds/pop1.ogg", Sound.class);
+            mgr.load("audio/sounds/pop2.ogg", Sound.class);
+            mgr.load("audio/sounds/pop3.ogg", Sound.class);
+            mgr.load("audio/sounds/pop4.ogg", Sound.class);
 
             mgr.load("audio/music/level1-thin.ogg", Music.class);
             mgr.load("audio/music/level1-full.ogg", Music.class);
@@ -250,7 +272,8 @@ public class Assets implements Disposable {
             , inputPrompts.get(InputPrompts.Type.yellow_arrow_circle_left)
             , inputPrompts.get(InputPrompts.Type.yellow_arrow_circle_up)
         );
-        ball = new Animation<>(0.07f, regions, Animation.PlayMode.LOOP);
+//        ball = new Animation<>(0.07f, regions, Animation.PlayMode.LOOP);
+        ball = new Animation<>(0.07f, atlas.findRegions("objects/packet/packet-cube"), Animation.PlayMode.LOOP);
 
         peg = new Animation<>(0.1f, atlas.findRegions("objects/peg/spinner"), Animation.PlayMode.LOOP);
 
@@ -334,6 +357,17 @@ public class Assets implements Disposable {
         coin1 = mgr.get("audio/sounds/coin1.ogg", Sound.class);
         swoosh1 = mgr.get("audio/sounds/swoosh1.ogg", Sound.class);
         bigSwoosh1 = mgr.get("audio/sounds/bigswoosh1.ogg", Sound.class);
+        grunt1 = mgr.get("audio/sounds/grunt1.ogg", Sound.class);
+        grunt2 = mgr.get("audio/sounds/grunt2.ogg", Sound.class);
+        grunt3 = mgr.get("audio/sounds/grunt3.ogg", Sound.class);
+        grunt4 = mgr.get("audio/sounds/grunt4.ogg", Sound.class);
+        grunt5 = mgr.get("audio/sounds/grunt5.ogg", Sound.class);
+        grunt6 = mgr.get("audio/sounds/grunt6.ogg", Sound.class);
+        grunt7 = mgr.get("audio/sounds/grunt7.ogg", Sound.class);
+        pop1 = mgr.get("audio/sounds/pop1.ogg", Sound.class);
+        pop2 = mgr.get("audio/sounds/pop2.ogg", Sound.class);
+        pop3 = mgr.get("audio/sounds/pop3.ogg", Sound.class);
+        pop4 = mgr.get("audio/sounds/pop4.ogg", Sound.class);
 
         // Music
         level1Thin = mgr.get("audio/music/level1-thin.ogg", Music.class);
