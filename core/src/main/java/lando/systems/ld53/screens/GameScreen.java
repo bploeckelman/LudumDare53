@@ -66,8 +66,22 @@ public class GameScreen extends BaseScreen {
         super.update(delta);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            audioManager.stopMusic();
             game.setScreen(new TitleScreen());
             return;
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
+            if(assets.level1Full.isPlaying()) {
+                assets.level1Thin.play();
+                assets.level1Thin.setPosition(assets.level1Full.getPosition());
+                assets.level1Full.stop();
+            }
+            else if(assets.level1Thin.isPlaying()) {
+                assets.level1Full.play();
+                assets.level1Full.setPosition(assets.level1Thin.getPosition());
+                assets.level1Thin.stop();
+            }
+
         }
 
         physicsObjects.clear();
