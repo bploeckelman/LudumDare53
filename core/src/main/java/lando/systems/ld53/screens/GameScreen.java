@@ -127,6 +127,11 @@ public class GameScreen extends BaseScreen {
                     ball.debugRender(batch);
                 }
             }
+            if (Config.Debug.ui){
+                uiStage.setDebugAll(true);
+            } else {
+                uiStage.setDebugAll(false);
+            }
 
             ball.render(batch);
 

@@ -11,8 +11,6 @@ import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
-import lando.systems.ld53.screens.BaseScreen;
-import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
@@ -26,14 +24,13 @@ public class Player implements Entity, Collidable {
     private final float MAX_STAMINA = 10f; // seconds to charge fully
     private final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
 
-
     private final Animation<TextureRegion> playerIdle;
     private Animation<TextureRegion> currentPlayerAnimation;
     private TextureRegion playerImage;
-    private Assets assets;
     private State currentState;
-    private float animTime = 0;
-    private float attackTime = 0;
+    private float animTimer = 0;
+    private float attackTimer = 0;
+    private float stunTimer = 0;
     private float stamina;
     private Direction currentDirection;
     public Vector2 position;
@@ -43,9 +40,10 @@ public class Player implements Entity, Collidable {
     float mass;
     CollisionShapeCircle collisionShape;
     Rectangle collisionBounds;
-
     private HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
     private boolean isAttacking = false;
+    private boolean isStunned = false;
+
 
     public enum State {
         idle_down,
@@ -61,6 +59,7 @@ public class Player implements Entity, Collidable {
         slash_up,
         slash_down,
         slash_360,
+        stun,
     }
 
     public enum Direction { up, down, left, right, up_left, up_right, down_left, down_right }
@@ -92,6 +91,7 @@ public class Player implements Entity, Collidable {
         animations.put(State.slash_up, assets.playerSlashUp);
         animations.put(State.slash_down, assets.playerSlashDown);
         animations.put(State.slash_360, assets.playerSlash360);
+        animations.put(State.stun, assets.playerStun);
     }
 
     @Override
@@ -99,7 +99,7 @@ public class Player implements Entity, Collidable {
         if (stamina < MAX_STAMINA) {
             stamina += delta;
         }
-        animTime += delta;
+        animTimer += delta;
         movementVector.setZero();
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))    movementVector.y = 1;
         if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN))  movementVector.y -= 1;
@@ -107,13 +107,20 @@ public class Player implements Entity, Collidable {
         if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))  movementVector.x -= 1;
         movementVector.nor();
         //position.add(movementVector.x * tempSpeed * delta, movementVector.y * tempSpeed * delta);
-        velocity.add(movementVector.x * SPEED, movementVector.y * SPEED);
-        // Player is attacking
+        // Player is attacking, so keep going without changing state if anim not finished
         if (isAttacking) {
-            if (currentPlayerAnimation.isAnimationFinished(attackTime)) {
+            if (currentPlayerAnimation.isAnimationFinished(attackTimer)) {
                 currentState = State.idle_down;
-                attackTime = 0;
+                attackTimer = 0;
                 isAttacking = false;
+            }
+        }
+        //player is stunned, so keep going without changing state if anim not finished
+        else if (isStunned) {
+            if (currentPlayerAnimation.isAnimationFinished(stunTimer)) {
+                currentState = State.idle_down;
+                stunTimer = 0;
+                isStunned = false;
             }
         }
         // Player is not moving
@@ -190,10 +197,16 @@ public class Player implements Entity, Collidable {
         //set player image based on currentState
         currentPlayerAnimation = animations.get(currentState);
         if (isAttacking) {
-            attackTime += delta;
-            playerImage = currentPlayerAnimation.getKeyFrame(attackTime);
-        } else {
-            playerImage = currentPlayerAnimation.getKeyFrame(animTime);
+            attackTimer += delta;
+            playerImage = currentPlayerAnimation.getKeyFrame(attackTimer);
+        }
+        else if (isStunned) {
+            stunTimer += delta;
+            playerImage = currentPlayerAnimation.getKeyFrame(stunTimer);
+        }
+        else {
+            playerImage = currentPlayerAnimation.getKeyFrame(animTimer);
+            velocity.add(movementVector.x * SPEED, movementVector.y * SPEED);
         }
     }
 
@@ -286,7 +299,11 @@ public class Player implements Entity, Collidable {
 
     @Override
     public void collidedWith(Collidable object) {
-
+        if (object.getClass() == Peg.class) {
+            isStunned = true;
+            currentState = State.stun;
+            Main.game.audioManager.playSound(AudioManager.Sounds.coin);
+        }
     }
 
     @Override

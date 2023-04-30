@@ -60,6 +60,7 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> playerSlashUp;
     public Animation<TextureRegion> playerSlashDown;
     public Animation<TextureRegion> playerSlash360;
+    public Animation<TextureRegion> playerStun;
 
     public Animation<TextureRegion> bullet;
     public Animation<TextureRegion> ball;
@@ -210,11 +211,12 @@ public class Assets implements Disposable {
         playerWalkRight = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-right/jeff-walk-right"), Animation.PlayMode.LOOP);
         playerWalkUp = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-up/jeff-walk-up"), Animation.PlayMode.LOOP);
         playerWalkDown = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-down/jeff-walk-down"), Animation.PlayMode.LOOP);
-        playerSlashLeft = new Animation<>(.0361f, atlas.findRegions("player/jeff-slash-left/jeff-slash-left"), Animation.PlayMode.NORMAL);
-        playerSlashRight = new Animation<>(.0361f, atlas.findRegions("player/jeff-slash-right/jeff-slash-right"), Animation.PlayMode.NORMAL);
-        playerSlashUp = new Animation<>(.0361f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.NORMAL);
-        playerSlashDown = new Animation<>(.0361f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.NORMAL);
-        playerSlash360 = new Animation<>(.061f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
+        playerSlashLeft = new Animation<>(.036f, atlas.findRegions("player/jeff-slash-left/jeff-slash-left"), Animation.PlayMode.NORMAL);
+        playerSlashRight = new Animation<>(.036f, atlas.findRegions("player/jeff-slash-right/jeff-slash-right"), Animation.PlayMode.NORMAL);
+        playerSlashUp = new Animation<>(.036f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.NORMAL);
+        playerSlashDown = new Animation<>(.036f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.NORMAL);
+        playerSlash360 = new Animation<>(.06f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
+        playerStun = new Animation<>(.03f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.NORMAL);
 
         Array<TextureRegion> regions = new Array<>();
         regions.addAll(
