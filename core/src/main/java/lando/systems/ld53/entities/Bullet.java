@@ -25,7 +25,7 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
     private TextureRegion keyframe;
     private float animTime;
 
-    public float mass = 1f;
+    public float mass = 100f;
     public float friction = 1f;
     public boolean alive = false;
 
@@ -148,7 +148,6 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
 
         boolean isPlayer = (object instanceof Player);
         boolean isEnemy = (object instanceof Enemy);
-//        boolean isPeg = (object instanceof Peg); // TODO(brian) - maybe the pegs should bounce the bullets instead of removing them, only removed when hitting a 'creature' or whatever
         if (isPlayer || isEnemy) {
             alive = false;
         }
@@ -156,10 +155,9 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
 
     @Override
     public boolean shouldCollideWith(Collidable object) {
-        if (object instanceof WallSegment) {
-            return false;
-        }
-        if (object instanceof TestBall) {
+        if (object instanceof WallSegment
+         || object instanceof TestBall
+         || object instanceof Bullet) { // no self bonking
             return false;
         }
         return true;

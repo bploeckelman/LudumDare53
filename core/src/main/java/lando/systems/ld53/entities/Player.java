@@ -36,14 +36,14 @@ public class Player implements Entity, Collidable {
     public Vector2 position;
     public Vector2 movementVector;
     public Vector2 velocity;
-    float friction;
-    float mass;
     CollisionShapeCircle collisionShape;
     Rectangle collisionBounds;
     private HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
     private boolean isAttacking = false;
     private boolean isStunned = false;
 
+    public float mass = 20f;
+    public float friction = 0.1f;
 
     public enum State {
         idle_down,
@@ -71,8 +71,6 @@ public class Player implements Entity, Collidable {
 
         position = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
         this.velocity = new Vector2();
-        this.mass = 20;
-        this.friction = .01f;
         this.collisionShape = new CollisionShapeCircle(RADIUS, position.x, position.y);
         this.collisionBounds = new Rectangle(new Rectangle(position.x - RADIUS - COLLISION_MARGIN, position.y - RADIUS - COLLISION_MARGIN, (RADIUS+COLLISION_MARGIN)*2f , (RADIUS+COLLISION_MARGIN)*2f));
         stamina = MAX_STAMINA;
