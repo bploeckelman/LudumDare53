@@ -10,6 +10,7 @@ public class Collision implements Comparable<Collision>, Pool.Poolable {
     public Collidable col1;
     public Collidable col2;
 
+
     public Collision() {
         this.t = 0;
         this.position = new Vector2();
@@ -47,6 +48,7 @@ public class Collision implements Comparable<Collision>, Pool.Poolable {
             bouncer.setVelocity(PhysicsSystem.reflectVector(bouncer.getVelocity(), normal));
 
             // Scoot it away a little bit
+            normal.set(position).sub(bouncer.getPosition()).nor();
             Vector2 oldCenter = bouncer.getPosition();
             bouncer.setPosition(oldCenter.x + .001f * -normal.x, oldCenter.y + .001f * -normal.y);
         } else {

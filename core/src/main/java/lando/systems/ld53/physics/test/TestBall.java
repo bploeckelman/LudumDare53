@@ -92,7 +92,7 @@ public class TestBall implements Collidable {
 
     @Override
     public boolean shouldCollideWith(Collidable object) {
-        if (object instanceof TestWallSegment) return false;
+        if (object instanceof TestWallSegment) return true;
         return true;
     }
 }

@@ -174,6 +174,11 @@ public class Main extends ApplicationAdapter {
         } else {
             currentScreen.render(assets.batch);
         }
+        if (Config.Debug.general) {
+            assets.batch.begin();
+            assets.font.draw(assets.batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 0, Config.Screen.window_height);
+            assets.batch.end();
+        }
     }
 
     @Override

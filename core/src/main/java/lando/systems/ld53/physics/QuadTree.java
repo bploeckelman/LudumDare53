@@ -10,7 +10,7 @@ import lando.systems.ld53.Main;
 
 public class QuadTree {
 
-    public static final int MAX_ENTITIES = 10;
+    public static final int MAX_ENTITIES =5;
     public static final int MAX_LEVELS = 10;
 
     private Rectangle bounds;

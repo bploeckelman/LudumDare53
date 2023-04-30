@@ -21,7 +21,7 @@ public class Peg implements Entity, Collidable {
     private float animTime;
 
     public float mass = IMMOVABLE;
-    public float friction = 0.0001f;
+    public float friction = 0.0000f;
     private final Vector2 velocity = new Vector2();
 
     public Peg(Assets assets, float x, float y) {
@@ -91,11 +91,12 @@ public class Peg implements Entity, Collidable {
     @Override
     public void setPosition(float x, float y) {
         circle.set(x, y);
+        bounds.set(x - circle.radius, y - circle.radius, circle.radius * 2f, circle.radius * 2f );
     }
 
     @Override
     public void setPosition(Vector2 newPos) {
-        circle.set(newPos.x, newPos.y);
+        setPosition(newPos.x, newPos.y);
     }
 
     @Override

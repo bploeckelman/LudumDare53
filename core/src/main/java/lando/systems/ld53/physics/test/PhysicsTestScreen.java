@@ -29,11 +29,13 @@ public class PhysicsTestScreen extends BaseScreen {
         worldCamera.update();
 
         balls = new Array<>();
-        for (int i = 0; i < 200; i++){
+        for (int i = 0; i < 300; i++){
             Vector2 pos = new Vector2(Gdx.graphics.getWidth() * MathUtils.random(.2f, .8f), Gdx.graphics.getHeight() * MathUtils.random(.2f, .5f));
             Vector2 vel = new Vector2(MathUtils.random(-60f, 60f), MathUtils.random(-60f, 60f));
             balls.add(new TestBall(pos, vel));
         }
+        balls.add(new TestBall(new Vector2(500, 200), new Vector2(0,0)));
+        balls.add(new TestBall(new Vector2(500, 230), new Vector2(0, -10)));
         gameArea = new TestGameArea();
     }
 
@@ -61,7 +63,7 @@ public class PhysicsTestScreen extends BaseScreen {
                 ball.debugRender(batch);
             }
             gameArea.debugRender(batch);
-//            physicsSystem.debugRender(batch);
+            physicsSystem.debugRender(batch);
         }
         batch.end();
     }

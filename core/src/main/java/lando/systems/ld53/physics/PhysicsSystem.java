@@ -28,6 +28,7 @@ public class PhysicsSystem {
     private final Vector2 frameVel2 = new Vector2();
     private final LongArray timings = new LongArray();
     private Array<Collision> collisions = new Array<>();
+    private Collision nextCollision = null;
     private final Pool<Collision> collisionPool = Pools.get(Collision.class);
     private QuadTree quadTree;
     private final Array<Collidable> neighbors = new Array<>();
@@ -65,7 +66,10 @@ public class PhysicsSystem {
     }
 
     public void solve(float stepIncrement, Array<Collidable> collidables) {
-        long startTime = TimeUtils.nanoTime();
+        long startTime = TimeUtils.millis();
+        Collidable lastCollision1 = null;
+        Collidable lastCollision2 = null;
+
 
         boolean overlaps = false;
         int infiniteLoops = 0;
@@ -81,7 +85,7 @@ public class PhysicsSystem {
                     }
                 }
                 overlaps = false;
-                if (overlapInfiniteLoops++ > 5000) {
+                if (overlapInfiniteLoops++ > 100) {
                     Gdx.app.log("Physics", "Found an infinite loop while spreading objects out");
                     break;
                 }
@@ -100,11 +104,14 @@ public class PhysicsSystem {
                     for (Collidable neighbor : neighbors){
                         if (neighbor == object) continue;
                         if (doShapesOverlap(object.getCollisionShape(), neighbor.getCollisionShape())) {
-                            if (!object.shouldCollideWith(neighbor) || !neighbor.shouldCollideWith(object)) continue;
+                            if (!(object.shouldCollideWith(neighbor) && neighbor.shouldCollideWith(object))) continue;
                             overlaps = true;
                             if (Config.Debug.general && !hasFlaggedOverlaps) {
                                 hasFlaggedOverlaps = true;
-//                                Gdx.app.log("Physics", "overlap detected moving away");
+//                                Gdx.app.log("Physics", "overlap detected between "+ object.getClass().toString() +" and " +  neighbor.getClass().toString() +" moving away");
+//                                if ((lastCollision1 == object || lastCollision2 == object) && (lastCollision1 == neighbor || lastCollision2 == neighbor)){
+//                                    Gdx.app.log("Physics", "Same objects from last collision");
+//                                }
                             }
                             // handle circle-circle first
                             if (firstShape instanceof CollisionShapeCircle && neighbor.getCollisionShape() instanceof CollisionShapeCircle) {
@@ -123,7 +130,6 @@ public class PhysicsSystem {
 
                                 oldCenter = neighbor.getPosition();
                                 neighbor.setPosition(oldCenter.x + (overlapDistance * tempVec2.x), oldCenter.y + (overlapDistance * tempVec2.y));
-
                             } else if ((object.getCollisionShape() instanceof CollisionShapeCircle && neighbor.getCollisionShape() instanceof CollisionShapeSegment) ||
                                       (object.getCollisionShape() instanceof CollisionShapeSegment && neighbor.getCollisionShape() instanceof CollisionShapeCircle)) {
                                 // Circle Segment overlaps
@@ -157,14 +163,13 @@ public class PhysicsSystem {
 
             } while (overlaps);
 
-            if (infiniteLoops++ > 1000) {
+            if (infiniteLoops++ > 100) {
                 Gdx.app.log("Physics", "Caught in an infinite loop doing collisions");
                 updateMovements(collidables, timeLeft);
                 break;
             }
 
-            collisionPool.freeAll(collisions);
-            collisions.clear();
+            nextCollision = null;
 
             if (USE_QUADTREE) {
                 quadTree.clear();
@@ -191,35 +196,45 @@ public class PhysicsSystem {
                         if (c.shouldCollideWith(other) && other.shouldCollideWith(c)) {
                             Collision collision = collisionPool.obtain();
                             collision.init(result.time, result.position, result.normal, c, other);
-                            collisions.add(collision);
+                            if (nextCollision == null || collision.t < nextCollision.t){
+                                if (nextCollision != null) {
+                                    collisionPool.free(nextCollision);
+                                }
+                                nextCollision = collision;
+                            }
                         }
                     }
                 }
             }
-            if (collisions.size > 0) {
-                collisions.sort();
-                Collision c = collisions.get(0);
+            if (nextCollision != null) {
+//                collisions.sort();
+                Collision c = nextCollision;
                 double time = c.t * timeLeft;
                 updateMovements(collidables, time);
                 c.handleCollision();
                 timeLeft -= time;
-                collisionPool.freeAll(collisions);
-                collisions.clear();
+
             } else {
                 // no collisions just move
                 updateMovements(collidables, timeLeft);
                 timeLeft = 0;
             }
         }
+        if (Config.Debug.general){
+            long endTime = TimeUtils.millis();
+//            Gdx.app.log("Physics", "Physics ran in " + (endTime-startTime) + "ms. With " + infiniteLoops + " iterations");
+        }
     }
 
     private void updateMovements(Array<Collidable> collidables, double dt) {
+        if (dt == 0) return;
         for (Collidable c : collidables) {
             if (c.getMass() != Collidable.IMMOVABLE) {
                 tempVec2.set(c.getPosition());
                 tempVec2.add((float)(c.getVelocity().x * dt), (float)(c.getVelocity().y * dt));
                 c.getVelocity().scl((float) Math.pow(c.getFriction(), dt));
                 c.setPosition(tempVec2);
+                if (c.getVelocity().len2() < 2) c.setVelocity(Vector2.Zero);
                 // TODO: update rotations?
             }
         }
@@ -251,8 +266,11 @@ public class PhysicsSystem {
         if (time != null && time <= 1f) {
             IntersectionResult result = new IntersectionResult();
             result.time = time;
-            result.position = tempStart2;
-            normal.set(first.getPosition()).sub(second.getPosition()).nor();
+            tempEnd1.set(tempStart1).add(frameVel.scl(time.floatValue() * timeLeft));
+            tempEnd2.set(tempStart2).add(frameVel2.scl(time.floatValue() * timeLeft));
+            normal.set(tempEnd1).sub(tempEnd2).nor();
+            tempVec2.set(tempStart2).add(normal.x * secondShape.radius, normal.y * secondShape.radius);
+            result.position = tempVec2;
             result.normal = normal;
             return result;
         }
@@ -319,7 +337,7 @@ public class PhysicsSystem {
             return t;
         }
         float a = v.dot(v);
-        if (a < .1f) return null; // circles not moving relative to each other
+        if (a < 0f) return null; // circles not moving relative to each other
         float b = v.dot(s);
         if (b >= 0f) return null; // circles moving away from each other
         float d = b * b - a * c;
