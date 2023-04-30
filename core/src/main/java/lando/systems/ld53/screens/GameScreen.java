@@ -14,6 +14,7 @@ import lando.systems.ld53.entities.*;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.PhysicsSystem;
 import lando.systems.ld53.physics.test.TestBall;
+import lando.systems.ld53.ui.IndividualSkillUI;
 import lando.systems.ld53.ui.TopGameUI;
 import lando.systems.ld53.ui.TopTrapezoid;
 import lando.systems.ld53.world.Map;
@@ -32,8 +33,8 @@ public class GameScreen extends BaseScreen {
     private final Array<Collidable> physicsObjects;
     private final Array<TestBall> testBalls;
 
-    private TopGameUI topGameUI;
     private TopTrapezoid trapezoid;
+    private IndividualSkillUI testSkillUI;
 
     public GameScreen() {
         super();
@@ -65,6 +66,8 @@ public class GameScreen extends BaseScreen {
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
 //        audioManager.playSound(AudioManager.Sounds.coin);
         trapezoid = new TopTrapezoid(player, assets);
+        testSkillUI = new IndividualSkillUI(assets, player.currentAbility);
+        //uiStage.addActor(testSkillUI);
     }
 
     @Override

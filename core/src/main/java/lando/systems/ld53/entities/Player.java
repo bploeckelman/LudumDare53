@@ -49,14 +49,16 @@ public class Player implements Entity, Collidable {
     public float friction = 0.1f;
     public enum SpecialAbility {
         //TODO: some descriptions are non-sense, make it sensical.
-        slash_360(InputPrompts.Type.key_light_at, "Slash your 1 360 degrees"),
-        hash_attack(InputPrompts.Type.key_light_hash, "Hash your 1 out"),
-        bomb_attack(InputPrompts.Type.key_light_bang, "Bang your bomb"),
-        equal_attack(InputPrompts.Type.key_light_equal, "Everyone is equal");
+        slash_360(InputPrompts.Type.key_light_at, "@ attack!", "Slash your 1 360 degrees"),
+        hash_attack(InputPrompts.Type.key_light_hash, "# attack!", "Hash your 1 out"),
+        bomb_attack(InputPrompts.Type.key_light_bang, "! attack?","Bang your bomb"),
+        equal_attack(InputPrompts.Type.key_light_equal, "= attack!", "Everyone is equal");
 
         public final InputPrompts.Type type;
+        public final String title;
         public final String description;
-        SpecialAbility(InputPrompts.Type type, String description) {
+        SpecialAbility(InputPrompts.Type type, String title, String description) {
+            this.title = title;
             this.type = type;
             this.description = description;
         }
