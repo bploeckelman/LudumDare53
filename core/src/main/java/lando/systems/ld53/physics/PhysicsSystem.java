@@ -100,6 +100,7 @@ public class PhysicsSystem {
                     for (Collidable neighbor : neighbors){
                         if (neighbor == object) continue;
                         if (doShapesOverlap(object.getCollisionShape(), neighbor.getCollisionShape())) {
+                            if (!object.shouldCollideWith(neighbor) || !neighbor.shouldCollideWith(object)) continue;
                             overlaps = true;
                             if (Config.Debug.general && !hasFlaggedOverlaps) {
                                 hasFlaggedOverlaps = true;
@@ -187,9 +188,11 @@ public class PhysicsSystem {
                     if (c == other) continue;
                     IntersectionResult result = intersectCollidables(c, other, timeLeft);
                     if (result != null && result.time <= 1) {
-                        Collision collision = collisionPool.obtain();
-                        collision.init(result.time, result.position, result.normal, c, other);
-                        collisions.add(collision);
+                        if (c.shouldCollideWith(other) && other.shouldCollideWith(c)) {
+                            Collision collision = collisionPool.obtain();
+                            collision.init(result.time, result.position, result.normal, c, other);
+                            collisions.add(collision);
+                        }
                     }
                 }
             }
@@ -215,6 +218,7 @@ public class PhysicsSystem {
             if (c.getMass() != Collidable.IMMOVABLE) {
                 tempVec2.set(c.getPosition());
                 tempVec2.add((float)(c.getVelocity().x * dt), (float)(c.getVelocity().y * dt));
+                c.getVelocity().scl((float) Math.pow(c.getFriction(), dt));
                 c.setPosition(tempVec2);
                 // TODO: update rotations?
             }

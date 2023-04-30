@@ -1,6 +1,7 @@
 package lando.systems.ld53.physics.test;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.physics.Collidable;
@@ -8,10 +9,11 @@ import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
 
 public class TestBall implements Collidable {
-    float RADIUS = 5f;
+    float RADIUS = 10f;
     float COLLISION_MARGIN = 10f;
     Vector2 position;
     Vector2 velocity;
+    float friction;
     float mass;
     CollisionShapeCircle collisionShape;
     Rectangle collisionBounds;
@@ -20,7 +22,8 @@ public class TestBall implements Collidable {
     public TestBall(Vector2 pos, Vector2 velocity) {
         this.position = new Vector2(pos);
         this.velocity = new Vector2(velocity);
-        this.mass = 1;
+        this.mass = MathUtils.random(1f, 10f);
+        this.friction = MathUtils.random(.5f, .99f);
         this.collisionShape = new CollisionShapeCircle(RADIUS, position.x, position.y);
         this.collisionBounds = new Rectangle(position.x - RADIUS - COLLISION_MARGIN, position.y - RADIUS - COLLISION_MARGIN, (RADIUS+COLLISION_MARGIN)*2f , (RADIUS+COLLISION_MARGIN)*2f);
     }
@@ -32,6 +35,11 @@ public class TestBall implements Collidable {
     @Override
     public float getMass() {
         return mass;
+    }
+
+    @Override
+    public float getFriction() {
+        return friction;
     }
 
     @Override
@@ -80,5 +88,11 @@ public class TestBall implements Collidable {
     public void collidedWith(Collidable object) {
         // TODO pick up, make sound, that stuff lives here
         // Need to check what type it is
+    }
+
+    @Override
+    public boolean shouldCollideWith(Collidable object) {
+        if (object instanceof WallSegment) return false;
+        return true;
     }
 }

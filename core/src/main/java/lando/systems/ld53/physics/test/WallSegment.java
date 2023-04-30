@@ -23,6 +23,11 @@ public class WallSegment implements Collidable {
     }
 
     @Override
+    public float getFriction() {
+        return 0;
+    }
+
+    @Override
     public Vector2 getVelocity() {
         return Vector2.Zero;
     }
@@ -65,5 +70,10 @@ public class WallSegment implements Collidable {
     @Override
     public void collidedWith(Collidable object) {
 
+    }
+
+    @Override
+    public boolean shouldCollideWith(Collidable object) {
+        return true;
     }
 }

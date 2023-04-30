@@ -29,7 +29,7 @@ public class PhysicsTestScreen extends BaseScreen {
         worldCamera.update();
 
         balls = new Array<>();
-        for (int i = 0; i < 400; i++){
+        for (int i = 0; i < 200; i++){
             Vector2 pos = new Vector2(Gdx.graphics.getWidth() * MathUtils.random(.2f, .8f), Gdx.graphics.getHeight() * MathUtils.random(.2f, .5f));
             Vector2 vel = new Vector2(MathUtils.random(-60f, 60f), MathUtils.random(-60f, 60f));
             balls.add(new TestBall(pos, vel));
