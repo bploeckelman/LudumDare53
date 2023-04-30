@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.PhysicsSystem;
@@ -54,6 +55,10 @@ public class GameScreen extends BaseScreen {
             Vector2 vel = new Vector2(MathUtils.random(-60f, 60f), MathUtils.random(-60f, 60f));
             testBalls.add(new TestBall(pos, vel));
         }
+
+        audioManager.playMusic(AudioManager.Musics.level1Thin);
+//        audioManager.playMusic(AudioManager.Musics.level1Full);
+//        audioManager.playSound(AudioManager.Sounds.coin);
     }
 
     @Override

@@ -31,7 +31,8 @@ public class AudioManager implements Disposable {
 
     public enum Musics {
         none
-        , level1
+        , level1Thin
+        , level1Full
     }
 
     public ObjectMap<Sounds, SoundContainer> sounds = new ObjectMap<>();
@@ -52,9 +53,12 @@ public class AudioManager implements Disposable {
         putSound(Sounds.swoosh, assets.swoosh1);
         putSound(Sounds.bigswoosh, assets.bigSwoosh1);
 
+        musics.put(Musics.level1Thin, assets.level1Thin);
+        musics.put(Musics.level1Full, assets.level1Full);
+        //musics.put(Musics.mainTheme, assets.mainTheme);
         //musics.put(Musics.mainTheme, assets.mainTheme);
 
-        musicVolume = new MutableFloat(0.7f);
+        musicVolume = new MutableFloat(0.9f);
         soundVolume = new MutableFloat(0.9f);
 
         isMusicMuted = false;

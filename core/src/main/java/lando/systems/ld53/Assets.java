@@ -89,7 +89,8 @@ public class Assets implements Disposable {
 
     public InputPrompts inputPrompts;
 
-    public Music level1;
+    public Music level1Thin;
+    public Music level1Full;
 
     public Sound coin1;
     public Sound swoosh1;
@@ -170,6 +171,9 @@ public class Assets implements Disposable {
             mgr.load("audio/sounds/coin1.ogg", Sound.class);
             mgr.load("audio/sounds/swoosh1.ogg", Sound.class);
             mgr.load("audio/sounds/bigswoosh1.ogg", Sound.class);
+
+            mgr.load("audio/music/level1-thin.ogg", Music.class);
+            mgr.load("audio/music/level1-full.ogg", Music.class);
         }
 
         if (load == Load.SYNC) {
@@ -307,10 +311,14 @@ public class Assets implements Disposable {
         randomTransitions.add(radialShader);
         randomTransitions.add(pizelizeShader);
 
-        //Sounds
+        // Sounds
         coin1 = mgr.get("audio/sounds/coin1.ogg", Sound.class);
         swoosh1 = mgr.get("audio/sounds/swoosh1.ogg", Sound.class);
         bigSwoosh1 = mgr.get("audio/sounds/bigswoosh1.ogg", Sound.class);
+
+        // Music
+        level1Thin = mgr.get("audio/music/level1-thin.ogg", Music.class);
+        level1Full = mgr.get("audio/music/level1-full.ogg", Music.class);
 
         initialized = true;
         return 1;
