@@ -108,6 +108,11 @@ public class InputPrompts {
         , light_circle_down(31, 23)
         , light_circle_left(32, 23)
         , light_circle_center(33, 23)
+        // arrows
+        , yellow_arrow_circle_right(27, 19)
+        , yellow_arrow_circle_down(28, 19)
+        , yellow_arrow_circle_left(29, 19)
+        , yellow_arrow_circle_up(30, 19)
         ;
 
         public final int x;

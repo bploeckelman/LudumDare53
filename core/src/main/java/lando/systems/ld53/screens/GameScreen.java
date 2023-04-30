@@ -7,14 +7,9 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
-import lando.systems.ld53.entities.Bullet;
-import lando.systems.ld53.entities.BulletEnemy;
-import lando.systems.ld53.entities.Enemy;
-import lando.systems.ld53.entities.Player;
-import lando.systems.ld53.entities.WallSegment;
+import lando.systems.ld53.entities.*;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.PhysicsSystem;
 import lando.systems.ld53.physics.test.TestBall;
@@ -23,6 +18,7 @@ import lando.systems.ld53.world.Map;
 public class GameScreen extends BaseScreen {
 
     private Map map;
+    private Ball ball;
     private Player player;
     private Enemy enemy;
     private BulletEnemy bulletEnemy;
@@ -40,6 +36,7 @@ public class GameScreen extends BaseScreen {
         worldCamera.update();
 
         map = new Map("maps/test-80x80.tmx");
+        ball = new Ball(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         player = new Player(assets);
         enemy = new Enemy(assets, player.position.x - 200f, player.position.y + 80f);
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
@@ -70,10 +67,10 @@ public class GameScreen extends BaseScreen {
 
         physicsObjects.addAll(map.wallSegments);
         physicsObjects.addAll(testBalls);
+        physicsObjects.add(ball);
         physicsObjects.add(player);
 
         physicsSystem.update(delta, physicsObjects);
-
 
         for (int i = bullets.size - 1; i >= 0; i--) {
             Bullet bullet = bullets.get(i);
@@ -90,6 +87,7 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        ball.update(delta);
         bulletEnemy.update(delta);
         enemy.update(delta);
         player.update(delta);
@@ -108,6 +106,7 @@ public class GameScreen extends BaseScreen {
             bulletEnemy.render(batch);
             enemy.render(batch);
             player.render(batch);
+
             if (Config.Debug.general){
                 for (WallSegment segment : map.wallSegments){
                     segment.getCollisionShape().debugRender(batch);
@@ -116,6 +115,8 @@ public class GameScreen extends BaseScreen {
                     ball.debugRender(batch);
                 }
             }
+
+            ball.render(batch);
 
             for (Bullet bullet : bullets) {
                 bullet.render(batch);
