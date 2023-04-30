@@ -63,6 +63,7 @@ public class Assets implements Disposable {
 
     public Animation<TextureRegion> bullet;
     public Animation<TextureRegion> ball;
+    public Animation<TextureRegion> peg;
 
     public Animation<TextureRegion> gobbler;
     public Animation<TextureRegion> etWalk;
@@ -232,6 +233,8 @@ public class Assets implements Disposable {
             , inputPrompts.get(InputPrompts.Type.yellow_arrow_circle_up)
         );
         ball = new Animation<>(0.07f, regions, Animation.PlayMode.LOOP);
+
+        peg = new Animation<>(0.1f, atlas.findRegions("objects/peg/spinner"), Animation.PlayMode.LOOP);
 
         gobbler = new Animation<>(0.1f, atlas.findRegions("creatures/gobbler/gobbler-idle"), Animation.PlayMode.LOOP_PINGPONG);
 

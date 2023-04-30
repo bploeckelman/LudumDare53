@@ -9,26 +9,27 @@ import lando.systems.ld53.Assets;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
-import lando.systems.ld53.utils.Calc;
 
-public class Ball implements Entity, Collidable {
+public class Peg implements Entity, Collidable {
 
     private final Rectangle bounds;
     private final CollisionShapeCircle circle;
     private final Animation<TextureRegion> animation;
 
+    private TextureRegion cap;
     private TextureRegion keyframe;
     private float animTime;
 
-    public float mass = 8f;
-    public float friction = 0.9f;
+    public float mass = 2000f;
+    public float friction = 0.0001f;
     private final Vector2 velocity = new Vector2();
 
-    public Ball(Assets assets, float x, float y) {
-        this.animation = assets.ball;
+    public Peg(Assets assets, float x, float y) {
+        this.cap = assets.atlas.findRegion("objects/peg/spinner-cap");
+        this.animation = assets.peg;
         this.animTime = 0f;
         this.keyframe = animation.getKeyFrame(0f);
-        float scale = 3f;
+        float scale = 0.5f;
         float size = scale * Math.max(keyframe.getRegionWidth(), keyframe.getRegionHeight());
         float radius = size / 2f;
         this.bounds = new Rectangle(x - radius, y - radius, size, size);
@@ -37,16 +38,20 @@ public class Ball implements Entity, Collidable {
 
     @Override
     public void update(float delta) {
-        Vector2 vel = getVelocity();
-        float animSpeed = Calc.clampf(vel.len2() / 1000f, 0f, 1f);
-        animTime += delta * animSpeed;
+        animTime += delta;
         keyframe = animation.getKeyFrame(animTime);
     }
 
     @Override
     public void render(SpriteBatch batch) {
-        // TODO - should circle or bounds be used here? not sure which takes priority
+//        batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
+//        batch.draw(cap, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(keyframe,
+            circle.center.x - circle.radius,
+            circle.center.y - circle.radius,
+            circle.radius * 2,
+            circle.radius * 2);
+        batch.draw(cap,
             circle.center.x - circle.radius,
             circle.center.y - circle.radius,
             circle.radius * 2,
@@ -112,4 +117,6 @@ public class Ball implements Entity, Collidable {
     public boolean shouldCollideWith(Collidable object) {
         return true;
     }
+
+
 }

@@ -16,8 +16,10 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
+import lando.systems.ld53.entities.Peg;
 import lando.systems.ld53.entities.WallSegment;
 import lando.systems.ld53.utils.TemplateAwareTmxMapLoader;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -38,6 +40,7 @@ public class Map {
 
     public final Array<Vector2> polylineEndpoints;
     public final Array<Circle> circles;
+    public final Array<Peg> pegs;
 
     public Array<WallSegment> wallSegments;
 
@@ -65,12 +68,11 @@ public class Map {
         this.polylineObjects = collisionObjects.getByType(PolylineMapObject.class);
 
         // load map objects
-        this.ellipseObjects = new Array<EllipseMapObject>();
+        this.pegs = new Array<>();
+        this.ellipseObjects = new Array<>();
         MapObjects objects = layers.objects.getObjects();
         for (MapObject object : objects) {
             MapProperties props = object.getProperties();
-
-            // TODO(brian) - spawn an entity for this object based on 'type' property?
             if (object instanceof EllipseMapObject) {
                 ellipseObjects.add((EllipseMapObject) object);
             }
@@ -79,7 +81,8 @@ public class Map {
         // extract 'ellipse' (actually circle) data for easy access by the collision system
         this.circles = new Array<Circle>();
         for (int i = 0; i < ellipseObjects.size; i++) {
-            Ellipse ellipse = ellipseObjects.get(i).getEllipse();
+            EllipseMapObject ellipseObject = ellipseObjects.get(i);
+            Ellipse ellipse = ellipseObject.getEllipse();
 
             // position in tiled is bottom left, adjust so it's center
             float radius = Math.max(ellipse.width, ellipse.height) / 2f;
@@ -87,6 +90,14 @@ public class Map {
 
             Circle circle = new Circle(v1, radius);
             circles.add(circle);
+
+            Assets assets = Main.game.assets;
+            MapProperties props = ellipseObject.getProperties();
+            String type = props.get("type", "", String.class);
+            if (type.equals("peg")) {
+                Peg peg = new Peg(assets, circle.x, circle.y);
+                pegs.add(peg);
+            }
         }
 
         // extract polyline endpoints for easy access by the collision system
@@ -161,9 +172,11 @@ public class Map {
                 }
 
                 // draw circle objects
+                shapes.setColor(1f, 1f, 0f, 0.25f);
                 for (Circle circle : circles) {
-                    shapes.filledCircle(circle.x, circle.y, circle.radius, Color.SKY);
+                    shapes.filledCircle(circle.x, circle.y, circle.radius);
                 }
+                shapes.setColor(Color.WHITE);
             }
             batch.end();
         }

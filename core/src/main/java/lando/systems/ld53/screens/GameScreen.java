@@ -68,6 +68,7 @@ public class GameScreen extends BaseScreen {
         physicsObjects.clear();
 
         physicsObjects.addAll(map.wallSegments);
+        physicsObjects.addAll(map.pegs);
         physicsObjects.addAll(testBalls);
         physicsObjects.add(ball);
         physicsObjects.add(player);
@@ -89,6 +90,10 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        for (Peg peg : map.pegs) {
+            peg.update(delta);
+        }
+
         ball.update(delta);
         bulletEnemy.update(delta);
         enemy.update(delta);
@@ -106,6 +111,10 @@ public class GameScreen extends BaseScreen {
         batch.setProjectionMatrix(worldCamera.combined);
         batch.begin();
         {
+            for (Peg peg : map.pegs) {
+                peg.render(batch);
+            }
+
             bulletEnemy.render(batch);
             enemy.render(batch);
             player.render(batch);
