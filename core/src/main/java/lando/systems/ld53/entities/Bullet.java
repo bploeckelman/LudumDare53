@@ -56,10 +56,10 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
     }
 
     public boolean isInside(float x, float y, float w, float h) {
-        return left() > (x + w)
-            || top()  > (y + h)
-            || right()  < x
-            || bottom() < y;
+        return left() <= (x + w)
+            || top()  <= (y + h)
+            || right()  >= x
+            || bottom() >= y;
     }
 
     @Override
