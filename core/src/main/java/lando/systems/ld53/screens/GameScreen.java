@@ -70,6 +70,7 @@ public class GameScreen extends BaseScreen {
         physicsObjects.addAll(map.wallSegments);
         physicsObjects.addAll(map.pegs);
         physicsObjects.addAll(testBalls);
+        physicsObjects.addAll(bullets);
         physicsObjects.add(ball);
         physicsObjects.add(player);
 
@@ -79,12 +80,9 @@ public class GameScreen extends BaseScreen {
             Bullet bullet = bullets.get(i);
             bullet.update(delta);
 
-            boolean bulletOffscreen =
-                       bullet.left()   > worldCamera.viewportWidth
-                    || bullet.top()    > worldCamera.viewportHeight
-                    || bullet.right()  < 0
-                    || bullet.bottom() < 0;
-            if (bulletOffscreen) {
+            boolean isDead = !bullet.alive;
+            boolean isOffscreen = !bullet.isInside(0, 0, worldCamera.viewportWidth, worldCamera.viewportHeight);
+            if (isDead || isOffscreen) {
                 Bullet.pool.free(bullet);
                 bullets.removeIndex(i);
             }
