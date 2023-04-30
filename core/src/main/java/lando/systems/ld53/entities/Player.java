@@ -81,7 +81,6 @@ public class Player implements Entity{
         // Player is not moving
         else if (movementVector.equals(Vector2.Zero)) {
             currentState = State.idle;
-            currentDirection = Direction.down;
         }
         // Player is moving
         else {
