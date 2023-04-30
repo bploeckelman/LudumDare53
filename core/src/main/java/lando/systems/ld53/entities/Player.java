@@ -54,7 +54,7 @@ public class Player implements Entity, Collidable {
     public SpecialAbility currentAbility = SpecialAbility.slash_360;
 
     public enum SpecialAbility {
-        //TODO: some descriptions are non-sense, make it sensical. Need 6 minimum
+        //TODO: some descriptions are non-sense, make it sensical. Need 3 minimum
         slash_360(InputPrompts.Type.key_light_at, "@ attack!", "Slash your 1 360 degrees"),
         hash_attack(InputPrompts.Type.key_light_hash, "# attack!", "Hash your 1 out"),
         bomb_attack(InputPrompts.Type.key_light_bang, "! attack?","Bang your bomb"),
