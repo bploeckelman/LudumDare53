@@ -31,6 +31,8 @@ public class AudioManager implements Disposable {
         , thud
         , error
         , bodyHit
+        , gobble
+        , ticktock
 
 
     }
@@ -74,6 +76,12 @@ public class AudioManager implements Disposable {
         putSound(Sounds.error, assets.error1);
         putSound(Sounds.thud, assets.thud1);
         putSound(Sounds.bodyHit, assets.bodyHit);
+        putSound(Sounds.gobble, assets.gobble1);
+        putSound(Sounds.gobble, assets.gobble2);
+        putSound(Sounds.gobble, assets.gobble3);
+        putSound(Sounds.gobble, assets.gobble4);
+        putSound(Sounds.gobble, assets.gobble5);
+        putSound(Sounds.ticktock, assets.ticktock);
 
         musics.put(Musics.level1Thin, assets.level1Thin);
         musics.put(Musics.level1Full, assets.level1Full);

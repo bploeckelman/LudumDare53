@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
+import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
@@ -128,6 +130,12 @@ public class Enemy implements Entity, Collidable {
 
     @Override
     public void collidedWith(Collidable object) {
+
+        if(object instanceof Player) {
+            Main.game.audioManager.playSound(AudioManager.Sounds.gobble, .1f);
+            Main.game.audioManager.playSound(AudioManager.Sounds.ticktock, .3f);
+        }
+
 
     }
 

@@ -117,6 +117,12 @@ public class Assets implements Disposable {
     public Sound error1;
     public Sound thud1;
     public Sound bodyHit;
+    public Sound gobble1;
+    public Sound gobble2;
+    public Sound gobble3;
+    public Sound gobble4;
+    public Sound gobble5;
+    public Sound ticktock;
 
     public enum Patch {
         debug, panel, metal, glass,
@@ -210,6 +216,12 @@ public class Assets implements Disposable {
             mgr.load("audio/sounds/error1.ogg", Sound.class);
             mgr.load("audio/sounds/thud1.ogg", Sound.class);
             mgr.load("audio/sounds/bodyhit1.ogg", Sound.class);
+            mgr.load("audio/sounds/gobble1.ogg", Sound.class);
+            mgr.load("audio/sounds/gobble2.ogg", Sound.class);
+            mgr.load("audio/sounds/gobble3.ogg", Sound.class);
+            mgr.load("audio/sounds/gobble4.ogg", Sound.class);
+            mgr.load("audio/sounds/gobble5.ogg", Sound.class);
+            mgr.load("audio/sounds/ticktock1.ogg", Sound.class);
 
             mgr.load("audio/music/level1-thin.ogg", Music.class);
             mgr.load("audio/music/level1-full.ogg", Music.class);
@@ -380,6 +392,15 @@ public class Assets implements Disposable {
         error1 = mgr.get("audio/sounds/error1.ogg", Sound.class);
         thud1 = mgr.get("audio/sounds/thud1.ogg", Sound.class);
         bodyHit = mgr.get("audio/sounds/bodyhit1.ogg", Sound.class);
+        gobble1 = mgr.get("audio/sounds/gobble1.ogg", Sound.class);
+        gobble2 = mgr.get("audio/sounds/gobble2.ogg", Sound.class);
+        gobble3 = mgr.get("audio/sounds/gobble3.ogg", Sound.class);
+        gobble4 = mgr.get("audio/sounds/gobble4.ogg", Sound.class);
+        gobble5 = mgr.get("audio/sounds/gobble5.ogg", Sound.class);
+        ticktock = mgr.get("audio/sounds/ticktock1.ogg", Sound.class);
+//         = mgr.get("audio/sounds/.ogg", Sound.class);
+//         = mgr.get("audio/sounds/.ogg", Sound.class);
+//         = mgr.get("audio/sounds/.ogg", Sound.class);
 
         // Music
         level1Thin = mgr.get("audio/music/level1-thin.ogg", Music.class);
