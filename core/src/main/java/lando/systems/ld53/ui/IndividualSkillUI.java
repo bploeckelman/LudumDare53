@@ -20,16 +20,18 @@ public class IndividualSkillUI extends VisWindow {
     private final float BUTTON_WIDTH = 180f;
     private final float BUTTON_HEIGHT = 50f;
     private Player.SpecialAbility ability;
+    private final float OFFSET = 50f;
+
     public IndividualSkillUI(Assets assets, Skin skin, Player player, Player.SpecialAbility ability) {
         super("");
         this.ability = ability;
         setBackground(Assets.Patch.metal.drawable);
         setSize(WINDOW_SIZE.x, WINDOW_SIZE.y);
         setPosition(WINDOW_POSITION.x, WINDOW_POSITION.y);
-        VisLabel label80px = new VisLabel(player.currentAbility.title, "outfit-medium-80px");
-        VisLabel label20px = new VisLabel(player.currentAbility.description, "outfit-medium-20px");
+        VisLabel label80px = new VisLabel(ability.title, "outfit-medium-80px");
+        VisLabel label20px = new VisLabel(ability.description, "outfit-medium-20px");
         label20px.setWrap(true);
-        VisImage image = new VisImage(assets.inputPrompts.get(player.currentAbility.type));
+        VisImage image = new VisImage(assets.inputPrompts.get(ability.type));
         image.setSize(200f, 200f);
         top();
         add(label80px).top().row();
@@ -53,5 +55,10 @@ public class IndividualSkillUI extends VisWindow {
                 // TODO: clicked listener
             }
         });
+    }
+    public void setSizePerOffset(int indexOffset) {
+        setSize(WINDOW_SIZE.x - OFFSET * Math.abs(indexOffset)  , WINDOW_SIZE.y - OFFSET * Math.abs(indexOffset));
+        float x = indexOffset > 0 ? WINDOW_POSITION.x + indexOffset * 2 * OFFSET : WINDOW_POSITION.x + indexOffset * OFFSET;
+        setPosition(x, WINDOW_POSITION.y + Math.abs(indexOffset) * OFFSET / 2);
     }
 }
