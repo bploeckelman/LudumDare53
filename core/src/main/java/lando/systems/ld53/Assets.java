@@ -45,7 +45,16 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> osha;
 
     public Animation<TextureRegion> playerIdle;
-    public Animation<TextureRegion> playerMove;
+    public Animation<TextureRegion> playerWalkLeft;
+    public Animation<TextureRegion> playerWalkRight;
+    public Animation<TextureRegion> playerWalkUp;
+    public Animation<TextureRegion> playerWalkDown;
+    public Animation<TextureRegion> playerSlashLeft;
+    public Animation<TextureRegion> playerSlashRight;
+    public Animation<TextureRegion> playerSlashUp;
+    public Animation<TextureRegion> playerSlashDown;
+    public Animation<TextureRegion> playerSlash360;
+
 
     public Array<ShaderProgram> randomTransitions;
     public ShaderProgram starWarsShader;
@@ -171,8 +180,16 @@ public class Assets implements Disposable {
         asuka = new Animation<>(0.1f, atlas.findRegions("pets/dog"), Animation.PlayMode.LOOP);
         osha = new Animation<>(.1f, atlas.findRegions("pets/kitten"), Animation.PlayMode.LOOP);
 
-        playerIdle = new Animation<>(.1f, atlas.findRegions("player/reapo-idle-a"), Animation.PlayMode.LOOP);
-        playerMove = new Animation<>(.1f, atlas.findRegions("player/reapo-move-a"), Animation.PlayMode.LOOP);
+        playerIdle = new Animation<>(.1f, atlas.findRegions("player/jeff-idle/jeff-idle"), Animation.PlayMode.LOOP);
+        playerWalkLeft = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-left/jeff-walk-left"), Animation.PlayMode.LOOP);
+        playerWalkRight = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-right/jeff-walk-right"), Animation.PlayMode.LOOP);
+        playerWalkUp = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-up/jeff-walk-up"), Animation.PlayMode.LOOP);
+        playerWalkDown = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-down/jeff-walk-down"), Animation.PlayMode.LOOP);
+        playerSlashLeft = new Animation<>(.1f, atlas.findRegions("player/jeff-slash-left/jeff-slash-left"), Animation.PlayMode.LOOP);
+        playerSlashRight = new Animation<>(.1f, atlas.findRegions("player/jeff-slash-right/jeff-slash-right"), Animation.PlayMode.LOOP);
+        playerSlashUp = new Animation<>(.1f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.LOOP);
+        playerSlashDown = new Animation<>(.1f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.LOOP);
+        playerSlash360 = new Animation<>(.1f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.LOOP);
 
         // initialize patch values
         Patch.debug.ninePatch        = new NinePatch(atlas.findRegion("ninepatch/debug"), 2, 2, 2, 2);
