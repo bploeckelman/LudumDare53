@@ -3,8 +3,11 @@ package lando.systems.ld53.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.entities.Bullet;
+import lando.systems.ld53.entities.BulletEnemy;
 import lando.systems.ld53.entities.Player;
 import lando.systems.ld53.world.Map;
 
@@ -12,6 +15,9 @@ public class GameScreen extends BaseScreen {
 
     private Map map;
     private Player player;
+    private BulletEnemy enemy;
+
+    public final Array<Bullet> bullets;
 
     public GameScreen() {
         super();
@@ -20,7 +26,9 @@ public class GameScreen extends BaseScreen {
         worldCamera.update();
 
         map = new Map("maps/test-80x80.tmx");
-        player = new Player(game.assets);
+        player = new Player(assets);
+        enemy = new BulletEnemy(assets, this, 5, -100f);
+        bullets = new Array<>();
 
         Gdx.input.setInputProcessor(uiStage);
     }
@@ -33,6 +41,23 @@ public class GameScreen extends BaseScreen {
             game.setScreen(new TitleScreen());
             return;
         }
+
+        for (int i = bullets.size - 1; i >= 0; i--) {
+            Bullet bullet = bullets.get(i);
+            bullet.update(delta);
+
+            boolean bulletOffscreen =
+                       bullet.left()   > worldCamera.viewportWidth
+                    || bullet.top()    > worldCamera.viewportHeight
+                    || bullet.right()  < 0
+                    || bullet.bottom() < 0;
+            if (bulletOffscreen) {
+                Bullet.pool.free(bullet);
+                bullets.removeIndex(i);
+            }
+        }
+
+        enemy.update(delta);
         player.update(delta);
         map.update(delta);
     }
@@ -46,7 +71,12 @@ public class GameScreen extends BaseScreen {
         batch.setProjectionMatrix(worldCamera.combined);
         batch.begin();
         {
+            enemy.render(batch);
             player.render(batch);
+
+            for (Bullet bullet : bullets) {
+                bullet.render(batch);
+            }
         }
         batch.end();
 

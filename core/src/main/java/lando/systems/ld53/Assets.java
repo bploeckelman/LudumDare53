@@ -62,6 +62,10 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> playerSlash360;
 
 
+    public Animation<TextureRegion> etWalk;
+    public Animation<TextureRegion> etFloat;
+    public Animation<TextureRegion> bullet;
+
     public Array<ShaderProgram> randomTransitions;
     public ShaderProgram starWarsShader;
     public ShaderProgram blindsShader;
@@ -162,7 +166,6 @@ public class Assets implements Disposable {
             mgr.load("audio/sounds/coin1.ogg", Sound.class);
             mgr.load("audio/sounds/swoosh1.ogg", Sound.class);
             mgr.load("audio/sounds/bigswoosh1.ogg", Sound.class);
-
         }
 
         if (load == Load.SYNC) {
@@ -208,6 +211,19 @@ public class Assets implements Disposable {
         playerSlashUp = new Animation<>(.0361f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.NORMAL);
         playerSlashDown = new Animation<>(.0361f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.NORMAL);
         playerSlash360 = new Animation<>(.061f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
+
+        Array<TextureRegion> regions = new Array<>();
+        regions.addAll(
+              inputPrompts.get(InputPrompts.Type.light_circle_center)
+            , inputPrompts.get(InputPrompts.Type.light_circle_up)
+            , inputPrompts.get(InputPrompts.Type.light_circle_right)
+            , inputPrompts.get(InputPrompts.Type.light_circle_down)
+            , inputPrompts.get(InputPrompts.Type.light_circle_left)
+        );
+        bullet = new Animation<>(0.08f, regions, Animation.PlayMode.LOOP);
+
+        etWalk = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-walk"), Animation.PlayMode.LOOP);
+        etFloat = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-float"), Animation.PlayMode.LOOP_PINGPONG);
 
         // initialize patch values
         Patch.debug.ninePatch        = new NinePatch(atlas.findRegion("ninepatch/debug"), 2, 2, 2, 2);

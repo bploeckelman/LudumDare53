@@ -95,6 +95,19 @@ public class InputPrompts {
         , light_big_plus(14, 20)
         , light_left_circle(10, 22)
         , light_right_circle(12, 22)
+        // circle directions
+        , dark_circle_blank(28, 21)
+        , dark_circle_up(29, 21)
+        , dark_circle_right(30, 21)
+        , dark_circle_down(31, 21)
+        , dark_circle_left(32, 21)
+        , dark_circle_center(33, 21)
+        , light_circle_blank(28, 23)
+        , light_circle_up(29, 23)
+        , light_circle_right(30, 23)
+        , light_circle_down(31, 23)
+        , light_circle_left(32, 23)
+        , light_circle_center(33, 23)
         ;
 
         public final int x;
