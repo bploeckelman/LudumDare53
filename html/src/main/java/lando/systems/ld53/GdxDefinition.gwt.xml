@@ -17,8 +17,9 @@
   <inherits name="regexodus" />
 
 
-    <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.utils.typinglabel.TypingGlyph" />
+  <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.utils.typinglabel.TypingGlyph" />
   <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.utils.typinglabel.effects" />
+  <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.entities.Bullet" />
 
   <entry-point class="lando.systems.ld53.gwt.GwtLauncher" />
   <set-configuration-property name="gdx.assetpath" value="../assets" />
