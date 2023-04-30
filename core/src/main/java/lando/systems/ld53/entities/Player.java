@@ -141,11 +141,11 @@ public class Player implements Entity{
             }
         }
         // If player slashes
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             handleSlash();
         }
         // If player does 360
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             isAttacking = true;
             currentState = State.slash_360;
         }
