@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.entities.Bullet;
 import lando.systems.ld53.entities.BulletEnemy;
+import lando.systems.ld53.entities.Enemy;
 import lando.systems.ld53.entities.Player;
 import lando.systems.ld53.world.Map;
 
@@ -15,7 +16,8 @@ public class GameScreen extends BaseScreen {
 
     private Map map;
     private Player player;
-    private BulletEnemy enemy;
+    private Enemy enemy;
+    private BulletEnemy bulletEnemy;
 
     public final Array<Bullet> bullets;
 
@@ -27,7 +29,8 @@ public class GameScreen extends BaseScreen {
 
         map = new Map("maps/test-80x80.tmx");
         player = new Player(assets);
-        enemy = new BulletEnemy(assets, this, 5, -100f);
+        enemy = new Enemy(assets, player.position.x - 200f, player.position.y + 80f);
+        bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
         bullets = new Array<>();
 
         Gdx.input.setInputProcessor(uiStage);
@@ -57,6 +60,7 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        bulletEnemy.update(delta);
         enemy.update(delta);
         player.update(delta);
         map.update(delta);
@@ -71,6 +75,7 @@ public class GameScreen extends BaseScreen {
         batch.setProjectionMatrix(worldCamera.combined);
         batch.begin();
         {
+            bulletEnemy.render(batch);
             enemy.render(batch);
             player.render(batch);
 

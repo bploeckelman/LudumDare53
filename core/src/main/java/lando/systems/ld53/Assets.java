@@ -61,10 +61,11 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> playerSlashDown;
     public Animation<TextureRegion> playerSlash360;
 
-
     public Animation<TextureRegion> etWalk;
     public Animation<TextureRegion> etFloat;
+
     public Animation<TextureRegion> bullet;
+    public Animation<TextureRegion> gobbler;
 
     public Array<ShaderProgram> randomTransitions;
     public ShaderProgram starWarsShader;
@@ -221,6 +222,8 @@ public class Assets implements Disposable {
             , inputPrompts.get(InputPrompts.Type.light_circle_left)
         );
         bullet = new Animation<>(0.08f, regions, Animation.PlayMode.LOOP);
+
+        gobbler = new Animation<>(0.1f, atlas.findRegions("creatures/gobbler/gobbler-idle"), Animation.PlayMode.LOOP_PINGPONG);
 
         etWalk = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-walk"), Animation.PlayMode.LOOP);
         etFloat = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-float"), Animation.PlayMode.LOOP_PINGPONG);
