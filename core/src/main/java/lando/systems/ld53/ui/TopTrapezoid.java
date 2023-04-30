@@ -1,14 +1,10 @@
 package lando.systems.ld53.ui;
 
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
-import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.entities.Player;
 
 public class TopTrapezoid {
@@ -37,8 +33,7 @@ public class TopTrapezoid {
         cooldownShader.setUniformf("u_percent", staminaPercentage);
         batch.draw(assets.trapezoidTexture, (Config.Screen.window_width - TOP_WIDTH) / 2,Config.Screen.window_height - HEIGHT, TOP_WIDTH, HEIGHT - 5f);
         batch.setShader(null);
-        InputPrompts ip = new InputPrompts(assets);
-        TextureRegion ipIcon = ip.get(player.currentAbility.type);
+        TextureRegion ipIcon = assets.inputPrompts.get(player.currentAbility.type);
         if (Config.Debug.general) {
             assets.font.draw(batch, (int)staminaPercentage + "%", (Config.Screen.window_width - TOP_WIDTH) / 2,Config.Screen.window_height - HEIGHT);
         }

@@ -127,13 +127,18 @@ public class Map {
         for (int i = 0; i < polylineObjects.size; i++) {
             Polyline polyline = polylineObjects.get(i).getPolyline();
             float[] verts = polyline.getTransformedVertices();
-            int numVerts = polyline.getVertices().length;
-            for (int v = 0; v < numVerts; v += 2) {
-                v1.set(verts[v], verts[v + 1]);
-                v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
-                polylineEndpoints.add(v1.cpy(), v2.cpy());
-                wallSegments.add(new WallSegment(v1.x, v1.y, v2.x, v2.y));
+
+            int numComponents = polyline.getVertices().length;
+            for (int c = 0; c < numComponents; c += 2) {
+                v1.set(verts[c], verts[c + 1]);
+                polylineEndpoints.add(v1.cpy());
             }
+        }
+
+        for (int i = 0; i < polylineEndpoints.size; i += 2) {
+            v1.set(polylineEndpoints.get(i));
+            v2.set(polylineEndpoints.get(i+1));
+            wallSegments.add(new WallSegment(v1.x, v1.y, v2.x, v2.y));
         }
     }
 
