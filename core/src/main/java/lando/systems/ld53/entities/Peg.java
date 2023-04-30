@@ -20,7 +20,7 @@ public class Peg implements Entity, Collidable {
     private TextureRegion keyframe;
     private float animTime;
 
-    public float mass = 2000f;
+    public float mass = IMMOVABLE;
     public float friction = 0.0001f;
     private final Vector2 velocity = new Vector2();
 
