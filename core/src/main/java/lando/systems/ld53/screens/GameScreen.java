@@ -17,12 +17,7 @@ import lando.systems.ld53.physics.PhysicsSystem;
 import lando.systems.ld53.physics.test.TestAttractor;
 import lando.systems.ld53.physics.test.TestBall;
 import lando.systems.ld53.physics.test.TestRepulser;
-import lando.systems.ld53.ui.IndividualSkillUI;
-<<<<<<< Updated upstream
-=======
 import lando.systems.ld53.ui.SelectSkillUI;
-import lando.systems.ld53.ui.TopGameUI;
->>>>>>> Stashed changes
 import lando.systems.ld53.ui.TopTrapezoid;
 import lando.systems.ld53.world.Map;
 

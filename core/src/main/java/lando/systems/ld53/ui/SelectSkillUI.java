@@ -20,35 +20,38 @@ public class SelectSkillUI extends Group {
         this.player = player;
         this.assets = assets;
         this.skin = skin;
-        selectedSkillUI = setMainWindowWithCurrentSkill(player);
+//        selectedSkillUI = setMainWindowWithCurrentSkill(player);
         EmptyWindow emptyWindowLeft2 = new EmptyWindow(-2);
         EmptyWindow emptyWindowLeft1 = new EmptyWindow(-1);
         EmptyWindow emptyWindowRight1 = new EmptyWindow(1);
         EmptyWindow emptyWindowRight2 = new EmptyWindow(2);
-        addActor(selectedSkillUI);
+        //addActor(selectedSkillUI);
         addActor(emptyWindowLeft2);
         addActor(emptyWindowLeft1);
         addActor(emptyWindowRight2);
         addActor(emptyWindowRight1);
-        selectedSkillUI.toFront();
+        //selectedSkillUI.toFront();
         setVisible(false);
     }
-    public IndividualSkillUI setMainWindowWithCurrentSkill(Player player) {
-        IndividualSkillUI ui = new IndividualSkillUI(assets, skin, player);
-        return ui;
-    }
+//    public IndividualSkillUI setMainWindowWithCurrentSkill(Player player) {
+////        IndividualSkillUI ui = new IndividualSkillUI(assets, skin, player, player.currentAbility);
+//        return ui;
+//    }
     public void showNextSkill() {
-        int currentIndex = abilityList.indexOf(player.currentAbility);
-        player.currentAbility = abilityList.get((currentIndex + 1) % abilityList.size());
-        selectedSkillUI = setMainWindowWithCurrentSkill(player);
+        int previousIndex = abilityList.indexOf(player.currentAbility);
+        int currentIndex = (previousIndex + 1) % abilityList.size();
+        //player.currentAbility = abilityList.get();
+//        selectedSkillUI = setMainWindowWithCurrentSkill(player);
     }
     public void showPreviousSkill() {
-        int currentIndex = abilityList.indexOf(player.currentAbility);
-        if (currentIndex == 0) {
-            currentIndex = abilityList.size();
+        int previousIndex = abilityList.indexOf(player.currentAbility);
+        if (previousIndex == 0) {
+            previousIndex = abilityList.size();
         }
-        player.currentAbility = abilityList.get((currentIndex - 1) % abilityList.size());
-        selectedSkillUI = setMainWindowWithCurrentSkill(player);
+        int currentIndex = (previousIndex + 1) % abilityList.size();
+
+        //player.currentAbility = abilityList.get((currentIndex - 1) % abilityList.size());
+//        selectedSkillUI = setMainWindowWithCurrentSkill(player);
     }
 
     public void show(boolean show) {

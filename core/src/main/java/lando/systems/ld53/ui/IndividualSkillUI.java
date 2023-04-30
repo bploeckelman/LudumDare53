@@ -19,8 +19,10 @@ public class IndividualSkillUI extends VisWindow {
     private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height / 6);
     private final float BUTTON_WIDTH = 180f;
     private final float BUTTON_HEIGHT = 50f;
-    public IndividualSkillUI(Assets assets, Skin skin, Player player) {
+    private Player.SpecialAbility ability;
+    public IndividualSkillUI(Assets assets, Skin skin, Player player, Player.SpecialAbility ability) {
         super("");
+        this.ability = ability;
         setBackground(Assets.Patch.metal.drawable);
         setSize(WINDOW_SIZE.x, WINDOW_SIZE.y);
         setPosition(WINDOW_POSITION.x, WINDOW_POSITION.y);
@@ -42,6 +44,7 @@ public class IndividualSkillUI extends VisWindow {
         titleScreenButtonStyle.down = Assets.Patch.glass_dim.drawable;
         titleScreenButtonStyle.over = Assets.Patch.glass_dim.drawable;
         TextButton textButton = new TextButton("Equip", titleScreenButtonStyle);
+//        if ()
         textButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         add(textButton).height(BUTTON_HEIGHT).row();
         textButton.addListener(new ClickListener(){
