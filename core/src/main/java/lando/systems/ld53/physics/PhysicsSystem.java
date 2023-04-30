@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.*;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.ui.DebugInfo;
 
 public class PhysicsSystem {
     private static boolean USE_STEPS = false;
@@ -222,7 +223,7 @@ public class PhysicsSystem {
         }
         if (Config.Debug.general){
             long endTime = TimeUtils.millis();
-//            Gdx.app.log("Physics", "Physics ran in " + (endTime-startTime) + "ms. With " + infiniteLoops + " iterations");
+            DebugInfo.addPhysicsStep((endTime - startTime));
         }
     }
 

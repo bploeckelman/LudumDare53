@@ -1,5 +1,7 @@
 package lando.systems.ld53;
 
+import com.badlogic.gdx.utils.Array;
+
 public class Config {
 
     public static final String window_title = "Ludum Dare 53";

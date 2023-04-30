@@ -22,6 +22,7 @@ import lando.systems.ld53.physics.test.PhysicsTestScreen;
 import lando.systems.ld53.screens.BaseScreen;
 import lando.systems.ld53.screens.LaunchScreen;
 import lando.systems.ld53.screens.TitleScreen;
+import lando.systems.ld53.ui.DebugInfo;
 import lando.systems.ld53.utils.Time;
 import lando.systems.ld53.utils.accessors.*;
 
@@ -175,9 +176,7 @@ public class Main extends ApplicationAdapter {
             currentScreen.render(assets.batch);
         }
         if (Config.Debug.general) {
-            assets.batch.begin();
-            assets.font.draw(assets.batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), 0, Config.Screen.window_height);
-            assets.batch.end();
+            DebugInfo.render(assets);
         }
     }
 

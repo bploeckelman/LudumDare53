@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class Player implements Entity, Collidable {
     private static float RADIUS = 50;
     float COLLISION_MARGIN = 10f;
-    private final float SPEED = 20f;
+    private final float SPEED = 600f;
     private final float MAX_STAMINA = 10f; // seconds to charge fully
     private final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
 
@@ -226,7 +226,7 @@ public class Player implements Entity, Collidable {
         }
         else {
             playerImage = currentPlayerAnimation.getKeyFrame(animTimer);
-            velocity.add(movementVector.x * SPEED, movementVector.y * SPEED);
+            velocity.add(movementVector.x * SPEED * delta, movementVector.y * SPEED * delta);
         }
     }
 
