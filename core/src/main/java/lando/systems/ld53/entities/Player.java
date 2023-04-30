@@ -20,7 +20,7 @@ import lando.systems.ld53.physics.CollisionShapeCircle;
 import java.util.HashMap;
 
 public class Player implements Entity, Collidable {
-    private static float RADIUS = 30;
+    private static float RADIUS = 50;
     float COLLISION_MARGIN = 10f;
     private final float SPEED = 20f;
     private final float MAX_STAMINA = 10f; // seconds to charge fully
