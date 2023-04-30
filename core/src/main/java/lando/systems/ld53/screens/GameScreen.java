@@ -13,6 +13,7 @@ import lando.systems.ld53.entities.*;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.PhysicsSystem;
 import lando.systems.ld53.physics.test.TestBall;
+import lando.systems.ld53.ui.TopGameUI;
 import lando.systems.ld53.world.Map;
 
 public class GameScreen extends BaseScreen {
@@ -26,6 +27,7 @@ public class GameScreen extends BaseScreen {
     public final Array<Bullet> bullets;
     private PhysicsSystem physicsSystem;
     private Array<Collidable> physicsObjects;
+    private TopGameUI topGameUI;
 
     Array<TestBall> testBalls;
 
@@ -92,6 +94,7 @@ public class GameScreen extends BaseScreen {
         enemy.update(delta);
         player.update(delta);
         map.update(delta);
+        topGameUI.update(player.getStaminaPercentage());
     }
 
     @Override
@@ -130,6 +133,8 @@ public class GameScreen extends BaseScreen {
     @Override
     public void initializeUI() {
         super.initializeUI();
+        topGameUI = new TopGameUI(this);
+        uiStage.addActor(topGameUI);
     }
 
 }

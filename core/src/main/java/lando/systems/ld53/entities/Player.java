@@ -22,6 +22,9 @@ import java.util.HashMap;
 public class Player implements Entity, Collidable {
     private static float RADIUS = 30;
     float COLLISION_MARGIN = 10f;
+    private final float SPEED = 20f;
+    private final float MAX_STAMINA = 10f; // seconds to charge fully
+    private final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
 
 
     private final Animation<TextureRegion> playerIdle;
@@ -31,6 +34,7 @@ public class Player implements Entity, Collidable {
     private State currentState;
     private float animTime = 0;
     private float attackTime = 0;
+    private float stamina;
     private Direction currentDirection;
     public Vector2 position;
     public Vector2 movementVector;
@@ -40,7 +44,6 @@ public class Player implements Entity, Collidable {
     CollisionShapeCircle collisionShape;
     Rectangle collisionBounds;
 
-    private float tempSpeed = 20f; //TODO: Replace speed usage with physics system
     private HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
     private boolean isAttacking = false;
 
@@ -73,6 +76,7 @@ public class Player implements Entity, Collidable {
         this.friction = .01f;
         this.collisionShape = new CollisionShapeCircle(RADIUS, position.x, position.y);
         this.collisionBounds = new Rectangle(new Rectangle(position.x - RADIUS - COLLISION_MARGIN, position.y - RADIUS - COLLISION_MARGIN, (RADIUS+COLLISION_MARGIN)*2f , (RADIUS+COLLISION_MARGIN)*2f));
+        stamina = MAX_STAMINA;
 
         movementVector = new Vector2();
         animations.put(State.idle_down, assets.playerIdleDown);
@@ -92,6 +96,9 @@ public class Player implements Entity, Collidable {
 
     @Override
     public void update(float delta) {
+        if (stamina < MAX_STAMINA) {
+            stamina += delta;
+        }
         animTime += delta;
         movementVector.setZero();
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))    movementVector.y = 1;
@@ -100,7 +107,7 @@ public class Player implements Entity, Collidable {
         if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))  movementVector.x -= 1;
         movementVector.nor();
         //position.add(movementVector.x * tempSpeed * delta, movementVector.y * tempSpeed * delta);
-        velocity.add(movementVector.x * tempSpeed, movementVector.y * tempSpeed);
+        velocity.add(movementVector.x * SPEED, movementVector.y * SPEED);
         // Player is attacking
         if (isAttacking) {
             if (currentPlayerAnimation.isAnimationFinished(attackTime)) {
@@ -171,9 +178,14 @@ public class Player implements Entity, Collidable {
         }
         // If player does 360
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            isAttacking = true;
-            currentState = State.slash_360;
-            Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh);
+            if (stamina < SPECIAL_COST) {
+                Main.game.audioManager.playSound(AudioManager.Sounds.coin);
+            } else {
+                isAttacking = true;
+                currentState = State.slash_360;
+                stamina -= SPECIAL_COST;
+                Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh);
+            }
         }
         //set player image based on currentState
         currentPlayerAnimation = animations.get(currentState);
@@ -183,6 +195,10 @@ public class Player implements Entity, Collidable {
         } else {
             playerImage = currentPlayerAnimation.getKeyFrame(animTime);
         }
+    }
+
+    public float getStaminaPercentage() {
+        return stamina / MAX_STAMINA * 100f;
     }
 
     @Override
