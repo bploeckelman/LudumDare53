@@ -133,6 +133,10 @@ public class Player implements Entity{
                     break;
             }
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+            isAttacking = true;
+            currentState = State.slash_360;
+        }
         currentPlayerAnimation = animations.get(currentState);
         if (isAttacking) {
             attackTime += delta;
