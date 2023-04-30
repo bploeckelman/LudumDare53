@@ -5,11 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
+import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
@@ -28,6 +30,7 @@ public class Player implements Entity, Collidable {
     private Animation<TextureRegion> currentPlayerAnimation;
     private TextureRegion playerImage;
     private State currentState;
+    public SpecialAbility currentAbility;
     private float animTimer = 0;
     private float attackTimer = 0;
     private float stunTimer = 0;
@@ -44,7 +47,15 @@ public class Player implements Entity, Collidable {
 
     public float mass = 20f;
     public float friction = 0.1f;
+    public enum SpecialAbility {
+        slash_360(InputPrompts.Type.key_light_at),
+        none(InputPrompts.Type.key_light_hash);
 
+        public final InputPrompts.Type type;
+        SpecialAbility(InputPrompts.Type type) {
+            this.type = type;
+        }
+    }
     public enum State {
         idle_down,
         idle_up,
@@ -68,6 +79,7 @@ public class Player implements Entity, Collidable {
         playerIdle = assets.playerIdleDown;
         currentPlayerAnimation = playerIdle;
         currentDirection = Direction.down;
+        currentAbility = SpecialAbility.slash_360;
 
         position = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
         this.velocity = new Vector2();
@@ -94,9 +106,9 @@ public class Player implements Entity, Collidable {
 
     @Override
     public void update(float delta) {
-        if (stamina < MAX_STAMINA) {
-            stamina += delta;
-        }
+        stamina += delta;
+        stamina = MathUtils.clamp(stamina, 0f, MAX_STAMINA);
+
         animTimer += delta;
         movementVector.setZero();
         if (Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP))    movementVector.y = 1;

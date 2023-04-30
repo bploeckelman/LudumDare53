@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g3d.Shader;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -38,6 +39,8 @@ public class Assets implements Disposable {
     public Texture pixel;
     public Texture gdx;
     public Texture titleScreen;
+    public Texture trapezoidTexture;
+    public Texture trapezoidBorder;
 
     public TextureRegion ring;
 
@@ -86,6 +89,7 @@ public class Assets implements Disposable {
     public ShaderProgram cubeShader;
     public ShaderProgram dreamyShader;
     public ShaderProgram flameShader;
+    public ShaderProgram cooldownShader;
 
     public InputPrompts inputPrompts;
 
@@ -164,6 +168,8 @@ public class Assets implements Disposable {
 
             mgr.load("images/libgdx.png", Texture.class);
             mgr.load("images/title-screen.png", Texture.class);
+            mgr.load("images/trapezoid.png", Texture.class);
+            mgr.load("images/trapezoid-border.png", Texture.class);
 
             mgr.load("fonts/outfit-medium-20px.fnt", BitmapFont.class);
             mgr.load("fonts/outfit-medium-40px.fnt", BitmapFont.class);
@@ -197,6 +203,8 @@ public class Assets implements Disposable {
 
         gdx = mgr.get("images/libgdx.png");
         titleScreen = mgr.get("images/title-screen.png");
+        trapezoidBorder = mgr.get("images/trapezoid-border.png", Texture.class);
+        trapezoidTexture = mgr.get("images/trapezoid.png", Texture.class);
 
         smallFont = mgr.get("fonts/outfit-medium-20px.fnt");
         font      = mgr.get("fonts/outfit-medium-40px.fnt");
@@ -310,6 +318,7 @@ public class Assets implements Disposable {
         dreamyShader = loadShader("shaders/transitions/default.vert", "shaders/transitions/dreamy.frag");
         flameShader = loadShader("shaders/default.vert", "shaders/flame.frag");
         starWarsShader = loadShader("shaders/default.vert", "shaders/starwars.frag");
+        cooldownShader = loadShader("shaders/default.vert", "shaders/cooldown.frag");
         randomTransitions.add(radialShader);
         randomTransitions.add(pizelizeShader);
 

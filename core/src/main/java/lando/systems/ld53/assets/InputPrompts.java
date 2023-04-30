@@ -32,8 +32,20 @@ public class InputPrompts {
         // letters
           key_light_a(18, 3)
         , key_light_b(23, 4)
+
+        // special characters
+        , key_light_tilde(30, 0)
+        , key_light_bang(31, 0)
+        , key_light_at(32, 0)
+        , key_light_hash(33, 0)
+        , key_light_minus(27, 1)
+        , key_light_plus(28, 1)
+        , key_light_equal(29, 1)
+        , key_light_semicolon(31, 1)
+
         // numbers
         // ...Thanks Brian! Lots of numbers I see here :p
+
         , key_light_number_1(17, 1)
         , key_light_number_2(18, 1)
         , key_light_number_3(19, 1)

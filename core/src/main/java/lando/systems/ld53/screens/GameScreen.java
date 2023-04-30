@@ -15,6 +15,7 @@ import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.PhysicsSystem;
 import lando.systems.ld53.physics.test.TestBall;
 import lando.systems.ld53.ui.TopGameUI;
+import lando.systems.ld53.ui.TopTrapezoid;
 import lando.systems.ld53.world.Map;
 
 public class GameScreen extends BaseScreen {
@@ -29,6 +30,7 @@ public class GameScreen extends BaseScreen {
     private PhysicsSystem physicsSystem;
     private Array<Collidable> physicsObjects;
     private TopGameUI topGameUI;
+    private TopTrapezoid trapezoid;
 
     Array<TestBall> testBalls;
 
@@ -59,6 +61,7 @@ public class GameScreen extends BaseScreen {
         audioManager.playMusic(AudioManager.Musics.level1Thin);
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
 //        audioManager.playSound(AudioManager.Sounds.coin);
+        trapezoid = new TopTrapezoid(player, assets);
     }
 
     @Override
@@ -117,7 +120,8 @@ public class GameScreen extends BaseScreen {
         enemy.update(delta);
         player.update(delta);
         map.update(delta);
-        topGameUI.update(player.getStaminaPercentage());
+//        topGameUI.update(player.getStaminaPercentage());
+        trapezoid.update();
     }
 
     @Override
@@ -158,15 +162,15 @@ public class GameScreen extends BaseScreen {
             }
         }
         batch.end();
-
+        trapezoid.render(batch);
         uiStage.draw();
     }
 
     @Override
     public void initializeUI() {
         super.initializeUI();
-        topGameUI = new TopGameUI(this);
-        uiStage.addActor(topGameUI);
+        //topGameUI = new TopGameUI(this);
+        //uiStage.addActor(topGameUI);
     }
 
 }
