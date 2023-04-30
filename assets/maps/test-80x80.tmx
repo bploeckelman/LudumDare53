@@ -24,10 +24,8 @@
   </object>
  </objectgroup>
  <objectgroup id="3" name="objects">
-  <object id="35" template="peg.tx" x="230" y="150"/>
   <object id="36" template="peg.tx" x="230" y="230"/>
   <object id="37" template="peg.tx" x="150" y="230"/>
-  <object id="38" template="peg.tx" x="1030" y="150"/>
   <object id="39" template="peg.tx" x="1030" y="230"/>
   <object id="40" template="peg.tx" x="1110" y="230"/>
   <object id="41" template="peg.tx" x="310" y="470"/>
