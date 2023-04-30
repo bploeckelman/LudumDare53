@@ -1,5 +1,6 @@
 assets/sprites/sprites*.atlas
 assets/sprites/sprites*.png
+assets/maps/ludum-dare-53.tiled-session
 
 ## Gradle:
 .gradle/
