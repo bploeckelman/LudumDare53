@@ -54,19 +54,24 @@ public class Player implements Entity, Collidable {
     public SpecialAbility currentAbility = SpecialAbility.slash_360;
 
     public enum SpecialAbility {
-        //TODO: some descriptions are non-sense, make it sensical.
-        slash_360(InputPrompts.Type.key_light_at, "@ attack!", "Slash your 1 360 degrees"),
-        hash_attack(InputPrompts.Type.key_light_hash, "# attack!", "Hash your 1 out"),
-        bomb_attack(InputPrompts.Type.key_light_bang, "! attack?","Bang your bomb"),
-        equal_attack(InputPrompts.Type.key_light_equal, "= attack!", "Everyone is equal");
+        //TODO: some descriptions are non-sense, make it sensical. Need 3 minimum
+        slash_360(InputPrompts.Type.key_light_at, "@ attack!", "Slash your 1 360 degrees", true),
+        hash_attack(InputPrompts.Type.key_light_hash, "# attack!", "Hash your 1 out", false),
+        bomb_attack(InputPrompts.Type.key_light_bang, "! attack?","Bang your bomb", false),
+        equal_attack(InputPrompts.Type.key_light_equal, "= attack!", "Everyone is equal", false),
+        plus_attack(InputPrompts.Type.key_light_plus, "+ attack!", "Add packet", false),
+        minus_attack(InputPrompts.Type.key_light_minus, "- attack!", "Remove bug", false);
+
 
         public final InputPrompts.Type type;
         public final String title;
         public final String description;
-        SpecialAbility(InputPrompts.Type type, String title, String description) {
+        public boolean isUnlocked;
+        SpecialAbility(InputPrompts.Type type, String title, String description, boolean isUnlocked) {
             this.title = title;
             this.type = type;
             this.description = description;
+            this.isUnlocked = isUnlocked;
         }
     }
     public enum State {
