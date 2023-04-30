@@ -66,7 +66,7 @@ public class GameScreen extends BaseScreen {
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
 //        audioManager.playSound(AudioManager.Sounds.coin);
         trapezoid = new TopTrapezoid(player, assets);
-        testSkillUI = new IndividualSkillUI(assets, player.currentAbility);
+        testSkillUI = new IndividualSkillUI(this, player.currentAbility);
         //uiStage.addActor(testSkillUI);
     }
 
