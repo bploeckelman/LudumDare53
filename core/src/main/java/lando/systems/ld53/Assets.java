@@ -123,6 +123,18 @@ public class Assets implements Disposable {
     public Sound gobble4;
     public Sound gobble5;
     public Sound ticktock;
+    public Sound zap1;
+    public Sound zap2;
+    public Sound zap3;
+    public Sound zap4;
+    public Sound zap5;
+    public Sound zap6;
+    public Sound zap7;
+    public Sound zap8;
+    public Sound zap9;
+    public Sound zap10;
+    public Sound zap11;
+    public Sound zap12;
 
     public enum Patch {
         debug, panel, metal, glass,
@@ -222,6 +234,18 @@ public class Assets implements Disposable {
             mgr.load("audio/sounds/gobble4.ogg", Sound.class);
             mgr.load("audio/sounds/gobble5.ogg", Sound.class);
             mgr.load("audio/sounds/ticktock1.ogg", Sound.class);
+            mgr.load("audio/sounds/zap1.ogg", Sound.class);
+            mgr.load("audio/sounds/zap2.ogg", Sound.class);
+            mgr.load("audio/sounds/zap3.ogg", Sound.class);
+            mgr.load("audio/sounds/zap4.ogg", Sound.class);
+            mgr.load("audio/sounds/zap5.ogg", Sound.class);
+            mgr.load("audio/sounds/zap6.ogg", Sound.class);
+            mgr.load("audio/sounds/zap7.ogg", Sound.class);
+            mgr.load("audio/sounds/zap8.ogg", Sound.class);
+            mgr.load("audio/sounds/zap9.ogg", Sound.class);
+            mgr.load("audio/sounds/zap10.ogg", Sound.class);
+            mgr.load("audio/sounds/zap11.ogg", Sound.class);
+            mgr.load("audio/sounds/zap12.ogg", Sound.class);
 
             mgr.load("audio/music/level1-thin.ogg", Music.class);
             mgr.load("audio/music/level1-full.ogg", Music.class);
@@ -398,7 +422,18 @@ public class Assets implements Disposable {
         gobble4 = mgr.get("audio/sounds/gobble4.ogg", Sound.class);
         gobble5 = mgr.get("audio/sounds/gobble5.ogg", Sound.class);
         ticktock = mgr.get("audio/sounds/ticktock1.ogg", Sound.class);
-//         = mgr.get("audio/sounds/.ogg", Sound.class);
+         zap1 = mgr.get("audio/sounds/zap1.ogg", Sound.class);
+         zap2 = mgr.get("audio/sounds/zap2.ogg", Sound.class);
+         zap3 = mgr.get("audio/sounds/zap3.ogg", Sound.class);
+         zap4 = mgr.get("audio/sounds/zap4.ogg", Sound.class);
+         zap5 = mgr.get("audio/sounds/zap5.ogg", Sound.class);
+         zap6 = mgr.get("audio/sounds/zap6.ogg", Sound.class);
+         zap7 = mgr.get("audio/sounds/zap7.ogg", Sound.class);
+         zap8 = mgr.get("audio/sounds/zap8.ogg", Sound.class);
+         zap9 = mgr.get("audio/sounds/zap9.ogg", Sound.class);
+         zap10 = mgr.get("audio/sounds/zap10.ogg", Sound.class);
+         zap11 = mgr.get("audio/sounds/zap11.ogg", Sound.class);
+         zap12 = mgr.get("audio/sounds/zap12.ogg", Sound.class);
 //         = mgr.get("audio/sounds/.ogg", Sound.class);
 //         = mgr.get("audio/sounds/.ogg", Sound.class);
 

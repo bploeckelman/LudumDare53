@@ -114,7 +114,14 @@ public class Ball implements Entity, Collidable {
 
     @Override
     public void collidedWith(Collidable object) {
-        Main.game.audioManager.playSound(AudioManager.Sounds.pop);
+
+        if(object instanceof Player) {
+            Main.game.audioManager.playSound(AudioManager.Sounds.zap, .25f);
+        }
+        else {
+            Main.game.audioManager.playSound(AudioManager.Sounds.pop);
+        }
+
 
     }
 

@@ -33,6 +33,7 @@ public class AudioManager implements Disposable {
         , bodyHit
         , gobble
         , ticktock
+        , zap
 
 
     }
@@ -82,6 +83,18 @@ public class AudioManager implements Disposable {
         putSound(Sounds.gobble, assets.gobble4);
         putSound(Sounds.gobble, assets.gobble5);
         putSound(Sounds.ticktock, assets.ticktock);
+        putSound(Sounds.zap, assets.zap1);
+        putSound(Sounds.zap, assets.zap2);
+        putSound(Sounds.zap, assets.zap3);
+        putSound(Sounds.zap, assets.zap4);
+        putSound(Sounds.zap, assets.zap5);
+        putSound(Sounds.zap, assets.zap6);
+        putSound(Sounds.zap, assets.zap7);
+        putSound(Sounds.zap, assets.zap8);
+        putSound(Sounds.zap, assets.zap9);
+        putSound(Sounds.zap, assets.zap10);
+        putSound(Sounds.zap, assets.zap11);
+        putSound(Sounds.zap, assets.zap12);
 
         musics.put(Musics.level1Thin, assets.level1Thin);
         musics.put(Musics.level1Full, assets.level1Full);

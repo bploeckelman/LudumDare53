@@ -68,7 +68,7 @@ public class GameScreen extends BaseScreen {
 
         Gdx.input.setInputProcessor(uiStage);
 
-        audioManager.playMusic(AudioManager.Musics.level1Thin);
+        audioManager.playMusic(AudioManager.Musics.level1Full, true, true);
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
 //        audioManager.playSound(AudioManager.Sounds.coin);
         trapezoid = new TopTrapezoid(player, assets);
