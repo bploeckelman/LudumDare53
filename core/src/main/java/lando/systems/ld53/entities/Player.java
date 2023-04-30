@@ -48,12 +48,17 @@ public class Player implements Entity, Collidable {
     public float mass = 20f;
     public float friction = 0.1f;
     public enum SpecialAbility {
-        slash_360(InputPrompts.Type.key_light_at),
-        none(InputPrompts.Type.key_light_hash);
+        //TODO: some descriptions are non-sense, make it sensical.
+        slash_360(InputPrompts.Type.key_light_at, "Slash your 1 360 degrees"),
+        hash_attack(InputPrompts.Type.key_light_hash, "Hash your 1 out"),
+        bomb_attack(InputPrompts.Type.key_light_bang, "Bang your bomb"),
+        equal_attack(InputPrompts.Type.key_light_equal, "Everyone is equal");
 
         public final InputPrompts.Type type;
-        SpecialAbility(InputPrompts.Type type) {
+        public final String description;
+        SpecialAbility(InputPrompts.Type type, String description) {
             this.type = type;
+            this.description = description;
         }
     }
     public enum State {
@@ -193,15 +198,18 @@ public class Player implements Entity, Collidable {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             handleSlash();
         }
-        // If player does 360
+        // If player does specialAttack
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             if (stamina < SPECIAL_COST) {
                 Main.game.audioManager.playSound(AudioManager.Sounds.coin);
             } else {
                 isAttacking = true;
-                currentState = State.slash_360;
                 stamina -= SPECIAL_COST;
-                Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh);
+                switch(currentAbility) {
+                    case slash_360:
+                        currentState = State.slash_360;
+                        Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh);
+                }
             }
         }
         //set player image based on currentState
