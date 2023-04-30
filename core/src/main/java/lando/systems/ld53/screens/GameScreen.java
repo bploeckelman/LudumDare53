@@ -18,6 +18,11 @@ import lando.systems.ld53.physics.test.TestAttractor;
 import lando.systems.ld53.physics.test.TestBall;
 import lando.systems.ld53.physics.test.TestRepulser;
 import lando.systems.ld53.ui.IndividualSkillUI;
+<<<<<<< Updated upstream
+=======
+import lando.systems.ld53.ui.SelectSkillUI;
+import lando.systems.ld53.ui.TopGameUI;
+>>>>>>> Stashed changes
 import lando.systems.ld53.ui.TopTrapezoid;
 import lando.systems.ld53.world.Map;
 
@@ -37,7 +42,8 @@ public class GameScreen extends BaseScreen {
     private final Array<TestBall> testBalls;
 
     private TopTrapezoid trapezoid;
-    private IndividualSkillUI testSkillUI;
+    private SelectSkillUI selectSkillUI;
+    private boolean isSelectSkillUIShown = false;
 
     public GameScreen() {
         super();
@@ -72,8 +78,8 @@ public class GameScreen extends BaseScreen {
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
 //        audioManager.playSound(AudioManager.Sounds.coin);
         trapezoid = new TopTrapezoid(player, assets);
-        testSkillUI = new IndividualSkillUI(this, player.currentAbility);
-        //uiStage.addActor(testSkillUI);
+        selectSkillUI = new SelectSkillUI(assets, skin, player);
+        uiStage.addActor(selectSkillUI);
     }
 
     @Override
@@ -84,6 +90,19 @@ public class GameScreen extends BaseScreen {
             audioManager.stopMusic();
             game.setScreen(new TitleScreen());
             return;
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            isSelectSkillUIShown = !isSelectSkillUIShown;
+            selectSkillUI.show(isSelectSkillUIShown);
+            return;
+        }
+        if (isSelectSkillUIShown) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
+                selectSkillUI.showNextSkill();
+            }
+            else if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
+                selectSkillUI.showPreviousSkill();
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
             if(assets.level1Full.isPlaying()) {
