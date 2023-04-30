@@ -27,12 +27,13 @@ public class GameScreen extends BaseScreen {
     private BulletEnemy bulletEnemy;
 
     public final Array<Bullet> bullets;
-    private PhysicsSystem physicsSystem;
-    private Array<Collidable> physicsObjects;
+
+    private final PhysicsSystem physicsSystem;
+    private final Array<Collidable> physicsObjects;
+    private final Array<TestBall> testBalls;
+
     private TopGameUI topGameUI;
     private TopTrapezoid trapezoid;
-
-    Array<TestBall> testBalls;
 
     public GameScreen() {
         super();
@@ -40,14 +41,14 @@ public class GameScreen extends BaseScreen {
         worldCamera.setToOrtho(false, Config.Screen.framebuffer_width, Config.Screen.framebuffer_height);
         worldCamera.update();
 
+        bullets = new Array<>();
+
         map = new Map("maps/test-80x80.tmx");
         ball = new Ball(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         player = new Player(assets);
         enemy = new Enemy(assets, player.position.x - 200f, player.position.y + 80f);
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
-        bullets = new Array<>();
 
-        Gdx.input.setInputProcessor(uiStage);
         physicsObjects = new Array<>();
         physicsSystem = new PhysicsSystem(new Rectangle(0,0, Config.Screen.window_width, Config.Screen.window_height));
 
@@ -57,6 +58,8 @@ public class GameScreen extends BaseScreen {
             Vector2 vel = new Vector2(MathUtils.random(-60f, 60f), MathUtils.random(-60f, 60f));
             testBalls.add(new TestBall(pos, vel));
         }
+
+        Gdx.input.setInputProcessor(uiStage);
 
         audioManager.playMusic(AudioManager.Musics.level1Thin);
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
@@ -84,7 +87,6 @@ public class GameScreen extends BaseScreen {
                 assets.level1Full.setPosition(assets.level1Thin.getPosition());
                 assets.level1Thin.stop();
             }
-
         }
 
         physicsObjects.clear();
@@ -111,17 +113,15 @@ public class GameScreen extends BaseScreen {
             }
         }
 
-        for (Peg peg : map.pegs) {
-            peg.update(delta);
-        }
-
         ball.update(delta);
         bulletEnemy.update(delta);
         enemy.update(delta);
         player.update(delta);
         map.update(delta);
-//        topGameUI.update(player.getStaminaPercentage());
+
         trapezoid.update();
+//        topGameUI.update(player.getStaminaPercentage());
+        uiStage.setDebugAll(Config.Debug.ui);
     }
 
     @Override
@@ -137,6 +137,10 @@ public class GameScreen extends BaseScreen {
                 peg.render(batch);
             }
 
+            for (Goal goal : map.goals) {
+                goal.render(batch);
+            }
+
             bulletEnemy.render(batch);
             enemy.render(batch);
             player.render(batch);
@@ -148,11 +152,6 @@ public class GameScreen extends BaseScreen {
                 for (TestBall ball : testBalls){
                     ball.debugRender(batch);
                 }
-            }
-            if (Config.Debug.ui){
-                uiStage.setDebugAll(true);
-            } else {
-                uiStage.setDebugAll(false);
             }
 
             ball.render(batch);

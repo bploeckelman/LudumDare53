@@ -17,7 +17,9 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.I18NBundle;
 import lando.systems.ld53.assets.InputPrompts;
+import lando.systems.ld53.entities.Goal;
 import space.earlygrey.shapedrawer.ShapeDrawer;
+import text.formic.Stringf;
 
 public class Assets implements Disposable {
 
@@ -256,6 +258,12 @@ public class Assets implements Disposable {
 
         etWalk = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-walk"), Animation.PlayMode.LOOP);
         etFloat = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-float"), Animation.PlayMode.LOOP_PINGPONG);
+
+        // initialize Goal animations for each type
+        for (Goal.Type type : Goal.Type.values()) {
+            String regionsPath = Stringf.format("objects/goal-%s/goal-%s", type.name(), type.name());
+            type.anim = new Animation<>(0.1f, atlas.findRegions(regionsPath), Animation.PlayMode.LOOP);
+        }
 
         // initialize patch values
         Patch.debug.ninePatch        = new NinePatch(atlas.findRegion("ninepatch/debug"), 2, 2, 2, 2);

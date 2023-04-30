@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
@@ -19,6 +20,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
+import lando.systems.ld53.entities.Goal;
 import lando.systems.ld53.entities.Peg;
 import lando.systems.ld53.entities.WallSegment;
 import lando.systems.ld53.utils.TemplateAwareTmxMapLoader;
@@ -37,10 +39,12 @@ public class Map {
     private final Array<PolygonMapObject> polygonObjects;
     private final Array<PolylineMapObject> polylineObjects;
     private final Array<EllipseMapObject> ellipseObjects;
+    private final Array<RectangleMapObject> rectangleObjects;
 
     public final Array<Vector2> polylineEndpoints;
     public final Array<Circle> circles;
     public final Array<Peg> pegs;
+    public final Array<Goal> goals;
 
     public Array<WallSegment> wallSegments;
 
@@ -53,6 +57,9 @@ public class Map {
         this.map = loader.load(fileName);
         this.renderer = new OrthoCachedTiledMapRenderer(map);
         this.renderer.setBlending(true);
+
+        this.pegs = new Array<>();
+        this.goals = new Array<>();
 
         // load layers
         this.layers = new Layers();
@@ -68,17 +75,20 @@ public class Map {
         this.polylineObjects = collisionObjects.getByType(PolylineMapObject.class);
 
         // load map objects
-        this.pegs = new Array<>();
         this.ellipseObjects = new Array<>();
+        this.rectangleObjects = new Array<>();
         MapObjects objects = layers.objects.getObjects();
         for (MapObject object : objects) {
             MapProperties props = object.getProperties();
             if (object instanceof EllipseMapObject) {
                 ellipseObjects.add((EllipseMapObject) object);
+            } else if (object instanceof RectangleMapObject) {
+                rectangleObjects.add((RectangleMapObject) object);
             }
         }
 
         // extract 'ellipse' (actually circle) data for easy access by the collision system
+        // and instantiate entities that are
         this.circles = new Array<Circle>();
         for (int i = 0; i < ellipseObjects.size; i++) {
             EllipseMapObject ellipseObject = ellipseObjects.get(i);
@@ -100,6 +110,17 @@ public class Map {
             }
         }
 
+        // instantiate entities from the rectangle objects
+        for (RectangleMapObject rectObj : rectangleObjects) {
+            Rectangle rect = rectObj.getRectangle();
+            MapProperties props = rectObj.getProperties();
+            String type = props.get("type", "", String.class);
+            if (type.equals("goal")) {
+                Goal goal = new Goal(rectObj);
+                goals.add(goal);
+            }
+        }
+
         // extract polyline endpoints for easy access by the collision system
         this.polylineEndpoints = new Array<>();
         this.wallSegments = new Array<>();
@@ -117,7 +138,13 @@ public class Map {
     }
 
     public void update(float delta) {
-        // TODO - update game objects that require updating
+        for (Peg peg : pegs) {
+            peg.update(delta);
+        }
+
+        for (Goal goal : goals) {
+            goal.update(delta);
+        }
     }
 
     public void render(SpriteBatch batch, OrthographicCamera camera) {
