@@ -27,6 +27,10 @@ public class AudioManager implements Disposable {
         , bigswoosh
         , grunt
         , pop
+        , impact
+        , thud
+        , error
+        , bodyHit
 
 
     }
@@ -66,6 +70,10 @@ public class AudioManager implements Disposable {
         putSound(Sounds.pop, assets.pop2);
         putSound(Sounds.pop, assets.pop3);
         putSound(Sounds.pop, assets.pop4);
+        putSound(Sounds.impact, assets.impact1);
+        putSound(Sounds.error, assets.error1);
+        putSound(Sounds.thud, assets.thud1);
+        putSound(Sounds.bodyHit, assets.bodyHit);
 
         musics.put(Musics.level1Thin, assets.level1Thin);
         musics.put(Musics.level1Full, assets.level1Full);

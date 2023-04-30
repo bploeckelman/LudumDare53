@@ -113,6 +113,10 @@ public class Assets implements Disposable {
     public Sound pop2;
     public Sound pop3;
     public Sound pop4;
+    public Sound impact1;
+    public Sound error1;
+    public Sound thud1;
+    public Sound bodyHit;
 
     public enum Patch {
         debug, panel, metal, glass,
@@ -202,6 +206,10 @@ public class Assets implements Disposable {
             mgr.load("audio/sounds/pop2.ogg", Sound.class);
             mgr.load("audio/sounds/pop3.ogg", Sound.class);
             mgr.load("audio/sounds/pop4.ogg", Sound.class);
+            mgr.load("audio/sounds/impact1.ogg", Sound.class);
+            mgr.load("audio/sounds/error1.ogg", Sound.class);
+            mgr.load("audio/sounds/thud1.ogg", Sound.class);
+            mgr.load("audio/sounds/bodyhit1.ogg", Sound.class);
 
             mgr.load("audio/music/level1-thin.ogg", Music.class);
             mgr.load("audio/music/level1-full.ogg", Music.class);
@@ -368,6 +376,10 @@ public class Assets implements Disposable {
         pop2 = mgr.get("audio/sounds/pop2.ogg", Sound.class);
         pop3 = mgr.get("audio/sounds/pop3.ogg", Sound.class);
         pop4 = mgr.get("audio/sounds/pop4.ogg", Sound.class);
+        impact1 = mgr.get("audio/sounds/impact1.ogg", Sound.class);
+        error1 = mgr.get("audio/sounds/error1.ogg", Sound.class);
+        thud1 = mgr.get("audio/sounds/thud1.ogg", Sound.class);
+        bodyHit = mgr.get("audio/sounds/bodyhit1.ogg", Sound.class);
 
         // Music
         level1Thin = mgr.get("audio/music/level1-thin.ogg", Music.class);

@@ -8,6 +8,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import lando.systems.ld53.Assets;
+import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
@@ -150,6 +152,10 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
         boolean isEnemy = (object instanceof Enemy);
         if (isPlayer || isEnemy) {
             alive = false;
+        }
+        if(isPlayer) {
+            Main.game.audioManager.playSound(AudioManager.Sounds.grunt, 11f);
+            Main.game.audioManager.playSound(AudioManager.Sounds.bodyHit, .25f);
         }
     }
 

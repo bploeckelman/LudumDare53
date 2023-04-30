@@ -201,14 +201,14 @@ public class Player implements Entity, Collidable {
         // If player does specialAttack
         if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             if (stamina < SPECIAL_COST) {
-                Main.game.audioManager.playSound(AudioManager.Sounds.coin);
+                Main.game.audioManager.playSound(AudioManager.Sounds.error, .35f);
             } else {
                 isAttacking = true;
                 stamina -= SPECIAL_COST;
                 switch(currentAbility) {
                     case slash_360:
                         currentState = State.slash_360;
-                        Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh);
+                        Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh, .26f);
                 }
             }
         }
