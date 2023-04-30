@@ -51,28 +51,25 @@ public class PhysicsSystem {
         return total / timings.size;
     }
 
-    public void update(float dt, Array<Collidable> collidables) {
+    public void update(float dt, Array<Collidable> collidables, Array<Influencer> influencers) {
         if (USE_STEPS) {
             int stepsThisFrame = 0;
             internalTimer += dt;
             internalTimer = MathUtils.clamp(internalTimer, 0, .1f);
             while (internalTimer >= stepIncrement) {
-                solve(stepIncrement, collidables);
+                solve(stepIncrement, collidables, influencers);
                 internalTimer -= stepIncrement;
                 stepsThisFrame++;
             }
         } else {
-            solve(MathUtils.clamp(dt, .001f, .1f), collidables);
+            solve(MathUtils.clamp(dt, .001f, .1f), collidables, influencers);
         }
     }
 
-    public void solve(float stepIncrement, Array<Collidable> collidables) {
+    public void solve(float stepIncrement, Array<Collidable> collidables, Array<Influencer> influencers) {
         long startTime = TimeUtils.millis();
-        Collidable lastCollision1 = null;
-        Collidable lastCollision2 = null;
 
-
-        boolean overlaps = false;
+        boolean overlaps;
         int infiniteLoops = 0;
         float timeLeft = stepIncrement;
         while (timeLeft > 0) {
@@ -166,7 +163,7 @@ public class PhysicsSystem {
 
             if (infiniteLoops++ > 100) {
                 Gdx.app.log("Physics", "Caught in an infinite loop doing collisions");
-                updateMovements(collidables, timeLeft);
+                updateMovements(collidables, influencers, timeLeft);
                 break;
             }
 
@@ -211,13 +208,13 @@ public class PhysicsSystem {
 //                collisions.sort();
                 Collision c = nextCollision;
                 double time = c.t * timeLeft;
-                updateMovements(collidables, time);
+                updateMovements(collidables, influencers, time);
                 c.handleCollision();
                 timeLeft -= time;
 
             } else {
                 // no collisions just move
-                updateMovements(collidables, timeLeft);
+                updateMovements(collidables, influencers, timeLeft);
                 timeLeft = 0;
             }
         }
@@ -227,7 +224,7 @@ public class PhysicsSystem {
         }
     }
 
-    private void updateMovements(Array<Collidable> collidables, double dt) {
+    private void updateMovements(Array<Collidable> collidables, Array<Influencer> influencers, double dt) {
         if (dt == 0) return;
         for (Collidable c : collidables) {
             if (c.getMass() != Collidable.IMMOVABLE) {
@@ -236,7 +233,22 @@ public class PhysicsSystem {
                 c.getVelocity().scl((float) Math.pow(c.getFriction(), dt));
                 c.setPosition(tempVec2);
                 if (c.getVelocity().len2() < 2) c.setVelocity(Vector2.Zero);
+                addInfluence(c, influencers, dt);
                 // TODO: update rotations?
+            }
+        }
+    }
+
+    private void addInfluence(Collidable c, Array<Influencer> influencers, double dt) {
+        for (Influencer i : influencers){
+
+            float rangeSquare = i.getRange() * i.getRange();
+            tempVec2.set(i.getPosition()).sub(c.getPosition());
+            float dist2 = tempVec2.len2();
+            if (rangeSquare > dist2) {
+                tempVec2.nor();
+                float strength = (rangeSquare - dist2)/rangeSquare * i.getStrength();
+                c.getVelocity().add((float)(tempVec2.x * strength * dt), (float)(tempVec2.y * strength * dt));
             }
         }
     }

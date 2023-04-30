@@ -12,8 +12,11 @@ import lando.systems.ld53.Config;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
 import lando.systems.ld53.physics.Collidable;
+import lando.systems.ld53.physics.Influencer;
 import lando.systems.ld53.physics.PhysicsSystem;
+import lando.systems.ld53.physics.test.TestAttractor;
 import lando.systems.ld53.physics.test.TestBall;
+import lando.systems.ld53.physics.test.TestRepulser;
 import lando.systems.ld53.ui.IndividualSkillUI;
 import lando.systems.ld53.ui.TopGameUI;
 import lando.systems.ld53.ui.TopTrapezoid;
@@ -31,6 +34,7 @@ public class GameScreen extends BaseScreen {
 
     private final PhysicsSystem physicsSystem;
     private final Array<Collidable> physicsObjects;
+    private final Array<Influencer> influencers;
     private final Array<TestBall> testBalls;
 
     private TopTrapezoid trapezoid;
@@ -50,6 +54,7 @@ public class GameScreen extends BaseScreen {
         enemy = new Enemy(assets, player.position.x - 200f, player.position.y + 80f);
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
 
+        influencers = new Array<>();
         physicsObjects = new Array<>();
         physicsSystem = new PhysicsSystem(new Rectangle(0,0, Config.Screen.window_width, Config.Screen.window_height));
 
@@ -59,6 +64,8 @@ public class GameScreen extends BaseScreen {
             Vector2 vel = new Vector2(MathUtils.random(-60f, 60f), MathUtils.random(-60f, 60f));
             testBalls.add(new TestBall(pos, vel));
         }
+        influencers.add(new TestAttractor(new Vector2(400, 500)));
+        influencers.add(new TestRepulser(new Vector2(700, 450)));
 
         Gdx.input.setInputProcessor(uiStage);
 
@@ -106,7 +113,7 @@ public class GameScreen extends BaseScreen {
         physicsObjects.add(player);
         physicsObjects.add(enemy);
 
-        physicsSystem.update(delta, physicsObjects);
+        physicsSystem.update(delta, physicsObjects, influencers);
 
         for (int i = bullets.size - 1; i >= 0; i--) {
             Bullet bullet = bullets.get(i);
@@ -157,6 +164,9 @@ public class GameScreen extends BaseScreen {
             if (Config.Debug.general){
                 for (Collidable collidable : physicsObjects) {
                     collidable.renderDebug(assets.shapes);
+                }
+                for (Influencer i : influencers) {
+                    i.debugRender(batch);
                 }
             }
         }

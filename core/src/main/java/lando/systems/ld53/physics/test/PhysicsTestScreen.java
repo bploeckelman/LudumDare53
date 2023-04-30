@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.physics.Collidable;
+import lando.systems.ld53.physics.Influencer;
 import lando.systems.ld53.physics.PhysicsSystem;
 import lando.systems.ld53.screens.BaseScreen;
 
@@ -19,12 +20,14 @@ public class PhysicsTestScreen extends BaseScreen {
     TestGameArea gameArea;
     PhysicsSystem physicsSystem;
     Array<Collidable> collidables;
+    Array<Influencer> influencers;
 
 
     public PhysicsTestScreen() {
         super();
         physicsSystem = new PhysicsSystem(new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         collidables = new Array<>();
+        influencers = new Array<>();
         worldCamera.setToOrtho(false, Config.Screen.window_width, Config.Screen.window_height);
         worldCamera.update();
 
@@ -49,7 +52,7 @@ public class PhysicsTestScreen extends BaseScreen {
         collidables.clear();
         collidables.addAll(balls);
         collidables.addAll(gameArea.segments);
-        physicsSystem.update(delta, collidables);
+        physicsSystem.update(delta, collidables, influencers);
     }
 
     @Override
