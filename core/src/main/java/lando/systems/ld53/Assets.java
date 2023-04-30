@@ -91,6 +91,7 @@ public class Assets implements Disposable {
 
     public Music level1Thin;
     public Music level1Full;
+    public Music introMusic;
 
     public Sound coin1;
     public Sound swoosh1;
@@ -174,6 +175,7 @@ public class Assets implements Disposable {
 
             mgr.load("audio/music/level1-thin.ogg", Music.class);
             mgr.load("audio/music/level1-full.ogg", Music.class);
+            mgr.load("audio/music/introMusic.ogg", Music.class);
         }
 
         if (load == Load.SYNC) {
@@ -319,6 +321,7 @@ public class Assets implements Disposable {
         // Music
         level1Thin = mgr.get("audio/music/level1-thin.ogg", Music.class);
         level1Full = mgr.get("audio/music/level1-full.ogg", Music.class);
+        introMusic = mgr.get("audio/music/introMusic.ogg", Music.class);
 
         initialized = true;
         return 1;

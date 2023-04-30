@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import lando.systems.ld53.Assets;
+import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.screens.BaseScreen;
 import lando.systems.ld53.screens.CreditScreen;
 import lando.systems.ld53.screens.GameScreen;
@@ -31,6 +33,8 @@ public class TitleScreenUI extends Group {
         titleScreenButtonStyle.down = Assets.Patch.glass_dim.drawable;
         titleScreenButtonStyle.over = Assets.Patch.glass_dim.drawable;
 
+        Main.game.audioManager.playMusic(AudioManager.Musics.introMusic);
+
         float left = screen.windowCamera.viewportWidth * (4.3f / 8f);
         float top = screen.windowCamera.viewportHeight * (1f / 4f);
 
@@ -41,6 +45,7 @@ public class TitleScreenUI extends Group {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 screen.audioManager.stopAllSounds();
+                screen.audioManager.stopMusic();
                 screen.exitingScreen = true;
                 Gdx.input.setInputProcessor(null);
                 screen.game.setScreen(new GameScreen());

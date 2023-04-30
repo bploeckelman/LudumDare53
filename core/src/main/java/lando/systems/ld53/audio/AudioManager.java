@@ -33,6 +33,7 @@ public class AudioManager implements Disposable {
         none
         , level1Thin
         , level1Full
+        , introMusic
     }
 
     public ObjectMap<Sounds, SoundContainer> sounds = new ObjectMap<>();
@@ -55,6 +56,7 @@ public class AudioManager implements Disposable {
 
         musics.put(Musics.level1Thin, assets.level1Thin);
         musics.put(Musics.level1Full, assets.level1Full);
+        musics.put(Musics.introMusic, assets.introMusic);
         //musics.put(Musics.mainTheme, assets.mainTheme);
         //musics.put(Musics.mainTheme, assets.mainTheme);
 
