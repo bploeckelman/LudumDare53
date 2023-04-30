@@ -21,13 +21,17 @@ public class AudioManager implements Disposable {
 
     // none should not have a sound
     public enum Sounds {
-        none ,
-        coin ,
+        none
+        , coin
+        , swoosh
+        , bigswoosh
+
 
     }
 
     public enum Musics {
-        none ,
+        none
+        , level1
     }
 
     public ObjectMap<Sounds, SoundContainer> sounds = new ObjectMap<>();
@@ -45,6 +49,8 @@ public class AudioManager implements Disposable {
         this.tween = tween;
 
         putSound(Sounds.coin, assets.coin1);
+        putSound(Sounds.swoosh, assets.swoosh1);
+        putSound(Sounds.bigswoosh, assets.bigSwoosh1);
 
         //musics.put(Musics.mainTheme, assets.mainTheme);
 

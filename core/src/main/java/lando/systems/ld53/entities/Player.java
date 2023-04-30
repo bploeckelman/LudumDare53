@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
+import lando.systems.ld53.screens.BaseScreen;
+import lando.systems.ld53.screens.GameScreen;
 
 import java.util.HashMap;
 
@@ -141,13 +145,14 @@ public class Player implements Entity{
             }
         }
         // If player slashes
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             handleSlash();
         }
         // If player does 360
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             isAttacking = true;
             currentState = State.slash_360;
+            Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh);
         }
         //set player image based on currentState
         currentPlayerAnimation = animations.get(currentState);
@@ -166,6 +171,10 @@ public class Player implements Entity{
 
     private void handleSlash() {
         isAttacking = true;
+
+        Main.game.audioManager.playSound(AudioManager.Sounds.swoosh);
+
+
         switch (currentDirection) {
             case up:
                 currentState = State.slash_up;

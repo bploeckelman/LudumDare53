@@ -2,6 +2,7 @@ package lando.systems.ld53;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -80,7 +81,11 @@ public class Assets implements Disposable {
 
     public InputPrompts inputPrompts;
 
+    public Music level1;
+
     public Sound coin1;
+    public Sound swoosh1;
+    public Sound bigSwoosh1;
 
     public enum Patch {
         debug, panel, metal, glass,
@@ -155,6 +160,8 @@ public class Assets implements Disposable {
             mgr.load("fonts/outfit-medium-80px.fnt", BitmapFont.class);
 
             mgr.load("audio/sounds/coin1.ogg", Sound.class);
+            mgr.load("audio/sounds/swoosh1.ogg", Sound.class);
+            mgr.load("audio/sounds/bigswoosh1.ogg", Sound.class);
 
         }
 
@@ -268,6 +275,8 @@ public class Assets implements Disposable {
 
         //Sounds
         coin1 = mgr.get("audio/sounds/coin1.ogg", Sound.class);
+        swoosh1 = mgr.get("audio/sounds/swoosh1.ogg", Sound.class);
+        bigSwoosh1 = mgr.get("audio/sounds/bigswoosh1.ogg", Sound.class);
 
         initialized = true;
         return 1;
