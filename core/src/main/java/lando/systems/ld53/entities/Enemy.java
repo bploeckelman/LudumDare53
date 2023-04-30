@@ -13,10 +13,11 @@ import lando.systems.ld53.physics.CollisionShapeCircle;
 
 public class Enemy implements Entity, Collidable {
 
-    private final Vector2 velocity;
     private final Rectangle bounds;
     private final CollisionShapeCircle circle;
     private final Animation<TextureRegion> animation;
+    private final Vector2 velocity;
+    private final Vector2 v = new Vector2();
 
     // TODO(brian) - use target to set velocity? need to add behavioral code
     private Vector2 target;
@@ -54,6 +55,10 @@ public class Enemy implements Entity, Collidable {
             float x = MathUtils.random(80, 1200);
             float y = MathUtils.random(80, 640);
             target.set(x, y);
+
+            float speed = 300f;
+            v.set(target).sub(getPosition()).nor().scl(speed);
+            velocity.add(v);
 
 //            Tween.to(circle, CircleAccessor.XY, moveTime)
 //                .target(target.x, target.y)
@@ -128,6 +133,6 @@ public class Enemy implements Entity, Collidable {
 
     @Override
     public boolean shouldCollideWith(Collidable object) {
-        return false;
+        return true;
     }
 }

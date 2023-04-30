@@ -78,6 +78,7 @@ public class GameScreen extends BaseScreen {
         physicsObjects.addAll(bullets);
         physicsObjects.add(ball);
         physicsObjects.add(player);
+        physicsObjects.add(enemy);
 
         physicsSystem.update(delta, physicsObjects);
 
