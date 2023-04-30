@@ -38,6 +38,8 @@ public class Assets implements Disposable {
     public Texture gdx;
     public Texture titleScreen;
 
+    public TextureRegion ring;
+
     public TextureRegion pixelRegion;
 
     public Animation<TextureRegion> asuka;
@@ -164,6 +166,9 @@ public class Assets implements Disposable {
         if (initialized) return 1;
 
         atlas = mgr.get("sprites/sprites.atlas");
+
+        ring = atlas.findRegion("ring");
+
         strings = mgr.get("i18n/strings", I18NBundle.class);
 
         gdx = mgr.get("images/libgdx.png");
