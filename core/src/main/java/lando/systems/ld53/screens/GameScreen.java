@@ -143,28 +143,21 @@ public class GameScreen extends BaseScreen {
             for (Peg peg : map.pegs) {
                 peg.render(batch);
             }
-
             for (Goal goal : map.goals) {
                 goal.render(batch);
             }
-
             bulletEnemy.render(batch);
             enemy.render(batch);
             player.render(batch);
-
-            if (Config.Debug.general){
-                for (WallSegment segment : map.wallSegments){
-                    segment.getCollisionShape().debugRender(batch);
-                }
-                for (TestBall ball : testBalls){
-                    ball.debugRender(batch);
-                }
-            }
-
             ball.render(batch);
-
             for (Bullet bullet : bullets) {
                 bullet.render(batch);
+            }
+
+            if (Config.Debug.general){
+                for (Collidable collidable : physicsObjects) {
+                    collidable.renderDebug(assets.shapes);
+                }
             }
         }
         batch.end();

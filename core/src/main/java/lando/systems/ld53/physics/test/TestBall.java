@@ -1,5 +1,6 @@
 package lando.systems.ld53.physics.test;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class TestBall implements Collidable {
     float RADIUS = 10f;
@@ -30,6 +32,18 @@ public class TestBall implements Collidable {
 
     public void debugRender(SpriteBatch batch) {
         collisionShape.debugRender(batch);
+    }
+
+    private static final Color debugColor = new Color(1, 165f / 255f, 0, 0.5f); // Color.ORANGE half alpha
+    @Override
+    public void renderDebug(ShapeDrawer shapes) {
+        shapes.setColor(debugColor);
+        shapes.circle(
+            collisionShape.center.x,
+            collisionShape.center.y,
+            collisionShape.radius,
+            2f);
+        shapes.setColor(Color.WHITE);
     }
 
     @Override

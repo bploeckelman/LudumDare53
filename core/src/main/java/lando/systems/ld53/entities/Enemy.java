@@ -1,5 +1,6 @@
 package lando.systems.ld53.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +13,7 @@ import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Enemy implements Entity, Collidable {
 
@@ -61,10 +63,6 @@ public class Enemy implements Entity, Collidable {
             float speed = 300f;
             v.set(target).sub(getPosition()).nor().scl(speed);
             velocity.add(v);
-
-//            Tween.to(circle, CircleAccessor.XY, moveTime)
-//                .target(target.x, target.y)
-//                .start(Main.game.tween);
         }
     }
 
@@ -75,6 +73,12 @@ public class Enemy implements Entity, Collidable {
             circle.center.y - circle.radius,
             circle.radius * 2,
             circle.radius * 2);
+    }
+
+    private static final Color debugColor = new Color(0, 1, 1, 0.5f); // Color.CYAN half alpha
+    @Override
+    public void renderDebug(ShapeDrawer shapes) {
+        shapes.filledCircle(circle.center, circle.radius, debugColor);
     }
 
     @Override

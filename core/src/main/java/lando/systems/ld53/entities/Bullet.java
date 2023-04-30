@@ -1,5 +1,6 @@
 package lando.systems.ld53.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -14,6 +15,7 @@ import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
 import lando.systems.ld53.physics.test.TestBall;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Bullet implements Entity, Collidable, Pool.Poolable {
 
@@ -89,6 +91,13 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
             circle.center.y - circle.radius,
             circle.radius * 2,
             circle.radius * 2);
+    }
+
+    private static final Color debugColor = new Color(1, 52f / 255f, 28f / 255f, 0.5f); // Color.SCARLET half alpha
+    @Override
+    public void renderDebug(ShapeDrawer shapes) {
+        if (!alive) return;
+        shapes.filledCircle(circle.center, circle.radius, debugColor);
     }
 
     @Override

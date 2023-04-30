@@ -1,5 +1,6 @@
 package lando.systems.ld53.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +13,7 @@ import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
 import lando.systems.ld53.utils.Calc;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Ball implements Entity, Collidable {
 
@@ -47,12 +49,17 @@ public class Ball implements Entity, Collidable {
 
     @Override
     public void render(SpriteBatch batch) {
-        // TODO - should circle or bounds be used here? not sure which takes priority
         batch.draw(keyframe,
             circle.center.x - circle.radius,
             circle.center.y - circle.radius,
             circle.radius * 2,
             circle.radius * 2);
+    }
+
+    private static final Color debugColor = new Color(1, 0, 1, 0.5f); // Color.MAGENTA half alpha
+    @Override
+    public void renderDebug(ShapeDrawer shapes) {
+        shapes.filledCircle(circle.center, circle.radius, debugColor);
     }
 
     @Override

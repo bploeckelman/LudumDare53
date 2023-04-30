@@ -2,6 +2,7 @@ package lando.systems.ld53.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -16,6 +17,7 @@ import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import java.util.HashMap;
 
@@ -38,9 +40,9 @@ public class Player implements Entity, Collidable {
     private Direction currentDirection;
     public Vector2 position;
     public Vector2 movementVector;
-    public Vector2 velocity;
-    CollisionShapeCircle collisionShape;
-    Rectangle collisionBounds;
+    private Vector2 velocity;
+    private Rectangle collisionBounds;
+    private CollisionShapeCircle collisionShape;
     private HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
     private boolean isAttacking = false;
     private boolean isStunned = false;
@@ -239,11 +241,16 @@ public class Player implements Entity, Collidable {
         batch.draw(playerImage, position.x - RADIUS, position.y - RADIUS, RADIUS*2f, RADIUS*2f);
     }
 
+    private static final Color debugColor = new Color(50f / 255f, 205f / 255f, 50f / 255f, 0.5f); // Color.LIME half alpha
+    @Override
+    public void renderDebug(ShapeDrawer shapes) {
+        shapes.filledCircle(collisionShape.center, collisionShape.radius, debugColor);
+    }
+
     private void handleSlash() {
         isAttacking = true;
 
         Main.game.audioManager.playSound(AudioManager.Sounds.swoosh);
-
 
         switch (currentDirection) {
             case up:

@@ -157,61 +157,60 @@ public class Map {
         renderer.render();
 
         // TODO - render polygon sprites for special ground regions
-        // TODO - render game objects with the batch
 
         // render debug visualizations if debug flag is toggled
-        if (Config.Debug.general) {
-            ShapeDrawer shapes = Main.game.assets.shapes;
-            batch.setProjectionMatrix(camera.combined);
-            batch.begin();
-            {
-                // draw polylines
-//                for (int i = 0; i < polylineObjects.size; i++) {
-//                    Polyline polyline = polylineObjects.get(i).getPolyline();
-//                    float[] verts = polyline.getTransformedVertices();
-//                    int numVerts = polyline.getVertices().length;
+//        if (Config.Debug.general) {
+//            ShapeDrawer shapes = Main.game.assets.shapes;
+//            batch.setProjectionMatrix(camera.combined);
+//            batch.begin();
+//            {
+//                // draw polylines
+////                for (int i = 0; i < polylineObjects.size; i++) {
+////                    Polyline polyline = polylineObjects.get(i).getPolyline();
+////                    float[] verts = polyline.getTransformedVertices();
+////                    int numVerts = polyline.getVertices().length;
+////                    for (int v = 0; v < numVerts; v += 2) {
+////                        v1.set(verts[v], verts[v + 1]);
+////                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
+////                        shapes.line(v1, v2, Color.MAGENTA, 6f);
+////                    }
+////                }
+//
+//                // draw polyline endpoints
+//                for (int i = 0; i < polylineEndpoints.size; i += 2) {
+//                    Vector2 p1 = polylineEndpoints.get(i);
+//                    Vector2 p2 = polylineEndpoints.get(i+1);
+//                    shapes.filledCircle(p1, 10f, Color.GOLD);
+//                    shapes.filledCircle(p2, 10f, Color.GOLD);
+//                }
+//
+//                // draw polygons (unused currently)
+//                for (int i = 0; i < polygonObjects.size; i++) {
+//                    Polygon polygon = polygonObjects.get(i).getPolygon();
+//                    float[] verts = polygon.getTransformedVertices();
+//                    int numVerts = polygon.getVertexCount();
 //                    for (int v = 0; v < numVerts; v += 2) {
 //                        v1.set(verts[v], verts[v + 1]);
 //                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
-//                        shapes.line(v1, v2, Color.MAGENTA, 6f);
+//                        shapes.line(v1, v2, Color.VIOLET, 6f);
+//                    }
+//                    for (int v = 0; v < numVerts; v += 2) {
+//                        v1.set(verts[v], verts[v + 1]);
+//                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
+//                        shapes.filledCircle(v1, 10f, Color.YELLOW);
+//                        shapes.filledCircle(v2, 10f, Color.YELLOW);
 //                    }
 //                }
-
-                // draw polyline endpoints
-                for (int i = 0; i < polylineEndpoints.size; i += 2) {
-                    Vector2 p1 = polylineEndpoints.get(i);
-                    Vector2 p2 = polylineEndpoints.get(i+1);
-                    shapes.filledCircle(p1, 10f, Color.GOLD);
-                    shapes.filledCircle(p2, 10f, Color.GOLD);
-                }
-
-                // draw polygons (unused currently)
-                for (int i = 0; i < polygonObjects.size; i++) {
-                    Polygon polygon = polygonObjects.get(i).getPolygon();
-                    float[] verts = polygon.getTransformedVertices();
-                    int numVerts = polygon.getVertexCount();
-                    for (int v = 0; v < numVerts; v += 2) {
-                        v1.set(verts[v], verts[v + 1]);
-                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
-                        shapes.line(v1, v2, Color.VIOLET, 6f);
-                    }
-                    for (int v = 0; v < numVerts; v += 2) {
-                        v1.set(verts[v], verts[v + 1]);
-                        v2.set(verts[(v + 2) % numVerts], verts[(v + 3) % numVerts]);
-                        shapes.filledCircle(v1, 10f, Color.YELLOW);
-                        shapes.filledCircle(v2, 10f, Color.YELLOW);
-                    }
-                }
-
-                // draw circle objects
-                shapes.setColor(1f, 1f, 0f, 0.25f);
-                for (Circle circle : circles) {
-                    shapes.filledCircle(circle.x, circle.y, circle.radius);
-                }
-                shapes.setColor(Color.WHITE);
-            }
-            batch.end();
-        }
+//
+//                // draw circle objects
+//                shapes.setColor(1f, 1f, 0f, 0.25f);
+//                for (Circle circle : circles) {
+//                    shapes.filledCircle(circle.x, circle.y, circle.radius);
+//                }
+//                shapes.setColor(Color.WHITE);
+//            }
+//            batch.end();
+//        }
     }
 
 }

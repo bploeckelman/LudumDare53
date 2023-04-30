@@ -1,11 +1,13 @@
 package lando.systems.ld53.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeSegment;
+import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class WallSegment implements Collidable {
 
@@ -15,6 +17,16 @@ public class WallSegment implements Collidable {
     public WallSegment(float x1, float y1, float x2, float y2) {
         collisionShape = new CollisionShapeSegment(x1, y1, x2, y2);
         collisionBounds = new Rectangle(Math.min(x1, x2)  - 5, Math.min(y1, y2) -5, Math.abs(x2 - x1) + 10, Math.abs(y2-y1) + 10);
+    }
+
+    @Override
+    public void renderDebug(ShapeDrawer shapes) {
+        shapes.line(
+            collisionShape.start.x, collisionShape.start.y,
+            collisionShape.end.x, collisionShape.end.y,
+            Color.YELLOW, 4f);
+        shapes.filledCircle(collisionShape.start, 8f, Color.GOLDENROD);
+        shapes.filledCircle(collisionShape.end, 8f, Color.GOLDENROD);
     }
 
     @Override
