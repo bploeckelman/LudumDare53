@@ -104,7 +104,7 @@ public class PhysicsSystem {
                             overlaps = true;
                             if (Config.Debug.general && !hasFlaggedOverlaps) {
                                 hasFlaggedOverlaps = true;
-                                Gdx.app.log("Physics", "overlap detected moving away");
+//                                Gdx.app.log("Physics", "overlap detected moving away");
                             }
                             // handle circle-circle first
                             if (firstShape instanceof CollisionShapeCircle && neighbor.getCollisionShape() instanceof CollisionShapeCircle) {

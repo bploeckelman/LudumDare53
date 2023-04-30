@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
@@ -12,10 +13,16 @@ import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.screens.BaseScreen;
 import lando.systems.ld53.screens.GameScreen;
+import lando.systems.ld53.physics.Collidable;
+import lando.systems.ld53.physics.CollisionShape;
+import lando.systems.ld53.physics.CollisionShapeCircle;
 
 import java.util.HashMap;
 
-public class Player implements Entity{
+public class Player implements Entity, Collidable {
+    private static float RADIUS = 30;
+    float COLLISION_MARGIN = 10f;
+
 
     private final Animation<TextureRegion> playerIdle;
     private Animation<TextureRegion> currentPlayerAnimation;
@@ -27,7 +34,13 @@ public class Player implements Entity{
     private Direction currentDirection;
     public Vector2 position;
     public Vector2 movementVector;
-    private float tempSpeed = 400f; //TODO: Replace speed usage with physics system
+    public Vector2 velocity;
+    float friction;
+    float mass;
+    CollisionShapeCircle collisionShape;
+    Rectangle collisionBounds;
+
+    private float tempSpeed = 20f; //TODO: Replace speed usage with physics system
     private HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
     private boolean isAttacking = false;
 
@@ -53,7 +66,14 @@ public class Player implements Entity{
         playerIdle = assets.playerIdleDown;
         currentPlayerAnimation = playerIdle;
         currentDirection = Direction.down;
+
         position = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
+        this.velocity = new Vector2();
+        this.mass = 20;
+        this.friction = .01f;
+        this.collisionShape = new CollisionShapeCircle(RADIUS, position.x, position.y);
+        this.collisionBounds = new Rectangle(new Rectangle(position.x - RADIUS - COLLISION_MARGIN, position.y - RADIUS - COLLISION_MARGIN, (RADIUS+COLLISION_MARGIN)*2f , (RADIUS+COLLISION_MARGIN)*2f));
+
         movementVector = new Vector2();
         animations.put(State.idle_down, assets.playerIdleDown);
         animations.put(State.idle_up, assets.playerIdleUp);
@@ -79,7 +99,8 @@ public class Player implements Entity{
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) movementVector.x = 1;
         if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT))  movementVector.x -= 1;
         movementVector.nor();
-        position.add(movementVector.x * tempSpeed * delta, movementVector.y * tempSpeed * delta);
+        //position.add(movementVector.x * tempSpeed * delta, movementVector.y * tempSpeed * delta);
+        velocity.add(movementVector.x * tempSpeed, movementVector.y * tempSpeed);
         // Player is attacking
         if (isAttacking) {
             if (currentPlayerAnimation.isAnimationFinished(attackTime)) {
@@ -166,7 +187,7 @@ public class Player implements Entity{
 
     @Override
     public void render(SpriteBatch batch) {
-        batch.draw(playerImage, position.x, position.y);
+        batch.draw(playerImage, position.x - RADIUS, position.y - RADIUS, RADIUS*2f, RADIUS*2f);
     }
 
     private void handleSlash() {
@@ -193,5 +214,67 @@ public class Player implements Entity{
                 currentState = State.slash_right;
                 break;
         }
+    }
+
+    @Override
+    public float getMass() {
+        return mass;
+    }
+
+    @Override
+    public float getFriction() {
+        return friction;
+    }
+
+    @Override
+    public Vector2 getVelocity() {
+        return velocity;
+    }
+
+    @Override
+    public void setVelocity(Vector2 newVel) {
+        setVelocity(newVel.x, newVel.y);
+    }
+
+    @Override
+    public void setVelocity(float x, float y) {
+        velocity.set(x, y);
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    @Override
+    public void setPosition(float x, float y) {
+        this.position.set(x, y);
+        collisionShape.center.set(position);
+        this.collisionBounds = new Rectangle(position.x - RADIUS, position.y - RADIUS, RADIUS*2f, RADIUS*2f);
+    }
+
+    @Override
+    public void setPosition(Vector2 newPos) {
+        setPosition(newPos.x, newPos.y);
+    }
+
+    @Override
+    public Rectangle getCollisionBounds() {
+        return collisionBounds;
+    }
+
+    @Override
+    public CollisionShape getCollisionShape() {
+        return collisionShape;
+    }
+
+    @Override
+    public void collidedWith(Collidable object) {
+
+    }
+
+    @Override
+    public boolean shouldCollideWith(Collidable object) {
+        return true;
     }
 }

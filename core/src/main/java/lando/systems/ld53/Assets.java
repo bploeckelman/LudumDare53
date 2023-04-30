@@ -181,6 +181,7 @@ public class Assets implements Disposable {
 
         atlas = mgr.get("sprites/sprites.atlas");
 
+
         ring = atlas.findRegion("ring");
 
         strings = mgr.get("i18n/strings", I18NBundle.class);

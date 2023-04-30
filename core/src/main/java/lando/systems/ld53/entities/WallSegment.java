@@ -1,4 +1,4 @@
-package lando.systems.ld53.physics.test;
+package lando.systems.ld53.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
@@ -76,4 +76,5 @@ public class WallSegment implements Collidable {
     public boolean shouldCollideWith(Collidable object) {
         return true;
     }
+
 }
