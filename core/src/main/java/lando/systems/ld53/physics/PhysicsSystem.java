@@ -123,11 +123,22 @@ public class PhysicsSystem {
                                 float overlapDistance = .5f * (distance - firstCircle.radius - secondCircle.radius);
                                 tempVec2.set(firstCircle.center).sub(secondCircle.center).nor();
 
-                                Vector2 oldCenter = object.getPosition();
-                                object.setPosition(oldCenter.x - (overlapDistance * tempVec2.x), oldCenter.y - (overlapDistance * tempVec2.y));
+                                if (object.getMass() == Collidable.IMMOVABLE || neighbor.getMass() == Collidable.IMMOVABLE){
+                                    Collidable mover = object;
+                                    if (object.getMass() == Collidable.IMMOVABLE) {
+                                        mover = neighbor;
+                                        tempVec2.scl(-1f);
+                                    }
+                                    overlapDistance *= 2f;
+                                    Vector2 oldCenter = mover.getPosition();
+                                    mover.setPosition(oldCenter.x  - (overlapDistance * tempVec2.x), oldCenter.y - (overlapDistance * tempVec2.y));
+                                } else {
+                                    Vector2 oldCenter = object.getPosition();
+                                    object.setPosition(oldCenter.x - (overlapDistance * tempVec2.x), oldCenter.y - (overlapDistance * tempVec2.y));
 
-                                oldCenter = neighbor.getPosition();
-                                neighbor.setPosition(oldCenter.x + (overlapDistance * tempVec2.x), oldCenter.y + (overlapDistance * tempVec2.y));
+                                    oldCenter = neighbor.getPosition();
+                                    neighbor.setPosition(oldCenter.x + (overlapDistance * tempVec2.x), oldCenter.y + (overlapDistance * tempVec2.y));
+                                }
                             } else if ((object.getCollisionShape() instanceof CollisionShapeCircle && neighbor.getCollisionShape() instanceof CollisionShapeSegment) ||
                                       (object.getCollisionShape() instanceof CollisionShapeSegment && neighbor.getCollisionShape() instanceof CollisionShapeCircle)) {
                                 // Circle Segment overlaps
