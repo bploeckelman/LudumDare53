@@ -2,16 +2,17 @@ package lando.systems.ld53.entities.enemies;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import lando.systems.ld53.entities.AttractMine;
 import lando.systems.ld53.entities.RepulseMine;
 import lando.systems.ld53.screens.GameScreen;
 
-public class RepulseMineEnemy extends Enemy{
+public class AttractMineEnemy extends Enemy{
 
     float timeInPhase;
     Vector2 targetPosition;
     float waitTimer;
 
-    public RepulseMineEnemy(GameScreen screen, float x, float y) {
+    public AttractMineEnemy(GameScreen screen, float x, float y) {
         super(screen, x, y);
         this.animation = screen.assets.gobbler;
         this.keyframe = animation.getKeyFrame(0f);
@@ -45,7 +46,7 @@ public class RepulseMineEnemy extends Enemy{
         float dist2 = targetPosition.dst2(getPosition());
         if (dist2 < (circle.radius + 20) * (circle.radius + 20)) {
             // TODO: sound when it gets created?
-            RepulseMine mine = new RepulseMine(screen, targetPosition);
+            AttractMine mine = new AttractMine(screen, targetPosition);
             screen.influencers.add(mine);
             waitTimer = 1f;
         }

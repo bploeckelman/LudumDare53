@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
+import lando.systems.ld53.entities.enemies.AttractMineEnemy;
 import lando.systems.ld53.entities.enemies.CargoEatingEnemy;
 import lando.systems.ld53.entities.enemies.Enemy;
 import lando.systems.ld53.entities.enemies.RepulseMineEnemy;
@@ -75,6 +76,8 @@ public class GameScreen extends BaseScreen {
         enemies.add(enemy);
         enemy = new RepulseMineEnemy(this, 200, 600);
         enemies.add(enemy);
+        enemy = new AttractMineEnemy(this, 200, 300);
+        enemies.add(enemy);
 
         Cargo cargo = new Cargo(assets, Goal.Type.green, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         cargos = new Array<>();
@@ -94,8 +97,8 @@ public class GameScreen extends BaseScreen {
 
         influencers = new Array<>();
         influencers.addAll(map.goals);
-        influencers.add(new TestAttractor(new Vector2(400, 500)));
-        influencers.add(new TestRepulser(new Vector2(700, 450)));
+//        influencers.add(new TestAttractor(new Vector2(400, 500)));
+//        influencers.add(new TestRepulser(new Vector2(700, 450)));
 
         audioManager.playMusic(AudioManager.Musics.level1Full, true, true);
         this.spawnTimer = 5f;

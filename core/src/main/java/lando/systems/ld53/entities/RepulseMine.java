@@ -1,4 +1,4 @@
-package lando.systems.ld53.entities.enemies;
+package lando.systems.ld53.entities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
