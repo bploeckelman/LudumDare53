@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -48,6 +50,8 @@ public class IndividualSkillUI extends VisWindow {
         VisImage image = new VisImage(assets.inputPrompts.get(ability.type));
         lock = new VisImage(assets.lock);
         image.setSize(200f, 200f);
+        image.setOrigin(100f, 100f);
+        image.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.scaleTo(1.1f, 1.1f, .4f), Actions.scaleTo(1f, 1f, .4f))));
         top();
         add(label80px).top().row();
         stack.add(image);
