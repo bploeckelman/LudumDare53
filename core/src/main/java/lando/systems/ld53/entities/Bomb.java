@@ -41,7 +41,7 @@ public class Bomb implements Entity, Collidable {
 
     private float collisionDelay = 0.2f;
 
-    private final float fuseDuration = 2f;
+    private final float fuseDuration = .75f;
     public float fuseTime = 0f;
 
     public Bomb(Assets assets, float x, float y, float velX, float velY) {
@@ -130,7 +130,7 @@ public class Bomb implements Entity, Collidable {
                 if (repulsorActive == false) {
                     repulsorActive = true;
                     Main.game.currentScreen.screenShaker.addDamage(100);
-                    Main.game.audioManager.playSound(AudioManager.Sounds.pop, 0.3f);
+                    Main.game.audioManager.playSound(AudioManager.Sounds.cannon, 0.3f);
                 }
             }
             animTime += delta;
