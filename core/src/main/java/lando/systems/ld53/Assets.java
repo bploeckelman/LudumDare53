@@ -90,6 +90,7 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> gobbler;
     public Animation<TextureRegion> etWalk;
     public Animation<TextureRegion> etFloat;
+    public Animation<TextureRegion> thief;
     public Animation<TextureRegion> goalPanelBase;
 //    public Animation<TextureRegion> goalPanelColor;
     public Animation<TextureRegion> goalShimmer;
@@ -387,7 +388,7 @@ public class Assets implements Disposable {
         abilityIcons = new Animation<>(1f, atlas.findRegions("objects/ability-icons/ability-icon"), Animation.PlayMode.NORMAL);
 
         gobbler = new Animation<>(0.1f, atlas.findRegions("creatures/gobbler/gobbler-idle"), Animation.PlayMode.LOOP_PINGPONG);
-
+        thief = new Animation<>(0.1f, atlas.findRegions("creatures/thief/thief"), Animation.PlayMode.LOOP);
         etWalk = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-walk"), Animation.PlayMode.LOOP);
         etFloat = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-float"), Animation.PlayMode.LOOP_PINGPONG);
 

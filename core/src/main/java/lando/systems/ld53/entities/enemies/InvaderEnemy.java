@@ -26,7 +26,7 @@ public class InvaderEnemy extends Enemy {
 
     public InvaderEnemy(GameScreen screen, float x, float y) {
         super(screen, x, y);
-        this.animation = screen.assets.gobbler;
+        this.animation = screen.assets.thief;
         this.keyframe = animation.getKeyFrame(0f);
 
         this.targetPosition = new Vector2();

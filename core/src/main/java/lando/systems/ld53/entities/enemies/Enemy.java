@@ -57,26 +57,18 @@ public class Enemy implements Entity, Collidable {
     @Override
     public void update(float delta) {
         animTime += delta;
-        keyframe = animation.getKeyFrame(animTime);
-
-        // TODO - custom behavior code should go here,
-        //  but don't set positions directly, the physics system has to do that
-        //  we just need to influence
-//        moveTime -= delta;
-//        if (moveTime <= 0f) {
-//            moveTime = MathUtils.random(1f, 3f);
-//            float x = MathUtils.random(80, 1200);
-//            float y = MathUtils.random(80, 640);
-//            target.set(x, y);
-//
-//            float speed = 300f;
-//            v.set(target).sub(getPosition()).nor().scl(speed);
-//            velocity.add(v);
-//        }
     }
 
     @Override
     public void render(SpriteBatch batch) {
+        keyframe = animation.getKeyFrame(animTime);
+
+        boolean flipX = (velocity.x > 0);
+        if ((keyframe.isFlipX() && !flipX)
+         || (!keyframe.isFlipX() && flipX)) {
+            keyframe.flip(true, false);
+        }
+
         batch.draw(keyframe,
             circle.center.x - circle.radius,
             circle.center.y - circle.radius,
