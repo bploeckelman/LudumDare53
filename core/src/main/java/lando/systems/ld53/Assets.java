@@ -338,8 +338,8 @@ public class Assets implements Disposable {
         for (Goal.Type type : Goal.Type.values()) {
             String regionsPath = Stringf.format("objects/goal-panel-%s/goal-panel-%s", type.name(), type.name());
             type.anim = new Animation<>(0.1f, atlas.findRegions(regionsPath), Animation.PlayMode.LOOP);
-            type.baseAnim = new Animation<>(0.1f, atlas.findRegions("objects/goal-base/goal-base"), Animation.PlayMode.LOOP);
-            type.shimmerAnim = new Animation<>(0.1f, atlas.findRegions("objects/goal-shimmer/goal-shimmer"), Animation.PlayMode.LOOP);
+            type.baseAnim = new Animation<>(0.2f, atlas.findRegions("objects/goal-base/goal-base"), Animation.PlayMode.LOOP);
+            type.shimmerAnim = new Animation<>(0.2f, atlas.findRegions("objects/goal-shimmer/goal-shimmer"), Animation.PlayMode.LOOP);
         }
 
         // initialize patch values
