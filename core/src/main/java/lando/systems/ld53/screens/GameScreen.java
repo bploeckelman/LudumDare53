@@ -176,6 +176,7 @@ public class GameScreen extends BaseScreen {
             lastSpawnedType = newSpawnType;
             balls.add(new Cargo(assets, newSpawnType, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
             spawnTimer = 5f;
+            audioManager.playSound(AudioManager.Sounds.spawn, .26f);
         }
 
         physicsObjects.clear();

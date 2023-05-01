@@ -19,7 +19,7 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 public class Cargo implements Entity, Collidable {
 
     private static final Vector2 COLLISION_OFFSET = new Vector2(0, 5f);
-    private static final float COLLISION_RADIUS = 20;
+    private static final float COLLISION_RADIUS = 30;
     private static final float RENDER_SIZE = 40f;
     // TODO - this should be set per-cargo rather than constant for all Cargo types
     private static final float MAX_SPEED = 300;
@@ -103,7 +103,8 @@ public class Cargo implements Entity, Collidable {
     @Override
     public void render(SpriteBatch batch) {
 
-        float alpha = MathUtils.map(0, 1, .35f, 1f, lifetime);
+        float alpha = MathUtils.map(0, 1, .2f, 1f, lifetime);
+//        float alpha = MathUtils.sin(lifetime * 10f);
         batch.setColor(1, 1, 1, alpha );
         batch.draw(keyframe,
             collisionShape.center.x - collisionShape.radius,

@@ -16,9 +16,9 @@ public class TestAttractor implements Influencer {
 
     public TestAttractor(Vector2 pos) {
         this.position = pos;
-        this.strength = 60;
+        this.strength = 300;
         this.range = 60;
-        influenceRenderer = new InfluenceRenderer(this, Color.GREEN);
+        influenceRenderer = new InfluenceRenderer(this, new Color(0.25f, .30f, 1f, 1));
     }
 
 

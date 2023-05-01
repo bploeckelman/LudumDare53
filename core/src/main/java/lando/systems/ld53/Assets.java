@@ -144,6 +144,7 @@ public class Assets implements Disposable {
     public Sound zap12;
     public Sound collect1;
     public Sound cannon1;
+    public Sound spawn1;
 
     public enum Patch {
         debug, panel, metal, glass,
@@ -257,6 +258,7 @@ public class Assets implements Disposable {
             mgr.load("audio/sounds/zap12.ogg", Sound.class);
             mgr.load("audio/sounds/collect1.ogg", Sound.class);
             mgr.load("audio/sounds/cannon1.ogg", Sound.class);
+            mgr.load("audio/sounds/spawn1.ogg", Sound.class);
 
             mgr.load("audio/music/level1-thin.ogg", Music.class);
             mgr.load("audio/music/level1-full.ogg", Music.class);
@@ -478,6 +480,7 @@ public class Assets implements Disposable {
          zap12 = mgr.get("audio/sounds/zap12.ogg", Sound.class);
          collect1 = mgr.get("audio/sounds/collect1.ogg", Sound.class);
          cannon1 = mgr.get("audio/sounds/cannon1.ogg", Sound.class);
+         spawn1 = mgr.get("audio/sounds/spawn1.ogg", Sound.class);
 //         = mgr.get("audio/sounds/.ogg", Sound.class);
 //         = mgr.get("audio/sounds/.ogg", Sound.class);
 

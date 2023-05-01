@@ -36,6 +36,7 @@ public class AudioManager implements Disposable {
         , zap
         , collect
         , cannon
+        , spawn
 
 
     }
@@ -99,6 +100,7 @@ public class AudioManager implements Disposable {
         putSound(Sounds.zap, assets.zap12);
         putSound(Sounds.collect, assets.collect1);
         putSound(Sounds.cannon, assets.cannon1);
+        putSound(Sounds.spawn, assets.spawn1);
 
         musics.put(Musics.level1Thin, assets.level1Thin);
         musics.put(Musics.level1Full, assets.level1Full);
