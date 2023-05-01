@@ -47,7 +47,7 @@ public class GameScreen extends BaseScreen {
 
         bullets = new Array<>();
 
-        map = new Map("maps/test-80x80.tmx");
+        map = new Map("maps/level1.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
         enemy = new Enemy(assets, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
         Cargo cargo = new Cargo(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));

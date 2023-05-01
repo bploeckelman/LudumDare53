@@ -48,19 +48,19 @@
   </object>
   <object id="56" x="675" y="575" width="80" height="80">
    <properties>
-    <property name="color" value="red"/>
+    <property name="color" value="yellow"/>
     <property name="type" value="goal"/>
    </properties>
   </object>
   <object id="58" x="830" y="575" width="80" height="80">
    <properties>
-    <property name="color" value="red"/>
+    <property name="color" value="green"/>
     <property name="type" value="goal"/>
    </properties>
   </object>
   <object id="57" x="520" y="575" width="80" height="80">
    <properties>
-    <property name="color" value="red"/>
+    <property name="color" value="cyan"/>
     <property name="type" value="goal"/>
    </properties>
   </object>

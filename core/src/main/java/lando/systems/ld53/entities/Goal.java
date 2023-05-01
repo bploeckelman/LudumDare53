@@ -15,6 +15,8 @@ public class Goal implements Entity, Influencer {
     public enum Type {
         cyan
         , red
+        , green
+        , yellow
         ;
         public Animation<TextureRegion> anim;
         public Animation<TextureRegion> baseAnim;
