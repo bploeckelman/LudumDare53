@@ -84,7 +84,7 @@ public class Goal implements Entity, Influencer {
         bounds.getCenter(attractorPosition);
         this.range = Math.max(bounds.width, bounds.height) * 1.5f;
         this.strength = 1500;
-        influenceRenderer = new InfluenceRenderer(this, type.color);
+        influenceRenderer = new InfluenceRenderer(this, type.color, screen.assets.goalShader);
         this.icon = type.icon;
         this.screen = screen;
         active = true;

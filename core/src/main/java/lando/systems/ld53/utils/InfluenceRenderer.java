@@ -18,9 +18,13 @@ public class InfluenceRenderer {
     Color color;
 
     public InfluenceRenderer(Influencer influencer, Color color) {
+        this(influencer, color, Main.game.assets.influencerShader);
+    }
+
+    public InfluenceRenderer(Influencer influencer, Color color, ShaderProgram shaderProgram) {
         this.color = color;
         this.influencer = influencer;
-        shader = Main.game.assets.influencerShader;
+        shader = shaderProgram;
         this.accum = 0;
         this.texture = Main.game.assets.pixel;
         Vector2 center = influencer.getPosition();
