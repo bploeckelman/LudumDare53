@@ -31,6 +31,7 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
 
     public float mass = 100f;
     public float friction = 1f;
+    public float lifetime = 5f;
     public boolean alive = false;
 
     public Bullet init(Assets assets, float x, float y, float radius, float velX, float velY) {
@@ -38,8 +39,9 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
         circle.set(radius, x, y);
         velocity.set(velX, velY);
         animation = assets.bullet;
-        animTime = 0;
         keyframe = animation.getKeyFrame(0f);
+        animTime = 0;
+        lifetime = 5f;
         alive = true;
         return this;
     }
@@ -73,6 +75,7 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
         circle.set(0, 0, 0);
         velocity.setZero();
         animTime = 0;
+        lifetime = 0;
         alive = false;
     }
 
@@ -80,6 +83,11 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
     public void update(float delta) {
         animTime += delta;
         keyframe = animation.getKeyFrame(animTime);
+
+        lifetime -= delta;
+        if (lifetime <= 0f) {
+            alive = false;
+        }
     }
 
     @Override
