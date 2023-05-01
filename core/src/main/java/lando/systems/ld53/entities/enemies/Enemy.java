@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
+import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.Entity;
@@ -21,12 +22,12 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 public class Enemy implements Entity, Collidable {
 
     private static final float MAX_SPEED = 300;
-
+    protected Rectangle targetBounds = new Rectangle(80, 80, Config.Screen.window_width - 160, Config.Screen.window_height- 160);
 
     protected final GameScreen screen;
     protected final Rectangle bounds;
     protected final CollisionShapeCircle circle;
-    protected final Animation<TextureRegion> animation;
+    protected Animation<TextureRegion> animation;
     protected final Vector2 velocity;
     protected final Vector2 v = new Vector2();
 
@@ -45,7 +46,7 @@ public class Enemy implements Entity, Collidable {
         this.animation = screen.assets.gobbler;
         this.animTime = 0f;
         this.keyframe = animation.getKeyFrame(0f);
-        float size = 0.5f * Math.max(keyframe.getRegionWidth(), keyframe.getRegionHeight());
+        float size = 40;
         this.circle = new CollisionShapeCircle(size / 2f, x, y);
         this.bounds = new Rectangle(x - circle.radius, y - circle.radius, size, size);
         this.velocity = new Vector2();

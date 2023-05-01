@@ -15,6 +15,7 @@ import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
 import lando.systems.ld53.entities.enemies.CargoEatingEnemy;
 import lando.systems.ld53.entities.enemies.Enemy;
+import lando.systems.ld53.entities.enemies.RepulseMineEnemy;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
 import lando.systems.ld53.physics.PhysicsSystem;
@@ -41,7 +42,7 @@ public class GameScreen extends BaseScreen {
 
     private final PhysicsSystem physicsSystem;
     private final Array<Collidable> physicsObjects;
-    private final Array<Influencer> influencers;
+    public final Array<Influencer> influencers;
     private final Array<TestBall> testBalls;
 
     private TopTrapezoid trapezoid;
@@ -66,8 +67,12 @@ public class GameScreen extends BaseScreen {
 
         map = new Map("maps/level1.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
+
         Enemy enemy = new CargoEatingEnemy(this, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
         enemies.add(enemy);
+        enemy = new RepulseMineEnemy(this, 200, 600);
+        enemies.add(enemy);
+
         Cargo cargo = new Cargo(assets, Goal.Type.green, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         cargos = new Array<>();
         cargos.add(cargo);
