@@ -59,6 +59,8 @@ public class Player implements Entity, Collidable {
     private float speedGhostAddTime = 0f;
     private boolean speedActive = false;
 
+    public final PlayerPersonalRepulsor personalRepulsor;
+
     private boolean isAttacking = false;
     private boolean isStunned = false;
     private float animTimer = 0;
@@ -135,6 +137,8 @@ public class Player implements Entity, Collidable {
         animation = animations.get(State.idle_down);
         swipeAnimation = assets.playerSlashOverlayUp;
         currentDirection = Direction.down;
+
+        personalRepulsor = new PlayerPersonalRepulsor(this);
     }
 
     @Override
@@ -282,6 +286,7 @@ public class Player implements Entity, Collidable {
             } else {
                 // NOTE(brian) - hacky workaround for some of the state flags interfering with this effect
                 if (!didAddSpeed) {
+                    didAddSpeed = true;
                     velocity.add(movement.x * speed * delta, movement.y * speed * delta);
                 }
 
@@ -302,6 +307,12 @@ public class Player implements Entity, Collidable {
             }
         }
 //        swipeKeyframe = swipeAnimations.get(State.slash_up).getKeyFrame(attackTimer);
+
+        personalRepulsor.update(delta);
+        // NOTE(brian) - moar hacks
+        if (personalRepulsor.isActive() && !didAddSpeed) {
+            velocity.add(movement.x * speed * delta, movement.y * speed * delta);
+        }
     }
 
     public float getStaminaPercentage() {
@@ -383,7 +394,8 @@ public class Player implements Entity, Collidable {
                 Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh, .26f);
             } break;
             case repulse: {
-
+                personalRepulsor.activate();
+                Main.game.audioManager.playSound(AudioManager.Sounds.swoosh, .26f);
             } break;
             case grapple: {
 

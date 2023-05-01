@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Array;
@@ -17,9 +16,7 @@ import lando.systems.ld53.entities.enemies.*;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
 import lando.systems.ld53.physics.PhysicsSystem;
-import lando.systems.ld53.physics.test.TestAttractor;
 import lando.systems.ld53.physics.test.TestBall;
-import lando.systems.ld53.physics.test.TestRepulser;
 import lando.systems.ld53.ui.*;
 import lando.systems.ld53.utils.screenshake.CameraShaker;
 import lando.systems.ld53.world.Map;
@@ -97,6 +94,7 @@ public class GameScreen extends BaseScreen {
 
         influencers = new Array<>();
         influencers.addAll(map.goals);
+        influencers.add(player.personalRepulsor);
 //        influencers.add(new TestAttractor(new Vector2(400, 500)));
 //        influencers.add(new TestRepulser(new Vector2(700, 450)));
 
@@ -190,10 +188,6 @@ public class GameScreen extends BaseScreen {
                 }
             }
         }
-
-
-
-
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
             swapMusic();
