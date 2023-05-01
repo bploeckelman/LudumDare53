@@ -99,7 +99,7 @@ public class Goal implements Entity, Influencer {
 
         shimmerKeyframe = type.shimmerAnim.getKeyFrame(animTime);
         baseKeyframe = type.baseAnim.getKeyFrame(animTime);
-        active = screen.collectedMap.get(type) < screen.numberOfPackagesToCollect;
+        active = screen.collectedMap.get(type) < screen.needToCollectMap.get(type);
         if (!active){
             this.strength = 0;
         } else {
