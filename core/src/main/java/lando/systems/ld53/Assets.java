@@ -403,7 +403,7 @@ public class Assets implements Disposable {
         PlayerAbility.speed_up.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(0));
         //TODO: these are not set
         PlayerAbility.grapple.textureRegion = new TextureRegion(cherry.getKeyFrame(0));
-        PlayerAbility.repulse.textureRegion = new TextureRegion(asuka.getKeyFrame(0));
+        PlayerAbility.repulse.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(2));
 
 
         // initialize patch values
