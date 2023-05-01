@@ -218,12 +218,8 @@ public class Player implements Entity, Collidable {
                 }
             }
         }
-        // If player slashes
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            handleSlash();
-        }
         // If player does specialAttack
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             if (stamina < SPECIAL_COST) {
                 Main.game.audioManager.playSound(AudioManager.Sounds.error, .35f);
             } else {
