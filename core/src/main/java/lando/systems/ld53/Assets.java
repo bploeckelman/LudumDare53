@@ -286,20 +286,20 @@ public class Assets implements Disposable {
         asuka = new Animation<>(0.1f, atlas.findRegions("pets/dog"), Animation.PlayMode.LOOP);
         osha = new Animation<>(.1f, atlas.findRegions("pets/kitten"), Animation.PlayMode.LOOP);
 
-        playerIdleDown = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-down/jeff-idle-down"), Animation.PlayMode.LOOP);
-        playerIdleUp = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-up/jeff-idle-up"), Animation.PlayMode.LOOP);
-        playerIdleLeft = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-left/jeff-idle-left"), Animation.PlayMode.LOOP);
-        playerIdleRight = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-right/jeff-idle-right"), Animation.PlayMode.LOOP);
-        playerWalkLeft = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-left/jeff-walk-left"), Animation.PlayMode.LOOP);
-        playerWalkRight = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-right/jeff-walk-right"), Animation.PlayMode.LOOP);
-        playerWalkUp = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-up/jeff-walk-up"), Animation.PlayMode.LOOP);
-        playerWalkDown = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-down/jeff-walk-down"), Animation.PlayMode.LOOP);
-        playerSlashLeft = new Animation<>(.036f, atlas.findRegions("player/jeff-slash-left/jeff-slash-left"), Animation.PlayMode.NORMAL);
-        playerSlashRight = new Animation<>(.036f, atlas.findRegions("player/jeff-slash-right/jeff-slash-right"), Animation.PlayMode.NORMAL);
-        playerSlashUp = new Animation<>(.036f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.NORMAL);
-        playerSlashDown = new Animation<>(.036f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.NORMAL);
-        playerSlash360 = new Animation<>(.06f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
-        playerStun = new Animation<>(.03f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.NORMAL);
+        playerIdleDown   = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-down/jeff-idle-down"), Animation.PlayMode.LOOP);
+        playerIdleUp     = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-up/jeff-idle-up"), Animation.PlayMode.LOOP);
+        playerIdleLeft   = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-left/jeff-idle-left"), Animation.PlayMode.LOOP);
+        playerIdleRight  = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-right/jeff-idle-right"), Animation.PlayMode.LOOP);
+        playerWalkLeft   = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-left/jeff-walk-left"), Animation.PlayMode.LOOP);
+        playerWalkRight  = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-right/jeff-walk-right"), Animation.PlayMode.LOOP);
+        playerWalkUp     = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-up/jeff-walk-up"), Animation.PlayMode.LOOP);
+        playerWalkDown   = new Animation<>(.1f, atlas.findRegions("player/jeff-walk-down/jeff-walk-down"), Animation.PlayMode.LOOP);
+        playerSlashLeft  = new Animation<>(.016f, atlas.findRegions("player/jeff-slash-left/jeff-slash-left"), Animation.PlayMode.NORMAL);
+        playerSlashRight = new Animation<>(.016f, atlas.findRegions("player/jeff-slash-right/jeff-slash-right"), Animation.PlayMode.NORMAL);
+        playerSlashUp    = new Animation<>(.016f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.NORMAL);
+        playerSlashDown  = new Animation<>(.016f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.NORMAL);
+        playerSlash360   = new Animation<>(.06f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
+        playerStun       = new Animation<>(.03f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.NORMAL);
 
         Array<TextureRegion> regions = new Array<>();
         regions.addAll(

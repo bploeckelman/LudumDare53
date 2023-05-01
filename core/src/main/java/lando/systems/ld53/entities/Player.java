@@ -16,6 +16,7 @@ import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
+import lando.systems.ld53.utils.Calc;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import java.util.HashMap;
@@ -30,6 +31,7 @@ public class Player implements Entity, Collidable {
     private static final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
 
     private final HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
+    private final Vector2 vec2 = new Vector2();
     private final Vector2 position;
     private final Vector2 movement;
     private final Vector2 velocity;
@@ -353,12 +355,45 @@ public class Player implements Entity, Collidable {
 
     @Override
     public void collidedWith(Collidable object) {
-        if (object.getClass() == Peg.class) {
+        if (object instanceof Peg) {
             isStunned = true;
             currentState = State.stun;
 //            Main.game.audioManager.playSound(AudioManager.Sounds.grunt);
             Main.game.audioManager.playSound(AudioManager.Sounds.grunt, 11f);
 //            Main.game.assets.grunt1.play();
+        }
+        else if (object instanceof Ball) {
+            // swipe in the direction of the ball when colliding with it
+            Ball ball = (Ball) object;
+            vec2.set(ball.getPosition())
+                .sub(this.getPosition())
+                .nor();
+            float angle = vec2.angleDeg();
+
+            if (Calc.between(angle, 0, 45) || Calc.between(angle, 315, 360)) {
+                // slash right
+                currentDirection = Direction.right;
+                movement.set(1, 0);
+                handleSlash();
+            }
+            else if (Calc.between(angle, 45, 135)) {
+                // slash up
+                currentDirection = Direction.up;
+                movement.set(0, 1);
+                handleSlash();
+            }
+            else if (Calc.between(angle, 135, 225)) {
+                // slash left
+                currentDirection = Direction.left;
+                movement.set(-1, 0);
+                handleSlash();
+            }
+            else if (Calc.between(angle, 225, 315)) {
+                // slash down
+                currentDirection = Direction.down;
+                movement.set(0, -1);
+                handleSlash();
+            }
         }
     }
 
