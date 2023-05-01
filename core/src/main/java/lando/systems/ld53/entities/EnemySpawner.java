@@ -5,11 +5,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.enemies.*;
 import lando.systems.ld53.screens.GameScreen;
 
 public class EnemySpawner implements Entity {
-    public static int MAX_SPAWNS = 5;
+    public static int MAX_SPAWNS = 4;
     public static float SPAWN_DELAY = 10;
     public enum EnemyType {cargo_eater, attract, repulse, invader, random}
 
@@ -42,6 +44,7 @@ public class EnemySpawner implements Entity {
             spawnedEnemies.add(e);
             screen.enemies.add(e);
             // TODO: do we need a sound here?
+            Main.game.audioManager.playSound(AudioManager.Sounds.gobble, .1f);
         }
     }
 
