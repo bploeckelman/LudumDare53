@@ -2,6 +2,7 @@ package lando.systems.ld53.ui;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
@@ -30,6 +31,7 @@ public class IndividualSkillUI extends VisWindow {
     private TextButton equipButton;
     private Stack stack;
     private Assets assets;
+    public VisImage image;
     public VisImage lock;
     public PlayerAbility ability;
     public SequenceAction sequenceAction;
@@ -53,12 +55,11 @@ public class IndividualSkillUI extends VisWindow {
         Container labelContainer = new Container();
         labelContainer.setActor(label20px);
         labelContainer.setTransform(true);
-        labelContainer.setSize(80f, 80f);
         labelContainer.setOrigin(40f, 40f);
         labelContainer.setScale(.5f);
         labelContainer.bottom();
         stack = new Stack();
-        VisImage image = new VisImage(ability.textureRegion);
+        image = new VisImage(ability.textureRegion);
 
 //        if(ability.type == InputPrompts.Type.key_light_bang) {
 //            image = new VisImage(assets.bomb.getKeyFrame(0));
@@ -66,8 +67,7 @@ public class IndividualSkillUI extends VisWindow {
         lock = new VisImage(assets.lock);
         image.setOrigin(25f, 25f);
         image.setAlign(Align.center);
-        image.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.scaleTo(1.1f, 1.1f, .4f), Actions.scaleTo(1f, 1f, .4f))));
-        top();
+//        image.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.scaleTo(1.1f, 1.1f, .4f), Actions.scaleTo(1f, 1f, .4f))));
 //        add(label80px).top().row();
         stack.add(image);
         stack.add(lock);
@@ -106,9 +106,12 @@ public class IndividualSkillUI extends VisWindow {
     public void setCenterConfiguration(boolean isCenter) {
         this.isCenter = isCenter;
         if (isCenter) {
+            Action action = Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.scaleTo(1.1f, 1.1f, .4f), Actions.scaleTo(1f, 1f, .4f)));
             setTouchable(Touchable.enabled);
+            image.addAction(action);
         } else {
             setTouchable(Touchable.disabled);
+            image.clearActions();
         }
     }
 
