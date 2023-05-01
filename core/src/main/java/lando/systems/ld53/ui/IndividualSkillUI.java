@@ -18,7 +18,7 @@ import lando.systems.ld53.screens.GameScreen;
 public class IndividualSkillUI extends VisWindow {
     private final Vector2 WINDOW_SIZE = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height * 2 / 3);
     private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height / 6);
-    private final float BUTTON_WIDTH = 180f;
+    private final float BUTTON_WIDTH = 200f;
     private final float BUTTON_HEIGHT = 50f;
     public Player.SpecialAbility ability;
     private final float OFFSET = 50f;
@@ -50,6 +50,7 @@ public class IndividualSkillUI extends VisWindow {
         titleScreenButtonStyle.over = Assets.Patch.glass_dim.drawable;
         equipButton = new TextButton("Equip", titleScreenButtonStyle);
         equipButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+        equipButton.pad(10f);
         add(equipButton).height(BUTTON_HEIGHT).row();
 
         equipButton.addListener(new ClickListener(){
@@ -73,8 +74,10 @@ public class IndividualSkillUI extends VisWindow {
         if (!ability.isUnlocked) {
             setColor(Color.GRAY);
             equipButton.setDisabled(true);
+            equipButton.setText("Locked");
         } else {
             equipButton.setDisabled(false);
+            equipButton.setText("Equip");
         }
     }
 }
