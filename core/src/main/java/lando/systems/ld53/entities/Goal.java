@@ -27,6 +27,8 @@ public class Goal implements Entity, Influencer {
         public Animation<TextureRegion> anim;
         public Animation<TextureRegion> baseAnim;
         public Animation<TextureRegion> shimmerAnim;
+        public TextureRegion icon;
+
         public Color color;
     }
 
@@ -40,6 +42,7 @@ public class Goal implements Entity, Influencer {
     private TextureRegion keyframe;
     private TextureRegion baseKeyframe;
     private TextureRegion shimmerKeyframe;
+    private TextureRegion icon;
     private float animTime;
 
     public Goal(RectangleMapObject rectMapObject) {
@@ -56,6 +59,8 @@ public class Goal implements Entity, Influencer {
         this.range = Math.max(bounds.width, bounds.height);
         this.strength = 900;
         influenceRenderer = new InfluenceRenderer(this, type.color);
+        this.icon = type.icon;
+
     }
 
     @Override
@@ -69,8 +74,11 @@ public class Goal implements Entity, Influencer {
     public void tryToCollectPackage(Cargo b) {
         float dist = b.getPosition().dst(attractorPosition);
         if (dist < range /3f) {
-            // TODO: Collected it do things like score
-            b.collected = true;
+            if(b.goalType == type) {
+                // TODO: Collected it do things like score
+                b.collected = true;
+            }
+
         }
     }
 
@@ -79,6 +87,8 @@ public class Goal implements Entity, Influencer {
         batch.draw(baseKeyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(shimmerKeyframe, bounds.x, bounds.y, bounds.width, bounds.height);
+        batch.draw(icon, bounds.x + bounds.width / 4, bounds.y + bounds
+            .height / 4, bounds.width / 2, bounds.height / 2);
     }
 
 

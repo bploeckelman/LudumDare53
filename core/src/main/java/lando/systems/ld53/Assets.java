@@ -349,6 +349,22 @@ public class Assets implements Disposable {
             type.anim = new Animation<>(0.1f, atlas.findRegions(regionsPath), Animation.PlayMode.LOOP);
             type.baseAnim = new Animation<>(0.2f, atlas.findRegions("objects/goal-base/goal-base"), Animation.PlayMode.LOOP);
             type.shimmerAnim = new Animation<>(0.2f, atlas.findRegions("objects/goal-shimmer/goal-shimmer"), Animation.PlayMode.LOOP);
+            switch(type) {
+                case red:
+                    type.icon = cargoRed.getKeyFrame(0);
+                    break;
+                case cyan:
+                    type.icon = cargoCyan.getKeyFrame(0);
+                    break;
+                case green:
+                    type.icon = cargoGreen.getKeyFrame(0);
+                    break;
+                case yellow:
+                    type.icon = cargoYellow.getKeyFrame(0);
+                    break;
+                default:
+                    break;
+            }
         }
 
         // initialize patch values
