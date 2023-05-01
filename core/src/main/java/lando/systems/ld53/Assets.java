@@ -357,7 +357,7 @@ public class Assets implements Disposable {
 
         peg = new Animation<>(0.1f, atlas.findRegions("objects/peg/spinner"), Animation.PlayMode.LOOP);
         bomb = new Animation<>(0.1f, atlas.findRegions("objects/bomb/bomb"), Animation.PlayMode.NORMAL);
-        abilityIcons = new Animation<>(0.1f, atlas.findRegions("objects/ability-icons/ability-icon"), Animation.PlayMode.NORMAL);
+        abilityIcons = new Animation<>(1f, atlas.findRegions("objects/ability-icons/ability-icon"), Animation.PlayMode.NORMAL);
 
 
         gobbler = new Animation<>(0.1f, atlas.findRegions("creatures/gobbler/gobbler-idle"), Animation.PlayMode.LOOP_PINGPONG);

@@ -49,9 +49,13 @@ public class BottomGameUI extends Table {
 
     public void update(float delta) {
         for (Table table : buttonTables) {
-            if (screen.player != null && abilityList.get(buttonTables.indexOf(table)) == screen.player.currentAbility) {
+            if (abilityList.get(buttonTables.indexOf(table)) == screen.player.currentAbility) {
                 table.setBackground(Assets.Patch.glass_yellow.drawable);
-            } else {
+            }
+            else if (!abilityList.get(buttonTables.indexOf(table)).isUnlocked) {
+                table.setBackground(Assets.Patch.glass_dim.drawable);
+            }
+            else {
                 table.setBackground(Assets.Patch.glass.drawable);
             }
         }
