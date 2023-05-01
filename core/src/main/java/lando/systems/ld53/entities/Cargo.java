@@ -15,7 +15,7 @@ import lando.systems.ld53.physics.CollisionShapeCircle;
 import lando.systems.ld53.utils.Calc;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-public class Ball implements Entity, Collidable {
+public class Cargo implements Entity, Collidable {
 
     private static final Vector2 COLLISION_OFFSET = new Vector2(0, 5f);
     private static final float COLLISION_RADIUS = 20;
@@ -36,7 +36,7 @@ public class Ball implements Entity, Collidable {
 
     public boolean collected;
 
-    public Ball(Assets assets, float x, float y) {
+    public Cargo(Assets assets, float x, float y) {
         this.collected = false;
         this.animation = assets.ball;
         this.animTime = 0f;

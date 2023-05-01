@@ -358,10 +358,10 @@ public class Player implements Entity, Collidable {
             Main.game.audioManager.playSound(AudioManager.Sounds.grunt, 11f);
 //            Main.game.assets.grunt1.play();
         }
-        else if (object instanceof Ball) {
+        else if (object instanceof Cargo) {
             // swipe in the direction of the ball when colliding with it
-            Ball ball = (Ball) object;
-            vec2.set(ball.getPosition())
+            Cargo cargo = (Cargo) object;
+            vec2.set(cargo.getPosition())
                 .sub(this.getPosition())
                 .nor();
             float angle = vec2.angleDeg();

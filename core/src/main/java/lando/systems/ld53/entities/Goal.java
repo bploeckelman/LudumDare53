@@ -45,7 +45,7 @@ public class Goal implements Entity, Influencer {
         keyframe = type.anim.getKeyFrame(animTime);
     }
 
-    public void tryToCollectPackage(Ball b) {
+    public void tryToCollectPackage(Cargo b) {
         float dist = b.getPosition().dst(attractorPosition);
         if (dist < range /3f) {
             // TODO: Collected it do things like score
@@ -76,7 +76,7 @@ public class Goal implements Entity, Influencer {
 
     @Override
     public boolean shouldEffect(Collidable c) {
-        if (c instanceof Ball) return true;
+        if (c instanceof Cargo) return true;
         return false;
     }
 

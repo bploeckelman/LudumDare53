@@ -3,7 +3,6 @@ package lando.systems.ld53.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -24,7 +23,7 @@ import lando.systems.ld53.world.Map;
 public class GameScreen extends BaseScreen {
 
     private Map map;
-    private Array<Ball> balls;
+    private Array<Cargo> balls;
     private Player player;
     private Enemy enemy;
     private BulletEnemy bulletEnemy;
@@ -51,9 +50,9 @@ public class GameScreen extends BaseScreen {
         map = new Map("maps/test-80x80.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
         enemy = new Enemy(assets, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
-        Ball ball = new Ball(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
+        Cargo cargo = new Cargo(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         balls = new Array<>();
-        balls.add(ball);
+        balls.add(cargo);
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
 
         influencers = new Array<>();
@@ -145,7 +144,7 @@ public class GameScreen extends BaseScreen {
                 bullets.removeIndex(i);
             }
         }
-        for (Ball b : balls) {
+        for (Cargo b : balls) {
             b.update(delta);
         }
 
@@ -155,7 +154,7 @@ public class GameScreen extends BaseScreen {
         map.update(delta);
         for (Goal goal : map.goals){
             for (int i = balls.size -1 ; i >= 0; i--){
-                Ball b = balls.get(i);
+                Cargo b = balls.get(i);
                 goal.tryToCollectPackage(b);
                 if (b.collected) balls.removeIndex(i);
             }
@@ -191,7 +190,7 @@ public class GameScreen extends BaseScreen {
             }
 
             // moving stuff after everything
-            for (Ball b : balls){
+            for (Cargo b : balls){
                 b.render(batch);
             }
             for (Bullet bullet : bullets) {
