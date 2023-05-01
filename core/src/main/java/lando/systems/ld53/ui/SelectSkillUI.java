@@ -4,9 +4,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.entities.Player;
 import lando.systems.ld53.screens.GameScreen;
 
@@ -36,9 +39,14 @@ public class SelectSkillUI extends Group {
             abilityUIMap.put(ability, individualSkillUI);
             addActor(individualSkillUI);
         }
+        TextureRegionDrawable prevButtonDrawable = new TextureRegionDrawable(assets.inputPrompts.get(InputPrompts.Type.hand_point_left));
+        ImageButton previousButton = new ImageButton(prevButtonDrawable);
+        previousButton.setPosition(200f, 400f);
+        previousButton.setSize(200f, 200f);
+        previousButton.setScale(2f, 2f);
+        addActor(previousButton);
 
-        setVisible(true);
-        Vector2 newPosition = new Vector2(Config.Screen.window_width / 2, Config.Screen.window_height - 50f);
+        Vector2 newPosition = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height - 50f);
         setPosition(newPosition.x, newPosition.y);
         setScale(0f, 0f);
     }

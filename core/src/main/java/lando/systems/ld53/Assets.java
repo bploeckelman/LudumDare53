@@ -44,7 +44,7 @@ public class Assets implements Disposable {
     public Texture trapezoidBorder;
 
     public TextureRegion ring;
-
+    public TextureRegion lock;
     public TextureRegion pixelRegion;
 
     public Animation<TextureRegion> asuka;
@@ -287,6 +287,7 @@ public class Assets implements Disposable {
         largeFont = mgr.get("fonts/outfit-medium-80px.fnt");
 
         inputPrompts = new InputPrompts(this);
+        lock = new TextureRegion(atlas.findRegion("icons/lock"));
 
         cherry = new Animation<>(0.1f, atlas.findRegions("pets/cat"), Animation.PlayMode.LOOP);
         asuka = new Animation<>(0.1f, atlas.findRegions("pets/dog"), Animation.PlayMode.LOOP);
@@ -305,7 +306,7 @@ public class Assets implements Disposable {
         playerSlashUp    = new Animation<>(.016f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.NORMAL);
         playerSlashDown  = new Animation<>(.016f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.NORMAL);
         playerSlash360   = new Animation<>(.06f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
-        playerStun       = new Animation<>(.03f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.LOOP);
+        playerStun       = new Animation<>(.02f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.NORMAL);
 
         Array<TextureRegion> regions = new Array<>();
         regions.addAll(

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -23,10 +24,14 @@ public class IndividualSkillUI extends VisWindow {
     public Player.SpecialAbility ability;
     private final float OFFSET = 50f;
     private TextButton equipButton;
+    private Stack stack;
+    private Assets assets;
+    private VisImage lock;
 
     public IndividualSkillUI(Assets assets, Skin skin, Player player, Player.SpecialAbility ability, GameScreen screen) {
         super("");
         this.ability = ability;
+        this.assets = assets;
         setBackground(Assets.Patch.metal.drawable);
         setSize(WINDOW_SIZE.x, WINDOW_SIZE.y);
         setPosition(WINDOW_POSITION.x, WINDOW_POSITION.y);
@@ -34,11 +39,15 @@ public class IndividualSkillUI extends VisWindow {
         VisLabel label80px = new VisLabel(ability.title, "outfit-medium-80px");
         VisLabel label20px = new VisLabel(ability.description, "outfit-medium-20px");
         label20px.setWrap(true);
+
+        stack = new Stack();
         VisImage image = new VisImage(assets.inputPrompts.get(ability.type));
+        lock = new VisImage(assets.lock);
         image.setSize(200f, 200f);
         top();
         add(label80px).top().row();
-        add(image).align(Align.center).width(200f).height(200f).row();
+        stack.add(image);
+        add(stack).align(Align.center).width(200f).height(200f).row();
         add(label20px).growX().growY().pad(20f).align(Align.center).row();
 
         TextButton.TextButtonStyle outfitMediumStyle = skin.get("text", TextButton.TextButtonStyle.class);
@@ -75,9 +84,11 @@ public class IndividualSkillUI extends VisWindow {
             setColor(Color.GRAY);
             equipButton.setDisabled(true);
             equipButton.setText("Locked");
+            stack.addActor(lock);
         } else {
             equipButton.setDisabled(false);
             equipButton.setText("Equip");
+            stack.removeActor(lock);
         }
     }
 }

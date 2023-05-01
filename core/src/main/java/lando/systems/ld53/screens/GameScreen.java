@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
@@ -72,7 +74,6 @@ public class GameScreen extends BaseScreen {
 
 
 
-        Gdx.input.setInputProcessor(uiStage);
 
         audioManager.playMusic(AudioManager.Musics.level1Full, true, true);
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
@@ -80,6 +81,25 @@ public class GameScreen extends BaseScreen {
         trapezoid = new TopTrapezoid(player, assets);
         selectSkillUI = new SelectSkillUI(this);
         uiStage.addActor(selectSkillUI);
+        uiStage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if (isSelectSkillUIShown) {
+                    if (keycode == Input.Keys.D) {
+                        selectSkillUI.showNextSkill();
+                    }
+                    else if (keycode == Input.Keys.A) {
+                        selectSkillUI.showPreviousSkill();
+                    }
+                    else if (keycode == Input.Keys.ESCAPE) {
+                        isSelectSkillUIShown = false;
+                        selectSkillUI.show(false);
+                        Gdx.input.setInputProcessor(null);
+                    }
+                }
+                return super.keyUp(event, keycode);
+            }
+        });
     }
 
     public void hideSkillUI() {
@@ -99,21 +119,10 @@ public class GameScreen extends BaseScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             isSelectSkillUIShown = !isSelectSkillUIShown;
             selectSkillUI.show(isSelectSkillUIShown);
+            Gdx.input.setInputProcessor(uiStage);
             return;
         }
-        if (isSelectSkillUIShown) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
-                selectSkillUI.showNextSkill();
-                return;
-            }
-            else if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
-                selectSkillUI.showPreviousSkill();
-                return;
-            }
-            else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-                hideSkillUI();
-            }
-        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
             if(assets.level1Full.isPlaying()) {
                 assets.level1Thin.play();
