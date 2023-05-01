@@ -205,8 +205,12 @@ public class Cargo implements Entity, Collidable {
             }
 
         }
-        else {
+        else if (object instanceof Peg) {
             Main.game.audioManager.playSound(AudioManager.Sounds.pop);
+
+        }
+        else {
+//            Main.game.audioManager.playSound(AudioManager.Sounds.pop);
         }
     }
 
