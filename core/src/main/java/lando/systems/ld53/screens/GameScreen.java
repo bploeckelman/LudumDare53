@@ -41,6 +41,8 @@ public class GameScreen extends BaseScreen {
     private SelectSkillUI selectSkillUI;
     public boolean isSelectSkillUIShown = false;
 
+    public boolean paused;
+
     public GameScreen() {
         super();
 
@@ -105,11 +107,14 @@ public class GameScreen extends BaseScreen {
     public void hideSkillUI() {
         isSelectSkillUIShown = false;
         selectSkillUI.show(false);
+
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
+
+        boolean pauseGame = paused || isSelectSkillUIShown;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !isSelectSkillUIShown) {
             audioManager.stopMusic();
@@ -152,6 +157,11 @@ public class GameScreen extends BaseScreen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
             balls.add(new Cargo(assets, Goal.Type.yellow, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
+            paused = !paused;
+        }
+
+        if (pauseGame) return;
 
         physicsObjects.clear();
 
