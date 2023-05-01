@@ -49,7 +49,7 @@ public class IndividualSkillUI extends VisWindow {
         setTouchable(Touchable.disabled);
 //        VisLabel label80px = new VisLabel(ability.title, "outfit-medium-80px");
         VisLabel label20px = new VisLabel(ability.title, "outfit-medium-20px");
-        label20px.setWrap(true);
+        label20px.setScale(.1f);
 
         stack = new Stack();
         VisImage image = new VisImage(ability.textureRegion);
@@ -58,15 +58,16 @@ public class IndividualSkillUI extends VisWindow {
 //            image = new VisImage(assets.bomb.getKeyFrame(0));
 //        }
         lock = new VisImage(assets.lock);
-        image.setOrigin(100f, 100f);
+        image.setOrigin(25f, 25f);
         image.setAlign(Align.center);
         image.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.scaleTo(1.1f, 1.1f, .4f), Actions.scaleTo(1f, 1f, .4f))));
         top();
 //        add(label80px).top().row();
         stack.add(image);
         stack.add(lock);
+        label20px.setAlignment(Align.bottom);
+        stack.add(label20px);
         add(stack).align(Align.center).width(50f).height(50f).row();
-        add(label20px).growX().growY().pad(20f).align(Align.center).row();
 //
 //        TextButton.TextButtonStyle outfitMediumStyle = skin.get("text", TextButton.TextButtonStyle.class);
 //        TextButton.TextButtonStyle titleScreenButtonStyle = new TextButton.TextButtonStyle(outfitMediumStyle);

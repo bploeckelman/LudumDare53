@@ -87,8 +87,8 @@ public class SelectSkillUI extends Group {
                 showNextSkill();
             }
         });
-        buttonTable.add(previousButton).left().expandX();
-        buttonTable.add(nextButton).right().expandX();
+        //buttonTable.add(previousButton).left().expandX();
+        //buttonTable.add(nextButton).right().expandX();
         previousButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveBy(0f, 20f, .5f), Actions.moveBy(-0f, -20f, .5f))));
         nextButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveBy(0f, 20f, .5f), Actions.moveBy(-0f, -20f, .5f))));
         addActor(buttonTable);
