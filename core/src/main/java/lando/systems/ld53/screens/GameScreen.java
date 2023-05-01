@@ -209,19 +209,39 @@ public class GameScreen extends BaseScreen {
             }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
-            player.currentAbility = player.abilityList.get(0);
+            if (player.abilityList.get(0).isUnlocked) {
+                player.currentAbility = player.abilityList.get(0);
+            } else {
+                bottomGameUI.buttonTables.get(0).shakeLocker();
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
-            player.currentAbility = player.abilityList.get(1);
+            if (player.abilityList.get(1).isUnlocked) {
+                player.currentAbility = player.abilityList.get(1);
+            } else {
+                bottomGameUI.buttonTables.get(1).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
-            player.currentAbility = player.abilityList.get(2);
+            if (player.abilityList.get(2).isUnlocked) {
+                player.currentAbility = player.abilityList.get(2);
+            } else {
+                bottomGameUI.buttonTables.get(2).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
-            player.currentAbility = player.abilityList.get(3);
+            if (player.abilityList.get(3).isUnlocked) {
+                player.currentAbility = player.abilityList.get(3);
+            } else {
+                bottomGameUI.buttonTables.get(3).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
-            player.currentAbility = player.abilityList.get(4);
+            if (player.abilityList.get(4).isUnlocked) {
+                player.currentAbility = player.abilityList.get(4);
+            } else {
+                bottomGameUI.buttonTables.get(4).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
+            }
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {

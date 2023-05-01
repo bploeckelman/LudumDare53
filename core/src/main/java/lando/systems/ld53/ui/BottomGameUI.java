@@ -1,10 +1,6 @@
 package lando.systems.ld53.ui;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
-import com.kotcrab.vis.ui.widget.VisImage;
-import com.kotcrab.vis.ui.widget.VisLabel;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.entities.PlayerAbility;
@@ -20,7 +16,7 @@ public class BottomGameUI extends Table {
     private static final int BUTTON_COUNT = 5;
     private static final float X = Config.Screen.window_width / 2 - (BUTTON_COUNT * BUTTON_SIZE / 2);
     private static final float Y = 0f;
-    private List<Table> buttonTables = new ArrayList();
+    public List<BottomGameUIButtons> buttonTables = new ArrayList();
     private List<PlayerAbility> abilityList = Arrays.asList(PlayerAbility.values());
 
     public BottomGameUI(GameScreen screen) {
@@ -28,17 +24,8 @@ public class BottomGameUI extends Table {
         setPosition(X, Y);
         setSize(BUTTON_SIZE * BUTTON_COUNT, BUTTON_SIZE);
         for (int i = 0; i < BUTTON_COUNT; i++) {
-            Table table = new Table();
-            table.setBackground(Assets.Patch.glass.drawable);
-            Stack stack = new Stack();
-            VisImage icon = new VisImage(abilityList.get(i).textureRegion);
-            stack.add(icon);
-            VisLabel label = new VisLabel(String.valueOf(i + 1));
-            label.setScale(2f);
-            label.setAlignment(Align.topRight);
-            stack.add(label);
-            table.add(stack).growX().growY();
-            buttonTables.add(table);
+            BottomGameUIButtons button = new BottomGameUIButtons(screen, i, abilityList);
+            buttonTables.add(button);
         }
 
         for (Table table : buttonTables) {
@@ -48,15 +35,18 @@ public class BottomGameUI extends Table {
     }
 
     public void update(float delta) {
-        for (Table table : buttonTables) {
-            if (abilityList.get(buttonTables.indexOf(table)) == screen.player.currentAbility) {
-                table.setBackground(Assets.Patch.glass_yellow.drawable);
+        for (BottomGameUIButtons button : buttonTables) {
+            if (abilityList.get(buttonTables.indexOf(button)) == screen.player.currentAbility) {
+                button.setBackground(Assets.Patch.glass_yellow.drawable);
+                button.lock.setVisible(false);
             }
-            else if (!abilityList.get(buttonTables.indexOf(table)).isUnlocked) {
-                table.setBackground(Assets.Patch.glass_dim.drawable);
+            else if (!abilityList.get(buttonTables.indexOf(button)).isUnlocked) {
+                button.setBackground(Assets.Patch.glass_dim.drawable);
+                button.lock.setVisible(true);
             }
             else {
-                table.setBackground(Assets.Patch.glass.drawable);
+                button.setBackground(Assets.Patch.glass.drawable);
+                button.lock.setVisible(false);
             }
         }
     }
