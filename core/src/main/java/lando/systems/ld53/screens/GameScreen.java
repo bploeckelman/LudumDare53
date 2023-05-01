@@ -54,7 +54,11 @@ public class GameScreen extends BaseScreen {
 
     public Particles particles;
 
-    public GameScreen() {
+    public enum Levels {
+        preview, level1, level2, level3
+    }
+
+    public GameScreen(Levels level) {
         super();
         collectedMap.put(Goal.Type.cyan, 0);
         collectedMap.put(Goal.Type.red, 0);
@@ -76,7 +80,40 @@ public class GameScreen extends BaseScreen {
         enemies = new Array<>();
         cargos = new Array<>();
 
-        map = new Map(this, "maps/level1.tmx");
+        switch (level) {
+            case preview:
+                map = new Map(this, "maps/level1.tmx");
+                PlayerAbility.bomb_throw.isUnlocked = true;
+                PlayerAbility.speed_up.isUnlocked = true;
+                PlayerAbility.shield_360.isUnlocked = true;
+                PlayerAbility.repulse.isUnlocked = false;
+                PlayerAbility.fetch.isUnlocked = false;
+                break;
+            case level1:
+                map = new Map(this, "maps/level1.tmx");
+                PlayerAbility.bomb_throw.isUnlocked = false;
+                PlayerAbility.speed_up.isUnlocked = false;
+                PlayerAbility.shield_360.isUnlocked = true;
+                PlayerAbility.repulse.isUnlocked = false;
+                PlayerAbility.fetch.isUnlocked = false;
+                break;
+            case level2:
+                map = new Map(this, "maps/level2.tmx");
+                PlayerAbility.bomb_throw.isUnlocked = true;
+                PlayerAbility.speed_up.isUnlocked = true;
+                PlayerAbility.shield_360.isUnlocked = true;
+                PlayerAbility.repulse.isUnlocked = false;
+                PlayerAbility.fetch.isUnlocked = false;
+                break;
+            case level3:
+                map = new Map(this, "maps/level3.tmx");
+                PlayerAbility.bomb_throw.isUnlocked = true;
+                PlayerAbility.speed_up.isUnlocked = true;
+                PlayerAbility.shield_360.isUnlocked = true;
+                PlayerAbility.repulse.isUnlocked = true;
+                PlayerAbility.fetch.isUnlocked = true;
+                break;
+        }
         player = new Player(this, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
 
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
