@@ -230,6 +230,7 @@ public class GameScreen extends BaseScreen {
         }
 
         topGameUI.update(delta);
+        bottomGameUI.update(delta);
 
         if (pauseGame) return;
 

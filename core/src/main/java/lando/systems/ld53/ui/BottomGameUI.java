@@ -1,7 +1,10 @@
 package lando.systems.ld53.ui;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.VisImage;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.entities.PlayerAbility;
@@ -27,8 +30,14 @@ public class BottomGameUI extends Table {
         for (int i = 0; i < BUTTON_COUNT; i++) {
             Table table = new Table();
             table.setBackground(Assets.Patch.glass.drawable);
+            Stack stack = new Stack();
             VisImage icon = new VisImage(abilityList.get(i).textureRegion);
-            table.add(icon).growX().growY();
+            stack.add(icon);
+            VisLabel label = new VisLabel(String.valueOf(i + 1));
+            label.setScale(2f);
+            label.setAlignment(Align.topRight);
+            stack.add(label);
+            table.add(stack).growX().growY();
             buttonTables.add(table);
         }
 
@@ -36,5 +45,15 @@ public class BottomGameUI extends Table {
             add(table).size(BUTTON_SIZE);
         }
 
+    }
+
+    public void update(float delta) {
+        for (Table table : buttonTables) {
+            if (screen.player != null && abilityList.get(buttonTables.indexOf(table)) == screen.player.currentAbility) {
+                table.setBackground(Assets.Patch.glass_yellow.drawable);
+            } else {
+                table.setBackground(Assets.Patch.glass.drawable);
+            }
+        }
     }
 }
