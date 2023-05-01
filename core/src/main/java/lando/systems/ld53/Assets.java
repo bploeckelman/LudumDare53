@@ -155,6 +155,11 @@ public class Assets implements Disposable {
     public Sound collect1;
     public Sound cannon1;
     public Sound spawn1;
+    public Sound giggle1;
+    public Sound giggle2;
+    public Sound giggle3;
+    public Sound giggle4;
+    public Sound giggle5;
 
     public enum Patch {
         debug, panel, metal, glass,
@@ -269,6 +274,11 @@ public class Assets implements Disposable {
             mgr.load("audio/sounds/collect1.ogg", Sound.class);
             mgr.load("audio/sounds/cannon1.ogg", Sound.class);
             mgr.load("audio/sounds/spawn1.ogg", Sound.class);
+            mgr.load("audio/sounds/giggle1.ogg", Sound.class);
+            mgr.load("audio/sounds/giggle2.ogg", Sound.class);
+            mgr.load("audio/sounds/giggle3.ogg", Sound.class);
+            mgr.load("audio/sounds/giggle4.ogg", Sound.class);
+            mgr.load("audio/sounds/giggle5.ogg", Sound.class);
 
             mgr.load("audio/music/level1-thin.ogg", Music.class);
             mgr.load("audio/music/level1-full.ogg", Music.class);
@@ -520,7 +530,11 @@ public class Assets implements Disposable {
          collect1 = mgr.get("audio/sounds/collect1.ogg", Sound.class);
          cannon1 = mgr.get("audio/sounds/cannon1.ogg", Sound.class);
          spawn1 = mgr.get("audio/sounds/spawn1.ogg", Sound.class);
-//         = mgr.get("audio/sounds/.ogg", Sound.class);
+         giggle1 = mgr.get("audio/sounds/giggle1.ogg", Sound.class);
+         giggle2 = mgr.get("audio/sounds/giggle2.ogg", Sound.class);
+         giggle3 = mgr.get("audio/sounds/giggle3.ogg", Sound.class);
+         giggle4 = mgr.get("audio/sounds/giggle4.ogg", Sound.class);
+         giggle5 = mgr.get("audio/sounds/giggle5.ogg", Sound.class);
 //         = mgr.get("audio/sounds/.ogg", Sound.class);
 
         // Music

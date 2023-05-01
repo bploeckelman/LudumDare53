@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.Cargo;
 import lando.systems.ld53.physics.CollisionShapeCircle;
 import lando.systems.ld53.screens.GameScreen;
@@ -61,6 +62,9 @@ public class InvaderEnemy extends Enemy {
             float attractionRadius = circle.radius + ((CollisionShapeCircle)chasedCargo.getCollisionShape()).radius + 80;
             if (attractionRadius * attractionRadius > nearestCargoDist2) {
                 // TODO: particles, attract sound
+                if (heldCargo == null) {
+                    Main.game.audioManager.playSound(AudioManager.Sounds.giggle, .5f);
+                }
                 heldCargo = chasedCargo;
                 heldCargo.getVelocity().add(targetPosition.sub(getPosition()).scl(-1).nor().scl(50));
                 targetPosition.set(screen.player.getPosition()).sub(getPosition()).scl(-1).add(getPosition());

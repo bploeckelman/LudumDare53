@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import lando.systems.ld53.Main;
+import lando.systems.ld53.screens.GameScreen;
 
 public class PlayerShield implements Entity {
 
@@ -25,6 +26,8 @@ public class PlayerShield implements Entity {
         active = true;
         timer = DURATION;
         animTimer = 0f;
+        GameScreen currentScreen = (GameScreen) Main.game.getScreen();
+        currentScreen.swapMusic();
     }
 
     public boolean isActive() {
@@ -38,6 +41,8 @@ public class PlayerShield implements Entity {
             if (timer <= 0) {
                 timer = 0;
                 active = false;
+                GameScreen currentScreen = (GameScreen) Main.game.getScreen();
+                currentScreen.swapMusic();
             } else {
                 animTimer += delta;
             }
