@@ -12,10 +12,10 @@ public class CargoSpawner implements Entity {
     float timer;
     Goal.Type lastSpawnedType;
 
-    public CargoSpawner(GameScreen screen, Vector2 position) {
+    public CargoSpawner(GameScreen screen, float x, float y) {
         this.screen = screen;
-        this.position = position;
-        lastSpawnedType = Goal.Type.yellow;
+        this.position = new Vector2(x, y);
+        this.lastSpawnedType = Goal.Type.yellow;
     }
 
     @Override

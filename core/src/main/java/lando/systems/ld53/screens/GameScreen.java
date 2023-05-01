@@ -26,7 +26,6 @@ import java.util.HashMap;
 public class GameScreen extends BaseScreen {
 
     private Map map;
-    public CargoSpawner cargoSpawner;
     public Array<Cargo> cargos;
     public Player player;
     public Array<EnemySpawner> enemySpawners;
@@ -67,19 +66,11 @@ public class GameScreen extends BaseScreen {
         bullets = new Array<>();
         bombs = new Array<>();
         enemies = new Array<>();
+        cargos = new Array<>();
 
         map = new Map(this, "maps/level1.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
 
-
-        // TODO: read these from a map
-        cargoSpawner = new CargoSpawner(this, new Vector2(540, 500));
-        enemySpawners = new Array<>();
-        enemySpawners.add(new EnemySpawner(this, new Vector2(200, 600), EnemySpawner.EnemyType.random));
-
-        Cargo cargo = new Cargo(assets, Goal.Type.green, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
-        cargos = new Array<>();
-        cargos.add(cargo);
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
 
         physicsObjects = new Array<>();
@@ -96,8 +87,6 @@ public class GameScreen extends BaseScreen {
         influencers = new Array<>();
         influencers.addAll(map.goals);
         influencers.add(player.personalRepulsor);
-//        influencers.add(new TestAttractor(new Vector2(400, 500)));
-//        influencers.add(new TestRepulser(new Vector2(700, 450)));
 
         audioManager.playMusic(AudioManager.Musics.level1Full, true, true);
         this.spawnTimer = 5f;
@@ -320,22 +309,26 @@ public class GameScreen extends BaseScreen {
             }
         }
 
-        cargoSpawner.update(delta);
+        for (CargoSpawner cargoSpawner : map.cargoSpawners) {
+            cargoSpawner.update(delta);
+        }
 
         for (Cargo cargo : cargos) {
             cargo.update(delta);
         }
 
-        for (EnemySpawner spawner : enemySpawners) {
-            spawner.update(delta);
+        for (EnemySpawner enemySpawner : map.enemySpawners) {
+            enemySpawner.update(delta);
         }
 
-        bulletEnemy.update(delta);
         for (Enemy enemy : enemies) {
             enemy.update(delta);
         }
+
+        bulletEnemy.update(delta);
         player.update(delta);
         map.update(delta);
+
         for (Goal goal : map.goals){
             for (int i = cargos.size -1; i >= 0; i--){
                 Cargo cargo = cargos.get(i);

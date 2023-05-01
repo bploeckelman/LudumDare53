@@ -21,10 +21,10 @@ public class EnemySpawner implements Entity {
     Array<Enemy> spawnedEnemies;
 
 
-    public EnemySpawner(GameScreen screen, Vector2 position, EnemyType spawnType) {
+    public EnemySpawner(GameScreen screen, EnemyType spawnType, float x, float y) {
         this.screen = screen;
-        this.position = position;
         this.spawnType = spawnType;
+        this.position = new Vector2(x, y);
         spawnedEnemies = new Array<>();
         spawnTimer = 0;
     }

@@ -1,6 +1,5 @@
 package lando.systems.ld53.world;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapLayer;
@@ -20,12 +19,9 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
-import lando.systems.ld53.entities.Goal;
-import lando.systems.ld53.entities.Peg;
-import lando.systems.ld53.entities.WallSegment;
+import lando.systems.ld53.entities.*;
 import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.utils.TemplateAwareTmxMapLoader;
-import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Map {
 
@@ -46,6 +42,8 @@ public class Map {
     public final Array<Circle> circles;
     public final Array<Peg> pegs;
     public final Array<Goal> goals;
+    public final Array<EnemySpawner> enemySpawners;
+    public final Array<CargoSpawner> cargoSpawners;
 
     public Array<WallSegment> wallSegments;
 
@@ -61,6 +59,10 @@ public class Map {
 
         this.pegs = new Array<>();
         this.goals = new Array<>();
+        this.enemySpawners = new Array<>();
+        this.cargoSpawners = new Array<>();
+        this.polylineEndpoints = new Array<>();
+        this.wallSegments = new Array<>();
 
         // load layers
         this.layers = new Layers();
@@ -115,16 +117,25 @@ public class Map {
         for (RectangleMapObject rectObj : rectangleObjects) {
             Rectangle rect = rectObj.getRectangle();
             MapProperties props = rectObj.getProperties();
+            float x = props.get("x", Config.Screen.framebuffer_width / 2f, Float.class);
+            float y = props.get("y", Config.Screen.framebuffer_height / 2f, Float.class);
             String type = props.get("type", "", String.class);
-            if (type.equals("goal")) {
-                Goal goal = new Goal(screen, rectObj);
-                goals.add(goal);
+            switch (type) {
+                case "goal": {
+                    goals.add(new Goal(screen, rectObj));
+                } break;
+                case "enemy-spawner": {
+                    String enemyTypeStr = props.get("enemy", "random", String.class);
+                    EnemySpawner.EnemyType enemyType = EnemySpawner.EnemyType.valueOf(enemyTypeStr);
+                    enemySpawners.add(new EnemySpawner(screen, enemyType, x, y));
+                } break;
+                case "cargo-spawner": {
+                    cargoSpawners.add(new CargoSpawner(screen, x, y));
+                } break;
             }
         }
 
         // extract polyline endpoints for easy access by the collision system
-        this.polylineEndpoints = new Array<>();
-        this.wallSegments = new Array<>();
         for (int i = 0; i < polylineObjects.size; i++) {
             Polyline polyline = polylineObjects.get(i).getPolyline();
             float[] verts = polyline.getTransformedVertices();

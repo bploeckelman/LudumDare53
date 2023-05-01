@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="enemy-spawner" width="80" height="80">
+  <properties>
+   <property name="enemy" value=""/>
+   <property name="type" value="enemy-spawner"/>
+  </properties>
+ </object>
+</template>
