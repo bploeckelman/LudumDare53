@@ -171,7 +171,7 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
             alive = false;
         }
         if(isPlayer) {
-            Main.game.audioManager.playSound(AudioManager.Sounds.grunt, 11f);
+            Main.game.audioManager.playSound(AudioManager.Sounds.grunt, 1f);
             Main.game.audioManager.playSound(AudioManager.Sounds.bodyHit, .25f);
         }
     }

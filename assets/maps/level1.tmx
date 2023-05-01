@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="5" nextobjectid="60">
+ <tileset firstgid="1" source="tileset80x80.tsx"/>
+ <imagelayer id="4" name="background" offsetx="160" offsety="40">
+  <image source="floor-pcb_00.png" width="960" height="640"/>
+ </imagelayer>
+ <layer id="1" name="ground" width="16" height="9">
+  <data encoding="base64">
+   OQAAADoAAAA7AAAAPAAAAD0AAAA+AAAAPwAAAEAAAAA5AAAAOgAAADsAAAA8AAAAPQAAAD4AAAA/AAAAQAAAADoAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAAADkAAAA5AAAAEgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABcAAAA6AAAAOgAAABoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfAAAAOQAAADkAAAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJwAAADoAAAA6AAAAKgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC8AAAA5AAAAOQAAACkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAOgAAADoAAAAxAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAADkAAAA5AAAAOgAAADsAAAA8AAAAPQAAAD4AAAA/AAAAQAAAADkAAAA6AAAAOwAAADwAAAA9AAAAPgAAAD8AAABAAAAA
+  </data>
+ </layer>
+ <objectgroup id="2" name="collision">
+  <object id="9" x="80" y="80">
+   <polyline points="0,0 1120,0"/>
+  </object>
+  <object id="10" x="1200" y="80">
+   <polyline points="0,0 0,560"/>
+  </object>
+  <object id="11" x="1200" y="640">
+   <polyline points="0,0 -1120,0"/>
+  </object>
+  <object id="12" x="80" y="640">
+   <polyline points="0,0 0,-560"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="objects">
+  <object id="36" template="peg.tx" x="230" y="230"/>
+  <object id="37" template="peg.tx" x="150" y="230"/>
+  <object id="39" template="peg.tx" x="1030" y="230"/>
+  <object id="40" template="peg.tx" x="1110" y="230"/>
+  <object id="41" template="peg.tx" x="310" y="470"/>
+  <object id="42" template="peg.tx" x="345" y="550"/>
+  <object id="43" template="peg.tx" x="445" y="550"/>
+  <object id="44" template="peg.tx" x="500" y="550"/>
+  <object id="45" template="peg.tx" x="600" y="550"/>
+  <object id="46" template="peg.tx" x="655" y="550"/>
+  <object id="47" template="peg.tx" x="755" y="550"/>
+  <object id="48" template="peg.tx" x="810" y="550"/>
+  <object id="59" template="peg.tx" x="910" y="550"/>
+  <object id="49" template="peg.tx" x="950" y="470"/>
+  <object id="50" template="peg.tx" x="1030" y="390"/>
+  <object id="51" template="peg.tx" x="230" y="390"/>
+  <object id="54" x="365" y="575" width="80" height="80">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="goal"/>
+   </properties>
+  </object>
+  <object id="56" x="675" y="575" width="80" height="80">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="goal"/>
+   </properties>
+  </object>
+  <object id="58" x="830" y="575" width="80" height="80">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="goal"/>
+   </properties>
+  </object>
+  <object id="57" x="520" y="575" width="80" height="80">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="goal"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

@@ -13,6 +13,7 @@ public class Goal implements Entity, Influencer {
 
     public enum Type {
         cyan
+        , red
         ;
         public Animation<TextureRegion> anim;
     }
@@ -28,7 +29,7 @@ public class Goal implements Entity, Influencer {
 
     public Goal(RectangleMapObject rectMapObject) {
         Rectangle rect = rectMapObject.getRectangle();
-        String colorProp = rectMapObject.getProperties().get("color", "cyan", String.class);
+        String colorProp = rectMapObject.getProperties().get("color", "red", String.class);
         this.bounds = new Rectangle(rect);
         this.type = Type.valueOf(colorProp);
         this.keyframe = type.anim.getKeyFrame(0f);
