@@ -19,7 +19,7 @@ public class IndividualSkillUI extends VisWindow {
     private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height / 6);
     private final float BUTTON_WIDTH = 180f;
     private final float BUTTON_HEIGHT = 50f;
-    private Player.SpecialAbility ability;
+    public Player.SpecialAbility ability;
     private final float OFFSET = 50f;
 
     public IndividualSkillUI(Assets assets, Skin skin, Player player, Player.SpecialAbility ability) {
@@ -28,6 +28,7 @@ public class IndividualSkillUI extends VisWindow {
         setBackground(Assets.Patch.metal.drawable);
         setSize(WINDOW_SIZE.x, WINDOW_SIZE.y);
         setPosition(WINDOW_POSITION.x, WINDOW_POSITION.y);
+        setTransform(true);
         VisLabel label80px = new VisLabel(ability.title, "outfit-medium-80px");
         VisLabel label20px = new VisLabel(ability.description, "outfit-medium-20px");
         label20px.setWrap(true);

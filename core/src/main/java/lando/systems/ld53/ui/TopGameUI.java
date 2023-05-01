@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.kotcrab.vis.ui.widget.VisProgressBar;
-import com.kotcrab.vis.ui.widget.VisWindow;
-import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.utils.Utils;
