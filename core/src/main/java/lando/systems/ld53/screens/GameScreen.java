@@ -425,6 +425,7 @@ public class GameScreen extends BaseScreen {
         }
         batch.end();
         trapezoid.render(batch);
+        uiStage.getViewport().setCamera(screenShaker.getViewCamera());
         uiStage.draw();
     }
 
