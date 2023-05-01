@@ -50,7 +50,7 @@ public class Cutscene2ScreenUI extends Group {
                 screen.audioManager.stopMusic();
                 screen.exitingScreen = true;
                 Gdx.input.setInputProcessor(null);
-                screen.game.setScreen(new GameScreen());
+                screen.game.setScreen(new GameScreen(GameScreen.Levels.level2));
             }
         });
 

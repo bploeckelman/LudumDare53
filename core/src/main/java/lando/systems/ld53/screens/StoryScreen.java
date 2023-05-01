@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
@@ -117,7 +116,7 @@ public class StoryScreen extends BaseScreen {
                         break;
 
                     case 6:
-                        game.setScreen(new GameScreen());
+                        game.setScreen(new GameScreen(GameScreen.Levels.preview));
                         break;
 //                    case 3:
 //

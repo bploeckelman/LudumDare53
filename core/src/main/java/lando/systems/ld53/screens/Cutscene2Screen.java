@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
-import lando.systems.ld53.ui.Cutscene1ScreenUI;
 import lando.systems.ld53.ui.Cutscene2ScreenUI;
 
 public class Cutscene2Screen extends BaseScreen {
@@ -97,7 +96,7 @@ public class Cutscene2Screen extends BaseScreen {
                         break;
 
                     case 4:
-                        game.setScreen(new GameScreen());
+                        game.setScreen(new GameScreen(GameScreen.Levels.level2));
 //                        subtitles = "Us either.\n\n" +
 //                            "That would be a weird, weird premise for a game.\n\n";
                         break;

@@ -82,15 +82,15 @@ public class GameScreen extends BaseScreen {
 
         switch (level) {
             case preview:
-                map = new Map(this, "maps/level1.tmx");
+                map = new Map(this, "maps/level1.tmx"); //get preview level
                 PlayerAbility.bomb_throw.isUnlocked = true;
                 PlayerAbility.speed_up.isUnlocked = true;
                 PlayerAbility.shield_360.isUnlocked = true;
-                PlayerAbility.repulse.isUnlocked = false;
-                PlayerAbility.fetch.isUnlocked = false;
+                PlayerAbility.repulse.isUnlocked = true;
+                PlayerAbility.fetch.isUnlocked = true;
                 break;
             case level1:
-                map = new Map(this, "maps/level1.tmx");
+                map = new Map(this, "maps/level1.tmx"); //get level2
                 PlayerAbility.bomb_throw.isUnlocked = false;
                 PlayerAbility.speed_up.isUnlocked = false;
                 PlayerAbility.shield_360.isUnlocked = true;
@@ -98,7 +98,7 @@ public class GameScreen extends BaseScreen {
                 PlayerAbility.fetch.isUnlocked = false;
                 break;
             case level2:
-                map = new Map(this, "maps/level2.tmx");
+                map = new Map(this, "maps/level1.tmx"); //update to level 3
                 PlayerAbility.bomb_throw.isUnlocked = true;
                 PlayerAbility.speed_up.isUnlocked = true;
                 PlayerAbility.shield_360.isUnlocked = true;
@@ -106,7 +106,7 @@ public class GameScreen extends BaseScreen {
                 PlayerAbility.fetch.isUnlocked = false;
                 break;
             case level3:
-                map = new Map(this, "maps/level3.tmx");
+                map = new Map(this, "maps/level1.tmx");
                 PlayerAbility.bomb_throw.isUnlocked = true;
                 PlayerAbility.speed_up.isUnlocked = true;
                 PlayerAbility.shield_360.isUnlocked = true;
