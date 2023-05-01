@@ -11,12 +11,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Main;
-import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
+import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.utils.Calc;
+import lando.systems.ld53.utils.VectorPool;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 import java.util.HashMap;
@@ -54,28 +55,8 @@ public class Player implements Entity, Collidable {
 
     public float mass = 20f;
     public float friction = 0.001f;
-    public SpecialAbility currentAbility = SpecialAbility.slash_360;
+    public PlayerAbility currentAbility = PlayerAbility.bomb_throw;
 
-    public enum SpecialAbility {
-        //TODO: some descriptions are non-sense, make it sensical. Must have 5 :(
-        slash_360(InputPrompts.Type.key_light_at, "@ attack!", "Slash your 1 360 degrees", true),
-        hash_attack(InputPrompts.Type.key_light_hash, "# attack!", "Hash your 1 out", false),
-        bomb_attack(InputPrompts.Type.key_light_bang, "! attack?","Bang your bomb", false),
-        plus_attack(InputPrompts.Type.key_light_plus, "+ attack!", "Add packet", false),
-        minus_attack(InputPrompts.Type.key_light_minus, "- attack!", "Remove bug", false);
-
-
-        public final InputPrompts.Type type; // TODO(brian) - eventually want an Animation for the icon instead of a ref to the input prompts sheet (scales up poorly)
-        public final String title;
-        public final String description;
-        public boolean isUnlocked;
-        SpecialAbility(InputPrompts.Type type, String title, String description, boolean isUnlocked) {
-            this.title = title;
-            this.type = type;
-            this.description = description;
-            this.isUnlocked = isUnlocked;
-        }
-    }
     public enum State {
         idle_down,
         idle_up,
@@ -218,21 +199,18 @@ public class Player implements Entity, Collidable {
                 }
             }
         }
+
         // If player does specialAttack
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
-            if (stamina < SPECIAL_COST) {
+            float cost = currentAbility.cost;
+            if (stamina < cost) {
                 Main.game.audioManager.playSound(AudioManager.Sounds.error, .35f);
             } else {
                 isAttacking = true;
-                stamina -= SPECIAL_COST;
-                switch(currentAbility) {
-                    case slash_360:
-                        currentState = State.slash_360;
-                        Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh, .26f);
-                }
+                stamina -= cost;
+                triggerAbility();
             }
         }
-
 
         //set player image based on currentState
         animation = animations.get(currentState);
@@ -288,6 +266,54 @@ public class Player implements Entity, Collidable {
                 currentState = State.slash_right;
                 break;
         }
+    }
+
+    private void triggerAbility() {
+        switch(currentAbility) {
+            case shield_360: {
+                currentState = State.slash_360;
+                Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh, .26f);
+            } break;
+            case bomb_throw: {
+                throwBomb();
+                Main.game.audioManager.playSound(AudioManager.Sounds.impact, .26f);
+            } break;
+            case speed_up: {
+
+            } break;
+            case repulse: {
+
+            } break;
+            case grapple: {
+
+            } break;
+        }
+    }
+
+    private void throwBomb() {
+        Vector2 vel = VectorPool.getVec2();
+        Vector2 pos = VectorPool.getVec2()
+            .set(getPosition()).add(0, -10f);
+
+        switch (currentDirection) {
+            case up:   vel.set(0,  1); break;
+            case down: vel.set(0, -1); break;
+            case left:
+            case up_left:
+            case down_left: vel.set(-1, 0); break;
+            case right:
+            case up_right:
+            case down_right: vel.set(1, 0); break;
+        }
+
+        float speed = 1000f;
+        vel.scl(speed);
+
+        GameScreen screen = (GameScreen) Main.game.currentScreen;
+        Bomb bomb = new Bomb(screen.assets, pos.x, pos.y, vel.x, vel.y);
+        screen.bombs.add(bomb);
+
+        VectorPool.freeAll(pos, vel);
     }
 
     @Override

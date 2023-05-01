@@ -73,6 +73,7 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> cargoYellow;
     public Animation<TextureRegion> cargoGreen;
     public Animation<TextureRegion> peg;
+    public Animation<TextureRegion> bomb;
 
     public Animation<TextureRegion> gobbler;
     public Animation<TextureRegion> etWalk;
@@ -340,6 +341,7 @@ public class Assets implements Disposable {
         cargoGreen = new Animation<>(0.07f, atlas.findRegions("objects/cargo-green/cargo-green"), Animation.PlayMode.LOOP);
 
         peg = new Animation<>(0.1f, atlas.findRegions("objects/peg/spinner"), Animation.PlayMode.LOOP);
+        bomb = new Animation<>(0.1f, atlas.findRegions("objects/bomb/bomb"), Animation.PlayMode.NORMAL);
 
         gobbler = new Animation<>(0.1f, atlas.findRegions("creatures/gobbler/gobbler-idle"), Animation.PlayMode.LOOP_PINGPONG);
 

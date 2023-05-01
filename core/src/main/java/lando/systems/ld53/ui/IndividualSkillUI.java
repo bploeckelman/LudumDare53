@@ -17,6 +17,7 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.entities.Player;
+import lando.systems.ld53.entities.PlayerAbility;
 import lando.systems.ld53.screens.GameScreen;
 
 public class IndividualSkillUI extends VisWindow {
@@ -24,14 +25,14 @@ public class IndividualSkillUI extends VisWindow {
     private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height / 6);
     private final float BUTTON_WIDTH = 200f;
     private final float BUTTON_HEIGHT = 50f;
-    public Player.SpecialAbility ability;
     private final float OFFSET = 50f;
     private TextButton equipButton;
     private Stack stack;
     private Assets assets;
     private VisImage lock;
+    public PlayerAbility ability;
 
-    public IndividualSkillUI(Assets assets, Skin skin, Player player, Player.SpecialAbility ability, GameScreen screen) {
+    public IndividualSkillUI(Assets assets, Skin skin, Player player, PlayerAbility ability, GameScreen screen) {
         super("");
         this.ability = ability;
         this.assets = assets;

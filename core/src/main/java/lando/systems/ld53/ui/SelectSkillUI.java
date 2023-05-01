@@ -17,6 +17,7 @@ import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.entities.Player;
+import lando.systems.ld53.entities.PlayerAbility;
 import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.utils.Utils;
 
@@ -26,8 +27,8 @@ import java.util.List;
 
 
 public class SelectSkillUI extends Group {
-    private HashMap<Player.SpecialAbility, IndividualSkillUI> abilityUIMap = new HashMap<>();
-    private List<Player.SpecialAbility> abilityList;
+    private HashMap<PlayerAbility, IndividualSkillUI> abilityUIMap = new HashMap<>();
+    private List<PlayerAbility> abilityList;
     private IndividualSkillUI skillUIBeingShown;
     private Player player;
     private Assets assets;
@@ -49,8 +50,8 @@ public class SelectSkillUI extends Group {
         greyOutWindow.setBackground(new TextureRegionDrawable(Utils.getColoredTextureRegion(new Color(.3f, .3f, .3f, .5f))));
         greyOutWindow.setMovable(false);
         addActor(greyOutWindow);
-        abilityList = Arrays.asList(Player.SpecialAbility.values());
-        for (Player.SpecialAbility ability : abilityList) {
+        abilityList = Arrays.asList(PlayerAbility.values());
+        for (PlayerAbility ability : abilityList) {
             IndividualSkillUI individualSkillUI = new IndividualSkillUI(assets, skin, player, ability, screen);
             abilityUIMap.put(ability, individualSkillUI);
             addActor(individualSkillUI);
@@ -81,6 +82,8 @@ public class SelectSkillUI extends Group {
         previousButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveBy(0f, 20f, .5f), Actions.moveBy(-0f, -20f, .5f))));
         nextButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveBy(0f, 20f, .5f), Actions.moveBy(-0f, -20f, .5f))));
         addActor(buttonTable);
+
+        setVisible(true);
         Vector2 newPosition = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height - 50f);
         setPosition(newPosition.x, newPosition.y);
         setScale(0f, 0f);
