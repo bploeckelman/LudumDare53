@@ -1,6 +1,5 @@
 package lando.systems.ld53.entities;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -19,12 +18,13 @@ import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
 import lando.systems.ld53.screens.GameScreen;
-import lando.systems.ld53.ui.SelectSkillUI;
 import lando.systems.ld53.utils.Calc;
 import lando.systems.ld53.utils.VectorPool;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class Player implements Entity, Collidable {
 
@@ -72,6 +72,7 @@ public class Player implements Entity, Collidable {
     public float mass = 20f;
     public float friction = 0.001f;
     public PlayerAbility currentAbility = PlayerAbility.bomb_throw;
+    public List<PlayerAbility> abilityList = Arrays.asList(PlayerAbility.values());
 
     public enum State {
         idle_down,

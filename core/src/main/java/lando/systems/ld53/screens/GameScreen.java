@@ -193,6 +193,21 @@ public class GameScreen extends BaseScreen {
                 }
             }
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+            player.currentAbility = player.abilityList.get(0);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+            player.currentAbility = player.abilityList.get(1);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
+            player.currentAbility = player.abilityList.get(2);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
+            player.currentAbility = player.abilityList.get(3);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
+            player.currentAbility = player.abilityList.get(4);
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
             swapMusic();
