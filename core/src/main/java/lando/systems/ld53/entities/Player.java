@@ -33,6 +33,7 @@ public class Player implements Entity, Collidable {
     private static final float STUN_TIMER = .3f;
 
     private final HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
+    private final HashMap<State, Animation<TextureRegion>> swipeAnimations = new HashMap<>();
     private final Vector2 vec2 = new Vector2();
     private final Vector2 position;
     private final Vector2 movement;
@@ -42,7 +43,9 @@ public class Player implements Entity, Collidable {
     private final CollisionShapeCircle collisionShape;
 
     private Animation<TextureRegion> animation;
+    private Animation<TextureRegion> swipeAnimation;
     private TextureRegion keyframe;
+    private TextureRegion swipeKeyframe;
     private State currentState;
     private Direction currentDirection;
 
@@ -112,7 +115,14 @@ public class Player implements Entity, Collidable {
         animations.put(State.slash_360, assets.playerSlash360);
         animations.put(State.stun, assets.playerStun);
 
+        swipeAnimations.put(State.slash_left, assets.playerSlashOverlayLeft);
+        swipeAnimations.put(State.slash_right, assets.playerSlashOverlayRight);
+        swipeAnimations.put(State.slash_up, assets.playerSlashOverlayUp);
+        swipeAnimations.put(State.slash_down, assets.playerSlashOverlayDown);
+        swipeAnimations.put(State.slash_360, assets.playerSlashOverlay360);
+
         animation = animations.get(State.idle_down);
+        swipeAnimation = assets.playerSlashOverlayUp;
         currentDirection = Direction.down;
     }
 
@@ -214,9 +224,20 @@ public class Player implements Entity, Collidable {
 
         //set player image based on currentState
         animation = animations.get(currentState);
+        swipeAnimation = swipeAnimations.get(State.slash_up);
         if (isAttacking) {
             attackTimer += delta;
             keyframe = animation.getKeyFrame(attackTimer);
+            if(currentState == State.slash_up
+                || currentState == State.slash_down
+                || currentState == State.slash_left
+                || currentState == State.slash_right
+                || currentState == State.slash_360
+            ) {
+                swipeAnimation = swipeAnimations.get(currentState);
+                swipeKeyframe = swipeAnimation.getKeyFrame(attackTimer);
+            }
+
         }
         else if (isStunned) {
             stunTimer += delta;
@@ -226,6 +247,7 @@ public class Player implements Entity, Collidable {
             keyframe = animation.getKeyFrame(animTimer);
             velocity.add(movement.x * SPEED * delta, movement.y * SPEED * delta);
         }
+//        swipeKeyframe = swipeAnimations.get(State.slash_up).getKeyFrame(attackTimer);
     }
 
     public float getStaminaPercentage() {
@@ -235,6 +257,15 @@ public class Player implements Entity, Collidable {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(keyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
+            if(currentState == State.slash_up
+                || currentState == State.slash_down
+                || currentState == State.slash_left
+                || currentState == State.slash_right
+                || currentState == State.slash_360
+            ) {
+                batch.draw(swipeKeyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
+            }
+//            batch.draw(swipeKeyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
     }
 
     private static final Color debugColor = new Color(50f / 255f, 205f / 255f, 50f / 255f, 0.5f); // Color.LIME half alpha

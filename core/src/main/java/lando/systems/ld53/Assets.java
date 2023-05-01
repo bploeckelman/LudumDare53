@@ -64,6 +64,11 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> playerSlashUp;
     public Animation<TextureRegion> playerSlashDown;
     public Animation<TextureRegion> playerSlash360;
+    public Animation<TextureRegion> playerSlashOverlayLeft;
+    public Animation<TextureRegion> playerSlashOverlayRight;
+    public Animation<TextureRegion> playerSlashOverlayUp;
+    public Animation<TextureRegion> playerSlashOverlayDown;
+    public Animation<TextureRegion> playerSlashOverlay360;
     public Animation<TextureRegion> playerStun;
     public Animation<TextureRegion> playerTalk;
 
@@ -317,6 +322,12 @@ public class Assets implements Disposable {
         playerSlash360   = new Animation<>(.06f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
         playerStun       = new Animation<>(.02f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.NORMAL);
         playerTalk       = new Animation<>(.1f,  atlas.findRegions("player/jeff-talking/jeff-talking"), Animation.PlayMode.LOOP);
+        playerSlashOverlayLeft  = new Animation<>(.04f, atlas.findRegions("player/swipes/swipe-left"), Animation.PlayMode.NORMAL);
+        playerSlashOverlayRight = new Animation<>(.04f, atlas.findRegions("player/swipes/swipe-right"), Animation.PlayMode.NORMAL);
+        playerSlashOverlayUp    = new Animation<>(.04f, atlas.findRegions("player/swipes/swipe-up"), Animation.PlayMode.NORMAL);
+        playerSlashOverlayDown  = new Animation<>(.04f, atlas.findRegions("player/swipes/swipe-down"), Animation.PlayMode.NORMAL);
+        playerSlashOverlay360   = new Animation<>(.06f, atlas.findRegions("player/zero-360/zero-360"), Animation.PlayMode.NORMAL);
+
 
         Array<TextureRegion> regions = new Array<>();
         regions.addAll(
