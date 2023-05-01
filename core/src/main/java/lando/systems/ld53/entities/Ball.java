@@ -17,16 +17,23 @@ import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Ball implements Entity, Collidable {
 
-    private final Rectangle bounds;
-    private final CollisionShapeCircle circle;
+    private static final Vector2 COLLISION_OFFSET = new Vector2(0, 5f);
+    private static final float COLLISION_RADIUS = 20;
+    private static final float RENDER_SIZE = 40f;
+
+    private final Rectangle renderBounds;
+    private final Rectangle collisionBounds;
+    private final CollisionShapeCircle collisionShape;
     private final Animation<TextureRegion> animation;
+    private final Vector2 velocity = new Vector2();
+    private final Vector2 position = new Vector2();
 
     private TextureRegion keyframe;
     private float animTime;
 
     public float mass = 8f;
     public float friction = 0.9f;
-    private final Vector2 velocity = new Vector2();
+
     public boolean collected;
 
     public Ball(Assets assets, float x, float y) {
@@ -34,11 +41,23 @@ public class Ball implements Entity, Collidable {
         this.animation = assets.ball;
         this.animTime = 0f;
         this.keyframe = animation.getKeyFrame(0f);
-        float scale = 3f;
-        float size = scale * Math.max(keyframe.getRegionWidth(), keyframe.getRegionHeight());
-        float radius = size / 2f;
-        this.bounds = new Rectangle(x - radius, y - radius, size, size);
-        this.circle = new CollisionShapeCircle(radius, x, y);
+        this.position.set(x, y);
+        this.collisionShape = new CollisionShapeCircle(
+            COLLISION_RADIUS,
+            x + COLLISION_OFFSET.x,
+            y + COLLISION_OFFSET.y
+        );
+        this.collisionBounds = new Rectangle(
+            x - COLLISION_RADIUS + COLLISION_OFFSET.x,
+            y - COLLISION_RADIUS + COLLISION_OFFSET.y,
+            COLLISION_RADIUS * 2f,
+            COLLISION_RADIUS * 2f
+        );
+        this.renderBounds = new Rectangle(
+            x - (RENDER_SIZE / 2f),
+            y - (RENDER_SIZE / 2f),
+            RENDER_SIZE, RENDER_SIZE
+        );
     }
 
     @Override
@@ -52,16 +71,16 @@ public class Ball implements Entity, Collidable {
     @Override
     public void render(SpriteBatch batch) {
         batch.draw(keyframe,
-            circle.center.x - circle.radius,
-            circle.center.y - circle.radius,
-            circle.radius * 2,
-            circle.radius * 2);
+            collisionShape.center.x - collisionShape.radius,
+            collisionShape.center.y - collisionShape.radius,
+            collisionShape.radius * 2,
+            collisionShape.radius * 2);
     }
 
     private static final Color debugColor = new Color(1, 0, 1, 0.5f); // Color.MAGENTA half alpha
     @Override
     public void renderDebug(ShapeDrawer shapes) {
-        shapes.filledCircle(circle.center, circle.radius, debugColor);
+        shapes.filledCircle(collisionShape.center, collisionShape.radius, debugColor);
     }
 
     @Override
@@ -91,40 +110,47 @@ public class Ball implements Entity, Collidable {
 
     @Override
     public Vector2 getPosition() {
-        return circle.center;
+        return collisionShape.center;
     }
 
     @Override
     public void setPosition(float x, float y) {
-        circle.set(x, y);
+        collisionShape.center.set(x, y);
+        position.set(
+            collisionShape.center.x - COLLISION_OFFSET.x,
+            collisionShape.center.y - COLLISION_OFFSET.y);
+        collisionBounds.set(
+            position.x - COLLISION_RADIUS + COLLISION_OFFSET.x,
+            position.y - COLLISION_RADIUS + COLLISION_OFFSET.y,
+            COLLISION_RADIUS * 2f,
+            COLLISION_RADIUS * 2f);
+        renderBounds.setPosition(
+            position.x - (renderBounds.width / 2f),
+            position.y - (renderBounds.height / 2f));
     }
 
     @Override
     public void setPosition(Vector2 newPos) {
-        circle.set(newPos.x, newPos.y);
+        setPosition(newPos.x, newPos.y);
     }
 
     @Override
     public Rectangle getCollisionBounds() {
-        return bounds;
+        return collisionBounds;
     }
 
     @Override
     public CollisionShape getCollisionShape() {
-        return circle;
+        return collisionShape;
     }
 
     @Override
     public void collidedWith(Collidable object) {
-
-        if(object instanceof Player) {
+        if (object instanceof Player) {
             Main.game.audioManager.playSound(AudioManager.Sounds.zap, .25f);
-        }
-        else {
+        } else {
             Main.game.audioManager.playSound(AudioManager.Sounds.pop);
         }
-
-
     }
 
     @Override
