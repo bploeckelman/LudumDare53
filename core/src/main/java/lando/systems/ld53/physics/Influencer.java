@@ -13,4 +13,7 @@ public interface Influencer {
     float getRange();
     void debugRender(SpriteBatch batch);
     boolean shouldEffect(Collidable c);
+
+    void updateInfluence(float dt);
+    void renderInfluence(SpriteBatch batch);
 }

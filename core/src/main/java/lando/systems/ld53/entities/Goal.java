@@ -1,5 +1,6 @@
 package lando.systems.ld53.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,22 +10,29 @@ import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
+import lando.systems.ld53.utils.InfluenceRenderer;
 
 public class Goal implements Entity, Influencer {
 
     public enum Type {
-        cyan
-        , red
-        , green
-        , yellow
+        cyan (Color.CYAN)
+        , red (Color.RED)
+        , green (Color.GREEN)
+        , yellow (Color.YELLOW)
         ;
+        Type(Color color)
+        {
+            this.color = color;
+        }
         public Animation<TextureRegion> anim;
         public Animation<TextureRegion> baseAnim;
         public Animation<TextureRegion> shimmerAnim;
+        public Color color;
     }
 
     private final Rectangle bounds;
     private final Vector2 attractorPosition;
+    private final InfluenceRenderer influenceRenderer;
     private final float range;
     private final float strength;
     private final Type type;
@@ -47,6 +55,7 @@ public class Goal implements Entity, Influencer {
         bounds.getCenter(attractorPosition);
         this.range = Math.max(bounds.width, bounds.height);
         this.strength = 900;
+        influenceRenderer = new InfluenceRenderer(this, type.color);
     }
 
     @Override
@@ -97,5 +106,16 @@ public class Goal implements Entity, Influencer {
     @Override
     public void debugRender(SpriteBatch batch) {
 
+    }
+
+
+    @Override
+    public void updateInfluence(float dt) {
+        influenceRenderer.update(dt);
+    }
+
+    @Override
+    public void renderInfluence(SpriteBatch batch) {
+        influenceRenderer.render(batch);
     }
 }

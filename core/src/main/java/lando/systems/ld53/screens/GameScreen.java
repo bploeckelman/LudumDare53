@@ -160,6 +160,10 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        for (Influencer influencer : influencers){
+            influencer.updateInfluence(delta);
+        }
+
         trapezoid.update();
 //        topGameUI.update(player.getStaminaPercentage());
         uiStage.setDebugAll(Config.Debug.ui);
@@ -174,6 +178,9 @@ public class GameScreen extends BaseScreen {
         batch.setProjectionMatrix(worldCamera.combined);
         batch.begin();
         {
+            for (Influencer influencer : influencers){
+                influencer.renderInfluence(batch);
+            }
             // goals before players/enemies
             for (Goal goal : map.goals) {
                 goal.render(batch);

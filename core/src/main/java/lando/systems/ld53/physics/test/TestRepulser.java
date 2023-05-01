@@ -6,16 +6,19 @@ import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
+import lando.systems.ld53.utils.InfluenceRenderer;
 
 public class TestRepulser implements Influencer {
     Vector2 position;
     float strength;
     float range;
+    InfluenceRenderer influenceRenderer;
 
     public TestRepulser(Vector2 pos) {
         this.position = pos;
-        this.strength = -300;
-        this.range = 80;
+        this.strength = -700;
+        this.range = 200;
+        this.influenceRenderer = new InfluenceRenderer(this, Color.RED);
     }
 
 
@@ -43,5 +46,15 @@ public class TestRepulser implements Influencer {
     @Override
     public boolean shouldEffect(Collidable c) {
         return true;
+    }
+
+    @Override
+    public void updateInfluence(float dt) {
+        influenceRenderer.update(dt);
+    }
+
+    @Override
+    public void renderInfluence(SpriteBatch batch) {
+        influenceRenderer.render(batch);
     }
 }
