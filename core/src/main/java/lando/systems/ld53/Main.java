@@ -19,10 +19,7 @@ import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld53.audio.AudioManager;
 import de.damios.guacamole.gdx.graphics.NestableFrameBuffer;
 import lando.systems.ld53.physics.test.PhysicsTestScreen;
-import lando.systems.ld53.screens.BaseScreen;
-import lando.systems.ld53.screens.GameScreen;
-import lando.systems.ld53.screens.LaunchScreen;
-import lando.systems.ld53.screens.TitleScreen;
+import lando.systems.ld53.screens.*;
 import lando.systems.ld53.ui.DebugInfo;
 import lando.systems.ld53.utils.Time;
 import lando.systems.ld53.utils.accessors.*;
@@ -112,8 +109,8 @@ public class Main extends ApplicationAdapter {
         if (Gdx.app.getType() == Application.ApplicationType.WebGL || Config.Debug.show_launch_screen) {
             setScreen(new LaunchScreen());
         } else {
-            setScreen(new TitleScreen());
-//            setScreen(new GameScreen()); // TODO CHANGE BEFORE UPLOADING
+//            setScreen(new TitleScreen());
+            setScreen(new Cutscene1Screen()); // TODO CHANGE BEFORE UPLOADING
         }
 
     }

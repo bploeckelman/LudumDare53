@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.ui.Cutscene1ScreenUI;
 import lando.systems.ld53.ui.StoryScreenUI;
 
-public class StoryScreen extends BaseScreen {
+public class Cutscene1Screen extends BaseScreen {
     //    private final Texture background;
     private float storyAccum;
     private float phaseAccum;
@@ -23,7 +23,7 @@ public class StoryScreen extends BaseScreen {
     public boolean isStoryOver;
 //    public Map<Float, String> subtitlesMap;
 
-    public StoryScreen() {
+    public Cutscene1Screen() {
         super();
 
         worldCamera.setToOrtho(false, Config.Screen.window_width, Config.Screen.window_height);
@@ -33,10 +33,9 @@ public class StoryScreen extends BaseScreen {
         storyAccum = 0;
         phaseAccum = 0;
         clickPhase = 0;
-        maxClick = 6;
+        maxClick = 4;
         isStoryOver = false;
-        startSubtitles = "Have you ever had an idea for a game come to you in a dream?\n\n" +
-            "One so fully formed that it felt as if it was put there by someone - or someTHING - else?";
+        startSubtitles = "Wow, yeah, exactly like that. Jeez.\n\n" ;
         subtitles = startSubtitles;
 
 
@@ -52,16 +51,6 @@ public class StoryScreen extends BaseScreen {
         super.update(delta);
 
         storyAccum += delta;
-//        if(storyAccum < 3f) {
-//            subtitles = "Have you ever had an idea come to you in a dream?\n\n " +
-//                "One so fully formed, you felt as if it came from somewhere else?";
-//        }
-//        else if (storyAccum < 5f) {
-//            subtitles = "\n\nNo?";
-//        }
-//        else if (storyAccum < 8f) {
-//            subtitles = "\n\nWell buckle the fuck up, honey, because that's what this game is all ABOUT!";
-//        }
 
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
@@ -88,37 +77,37 @@ public class StoryScreen extends BaseScreen {
 
                 switch (clickPhase) {
                     case 0:
-                        subtitles = "Perhaps a genie?\n\n";
+                        subtitles = "Okay, so that was just a dream?\n\n";
                         break;
                     case 1:
-                        subtitles = "Perhaps a genie? Possibly some sort of GAME genie?\n\n";
+                        subtitles = "I still have to BUILD and SHIP this whole thing?\n\n";
 
                         break;
 
                     case 2:
-                        subtitles = "Perhaps a genie? Possibly some sort of GAME genie?\n\n" +
-                            "Or perhaps a team of game genies, working together, each of whom require you to deliver\n" +
-                            "colorful, uniquely shaped objects to their respective goal areas on the level map?\n\n";
-
-
+                        subtitles = "I still have to BUILD and SHIP this whole thing?\n\n" +
+                            "On a deadline for Ludum Dare?\n\n" +
+                            "At least it's still just the first day...\n\n";
                         break;
                     case 3:
-                        subtitles = "And in the process, they would be helping you deliver a finished game (complete with\n" +
-                            "different abilities and enemies and spawners thereof) while also navigating\n" +
-                            "forcefields that change the behavior of the various in-game objects in unusual ways?\n";
+                        subtitles = "I still have to BUILD and SHIP this whole thing?\n\n" +
+                            "On a deadline for Ludum Dare?\n\n" +
+                            "At least it's still just the first day...\n\n"+
+                            "And I DO have those game genies to help me deliver the finished game...";
                         break;
 
-                        case 4:
-                        subtitles = "Us either.\n\n" +
-                            "That would be a weird, weird premise for a game.\n\n";
-                        break;
-                        case 5:
-                        subtitles = "And really quite a stretch for a game jam whose theme was \"delivery\".";
-                        break;
-
-                    case 6:
+                    case 4:
                         game.setScreen(new GameScreen());
+//                        subtitles = "Us either.\n\n" +
+//                            "That would be a weird, weird premise for a game.\n\n";
                         break;
+//                    case 5:
+//                        subtitles = "And really quite a stretch for a game jam whose theme was \"delivery\".";
+//                        break;
+//
+//                    case 6:
+//                        game.setScreen(new GameScreen());
+//                        break;
 //                    case 3:
 //
 //
@@ -203,8 +192,8 @@ public class StoryScreen extends BaseScreen {
     @Override
     public void initializeUI() {
         super.initializeUI();
-        StoryScreenUI storyScreenUI = new StoryScreenUI(this);
-        uiStage.addActor(storyScreenUI);
+        Cutscene1ScreenUI cutscene1ScreenUI = new Cutscene1ScreenUI(this);
+        uiStage.addActor(cutscene1ScreenUI);
     }
 
 

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="10" nextobjectid="71">
+ <tileset firstgid="1" source="tileset80x80.tsx"/>
+ <imagelayer id="4" name="background" offsetx="81.4273" offsety="966.351">
+  <image source="floor-pcb_00.png" width="1120" height="560"/>
+ </imagelayer>
+ <imagelayer id="5" name="GG Red" opacity="0.8" offsetx="98.8153" offsety="579.784">
+  <image source="game-genie-red.png" width="200" height="200"/>
+ </imagelayer>
+ <layer id="1" name="ground" width="16" height="9">
+  <data encoding="base64">
+   OQAAADoAAAA7AAAAPAAAAD0AAAA5AAAAOgAAADsAAAA8AAAAPQAAADkAAAA6AAAAOwAAADwAAAA9AAAAOgAAADoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADkAAAA5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6AAAAOgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOQAAADkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADoAAAA6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAAOQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOgAAADoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADkAAAA5AAAAOgAAADsAAAA8AAAAOQAAADoAAAA7AAAAPAAAADkAAAA6AAAAOwAAADwAAAA5AAAAOgAAADsAAAA8AAAA
+  </data>
+ </layer>
+ <objectgroup id="2" name="collision">
+  <object id="9" x="80" y="80">
+   <polyline points="0,0 1120,0"/>
+  </object>
+  <object id="10" x="1200" y="80">
+   <polyline points="0,0 0,560"/>
+  </object>
+  <object id="11" x="1200" y="640">
+   <polyline points="0,0 -1120,0"/>
+  </object>
+  <object id="12" x="80" y="640">
+   <polyline points="0,0 0,-560"/>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="objects">
+  <object id="39" template="peg.tx" x="870" y="362"/>
+  <object id="41" template="peg.tx" x="371" y="368.667" width="20" height="20.3333"/>
+  <object id="54" x="160" y="560" width="80" height="80">
+   <properties>
+    <property name="color" value="red"/>
+    <property name="type" value="goal"/>
+   </properties>
+  </object>
+  <object id="66" template="cargo-spawner.tx" x="680" y="320"/>
+  <object id="67" name="enemy-spawner" x="600" y="160" width="80" height="80">
+   <properties>
+    <property name="enemy" value="cargo_eater"/>
+    <property name="type" value="enemy-spawner"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
