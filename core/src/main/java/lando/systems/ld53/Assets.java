@@ -68,6 +68,10 @@ public class Assets implements Disposable {
 
     public Animation<TextureRegion> bullet;
     public Animation<TextureRegion> ball;
+    public Animation<TextureRegion> cargoRed;
+    public Animation<TextureRegion> cargoCyan;
+    public Animation<TextureRegion> cargoYellow;
+    public Animation<TextureRegion> cargoGreen;
     public Animation<TextureRegion> peg;
 
     public Animation<TextureRegion> gobbler;
@@ -320,7 +324,13 @@ public class Assets implements Disposable {
             , inputPrompts.get(InputPrompts.Type.yellow_arrow_circle_up)
         );
 //        ball = new Animation<>(0.07f, regions, Animation.PlayMode.LOOP);
-        ball = new Animation<>(0.07f, atlas.findRegions("objects/packet/packet-cube"), Animation.PlayMode.LOOP);
+//        ball = new Animation<>(0.07f, atlas.findRegions("objects/cargo-cyan/cargo-cyan"), Animation.PlayMode.LOOP);
+//        ball = new Animation<>(0.07f, atlas.findRegions("objects/cargo-yellow/cargo-yellow"), Animation.PlayMode.LOOP);
+        ball = new Animation<>(0.07f, atlas.findRegions("objects/cargo-red/cargo-red"), Animation.PlayMode.LOOP);
+        cargoRed = new Animation<>(0.07f, atlas.findRegions("objects/cargo-red/cargo-red"), Animation.PlayMode.LOOP);
+        cargoYellow = new Animation<>(0.07f, atlas.findRegions("objects/cargo-yellow/cargo-yellow"), Animation.PlayMode.LOOP);
+        cargoCyan = new Animation<>(0.07f, atlas.findRegions("objects/cargo-cyan/cargo-cyan"), Animation.PlayMode.LOOP);
+        cargoGreen = new Animation<>(0.07f, atlas.findRegions("objects/cargo-green/cargo-green"), Animation.PlayMode.LOOP);
 
         peg = new Animation<>(0.1f, atlas.findRegions("objects/peg/spinner"), Animation.PlayMode.LOOP);
 

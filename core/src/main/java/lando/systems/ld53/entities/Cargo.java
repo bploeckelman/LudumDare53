@@ -29,6 +29,7 @@ public class Cargo implements Entity, Collidable {
     private final Animation<TextureRegion> animation;
     private final Vector2 velocity = new Vector2();
     private final Vector2 position = new Vector2();
+    public Goal.Type goalType;
 
     private TextureRegion keyframe;
     private float animTime;
@@ -38,9 +39,28 @@ public class Cargo implements Entity, Collidable {
 
     public boolean collected;
 
-    public Cargo(Assets assets, float x, float y) {
+    public Cargo(Assets assets, Goal.Type type, float x, float y) {
         this.collected = false;
-        this.animation = assets.ball;
+//        this.animation = assets.ball;
+        this.goalType = type;
+        switch (goalType) {
+            case cyan:
+                this.animation = assets.cargoCyan;
+                break;
+            case red:
+                this.animation = assets.cargoRed;
+                break;
+            case green:
+                this.animation = assets.cargoGreen;
+                break;
+            case yellow:
+                this.animation = assets.cargoYellow;
+                break;
+            default:
+                this.animation = assets.cargoCyan;
+                break;
+
+        }
         this.animTime = 0f;
         this.keyframe = animation.getKeyFrame(0f);
         this.position.set(x, y);
@@ -60,6 +80,8 @@ public class Cargo implements Entity, Collidable {
             y - (RENDER_SIZE / 2f),
             RENDER_SIZE, RENDER_SIZE
         );
+
+
     }
 
     @Override

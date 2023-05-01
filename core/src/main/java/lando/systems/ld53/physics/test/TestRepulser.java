@@ -16,8 +16,8 @@ public class TestRepulser implements Influencer {
 
     public TestRepulser(Vector2 pos) {
         this.position = pos;
-        this.strength = -700;
-        this.range = 200;
+        this.strength = -600;
+        this.range = 100;
         this.influenceRenderer = new InfluenceRenderer(this, Color.RED);
     }
 

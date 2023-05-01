@@ -50,7 +50,7 @@ public class GameScreen extends BaseScreen {
         map = new Map("maps/level1.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
         enemy = new Enemy(assets, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
-        Cargo cargo = new Cargo(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
+        Cargo cargo = new Cargo(assets, Goal.Type.green, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         balls = new Array<>();
         balls.add(cargo);
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
@@ -132,8 +132,16 @@ public class GameScreen extends BaseScreen {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
-            balls.add(new Cargo(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
-
+            balls.add(new Cargo(assets, Goal.Type.red, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_8)) {
+            balls.add(new Cargo(assets, Goal.Type.cyan, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
+            balls.add(new Cargo(assets, Goal.Type.green, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+            balls.add(new Cargo(assets, Goal.Type.yellow, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
         }
 
         physicsObjects.clear();
