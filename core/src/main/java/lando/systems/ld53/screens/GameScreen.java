@@ -67,7 +67,7 @@ public class GameScreen extends BaseScreen {
         bombs = new Array<>();
         enemies = new Array<>();
 
-        map = new Map("maps/level1.tmx");
+        map = new Map(this, "maps/level1.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
 
         // TODO: read this from a map
@@ -171,6 +171,14 @@ public class GameScreen extends BaseScreen {
             assets.level1Full.setPosition(assets.level1Thin.getPosition());
             assets.level1Thin.stop();
         }
+    }
+
+    public boolean isLevelDone(){
+        boolean completed = true;
+        for (Goal.Type type : Goal.Type.values()){
+           if (collectedMap.get(type) < numberOfPackagesToCollect) completed = false;
+        }
+        return completed;
     }
 
     @Override

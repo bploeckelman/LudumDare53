@@ -56,11 +56,12 @@ public class Goal implements Entity, Influencer {
         }
     }
 
+    private final GameScreen screen;
     private final Rectangle bounds;
     private final Vector2 attractorPosition;
     private final InfluenceRenderer influenceRenderer;
     private final float range;
-    private final float strength;
+    private float strength;
     private final Type type;
 
     private TextureRegion keyframe;
@@ -68,8 +69,9 @@ public class Goal implements Entity, Influencer {
     private TextureRegion shimmerKeyframe;
     private TextureRegion icon;
     private float animTime;
+    private boolean active;
 
-    public Goal(RectangleMapObject rectMapObject) {
+    public Goal(GameScreen screen, RectangleMapObject rectMapObject) {
         Rectangle rect = rectMapObject.getRectangle();
         String colorProp = rectMapObject.getProperties().get("color", "red", String.class);
         this.bounds = new Rectangle(rect);
@@ -84,6 +86,8 @@ public class Goal implements Entity, Influencer {
         this.strength = 1500;
         influenceRenderer = new InfluenceRenderer(this, type.color);
         this.icon = type.icon;
+        this.screen = screen;
+        active = true;
 
     }
 
@@ -95,6 +99,12 @@ public class Goal implements Entity, Influencer {
 
         shimmerKeyframe = type.shimmerAnim.getKeyFrame(animTime);
         baseKeyframe = type.baseAnim.getKeyFrame(animTime);
+        active = screen.collectedMap.get(type) < screen.numberOfPackagesToCollect;
+        if (!active){
+            this.strength = 0;
+        } else {
+            this.strength = 1500;
+        }
     }
 
     public void tryToCollectPackage(Cargo b) {
@@ -111,11 +121,16 @@ public class Goal implements Entity, Influencer {
 
     @Override
     public void render(SpriteBatch batch) {
+        if (!active){
+            batch.setColor(.6f, .6f, .6f, 1f);
+        }
         batch.draw(baseKeyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(shimmerKeyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(icon, bounds.x + bounds.width / 4, bounds.y + bounds
             .height / 4, bounds.width / 2, bounds.height / 2);
+
+        batch.setColor(Color.WHITE);
     }
 
 

@@ -23,6 +23,7 @@ import lando.systems.ld53.Main;
 import lando.systems.ld53.entities.Goal;
 import lando.systems.ld53.entities.Peg;
 import lando.systems.ld53.entities.WallSegment;
+import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.utils.TemplateAwareTmxMapLoader;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -51,7 +52,7 @@ public class Map {
     private final Vector2 v1 = new Vector2();
     private final Vector2 v2 = new Vector2();
 
-    public Map(String fileName) {
+    public Map(GameScreen screen, String fileName) {
         // load the map and create the renderer
         TmxMapLoader loader = new TemplateAwareTmxMapLoader();
         this.map = loader.load(fileName);
@@ -116,7 +117,7 @@ public class Map {
             MapProperties props = rectObj.getProperties();
             String type = props.get("type", "", String.class);
             if (type.equals("goal")) {
-                Goal goal = new Goal(rectObj);
+                Goal goal = new Goal(screen, rectObj);
                 goals.add(goal);
             }
         }
