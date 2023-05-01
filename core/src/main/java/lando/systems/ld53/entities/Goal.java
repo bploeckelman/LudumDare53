@@ -80,7 +80,7 @@ public class Goal implements Entity, Influencer {
         this.animTime = 0f;
         this.attractorPosition = new Vector2();
         bounds.getCenter(attractorPosition);
-        this.range = Math.max(bounds.width, bounds.height);
+        this.range = Math.max(bounds.width, bounds.height) * 1.5f;
         this.strength = 900;
         influenceRenderer = new InfluenceRenderer(this, type.color);
         this.icon = type.icon;
@@ -97,7 +97,7 @@ public class Goal implements Entity, Influencer {
 
     public void tryToCollectPackage(Cargo b) {
         float dist = b.getPosition().dst(attractorPosition);
-        if (dist < range / 2f) {
+        if (dist < range / 3f) {
             if(b.goalType == type) {
                 Main.game.audioManager.playSound(AudioManager.Sounds.collect, .5f);
                 // TODO: Collected it do things like score
@@ -134,7 +134,11 @@ public class Goal implements Entity, Influencer {
 
     @Override
     public boolean shouldEffect(Collidable c) {
-        if (c instanceof Cargo) return true;
+        if (c instanceof Cargo) {
+            Cargo ca = (Cargo) c;
+            if (ca.goalType == this.type) return true;
+            return false;
+        }
         return false;
     }
 
