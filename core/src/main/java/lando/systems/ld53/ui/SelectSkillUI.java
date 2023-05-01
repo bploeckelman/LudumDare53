@@ -27,6 +27,7 @@ import java.util.List;
 
 
 public class SelectSkillUI extends Group {
+    private final GameScreen screen;
     private HashMap<PlayerAbility, IndividualSkillUI> abilityUIMap = new HashMap<>();
     private List<PlayerAbility> abilityList;
     public IndividualSkillUI skillUIBeingShown;
@@ -39,8 +40,13 @@ public class SelectSkillUI extends Group {
     private ImageButton nextButton;
     private VisWindow greyOutWindow;
     public float transitionDuration;
+    private float autoScrollTimer = 0f;
+    public boolean isAutoScrolling = false;
+    private int scrollToSkillIndex = 0;
+    public boolean isFound = false;
 
     public SelectSkillUI(GameScreen screen) {
+        this.screen = screen;
         this.player = screen.player;
         this.assets = screen.assets;
         this.skin = screen.skin;
@@ -95,7 +101,7 @@ public class SelectSkillUI extends Group {
 ////        IndividualSkillUI ui = new IndividualSkillUI(assets, skin, player, player.currentAbility);
 //        return ui;
 //    }
-    public void showNextSkill() {
+    public int showNextSkill() {
         int centerIndex = (abilityList.indexOf(skillUIBeingShown.ability) + 1) % abilityList.size();
         int leftIndex1;
         int leftIndex2;
@@ -127,8 +133,9 @@ public class SelectSkillUI extends Group {
         abilityUIMap.get(abilityList.get(rightIndex1)).toFront();
         abilityUIMap.get(abilityList.get(centerIndex)).toFront();
         skillUIBeingShown = abilityUIMap.get(abilityList.get(centerIndex));
+        return centerIndex;
     }
-    public void showPreviousSkill() {
+    public int showPreviousSkill() {
         int previousCenterIndex = abilityList.indexOf(skillUIBeingShown.ability);
         if (previousCenterIndex == 0) {
             previousCenterIndex = abilityList.size();
@@ -164,6 +171,7 @@ public class SelectSkillUI extends Group {
         abilityUIMap.get(abilityList.get(leftIndex1)).toFront();
         abilityUIMap.get(abilityList.get(centerIndex)).toFront();
         skillUIBeingShown = abilityUIMap.get(abilityList.get(centerIndex));
+        return centerIndex;
     }
 
     public void setUpInitialOrder() {
@@ -251,5 +259,33 @@ public class SelectSkillUI extends Group {
         for (IndividualSkillUI ui : abilityUIMap.values()) {
             ui.update();
         }
+    }
+
+    public void autoScrollToSkillInit(int skillIndex) {
+        autoScrollTimer = 0f;
+        isAutoScrolling = true;
+        scrollToSkillIndex = skillIndex;
+        isFound = false;
+        screen.isSelectSkillUIShown = true;
+        show(true);
+    }
+
+    public void autoScrollUpdate(float delta) {
+        if (autoScrollTimer > .1f && !isFound) {
+            if (showNextSkill() != scrollToSkillIndex) {
+                autoScrollTimer = 0f;
+            } else {
+                isFound = true;
+            }
+        }
+        else if (isFound) {
+            if (autoScrollTimer > .5f) {
+                show(false);
+                isAutoScrolling = false;
+                isFound = false;
+                screen.isSelectSkillUIShown = false;
+            }
+        }
+        autoScrollTimer += delta;
     }
 }
