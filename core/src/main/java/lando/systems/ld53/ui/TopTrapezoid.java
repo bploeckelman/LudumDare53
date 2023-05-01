@@ -1,12 +1,15 @@
 package lando.systems.ld53.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.entities.Player;
+import lando.systems.ld53.utils.Utils;
 
 public class TopTrapezoid {
 
@@ -19,11 +22,14 @@ public class TopTrapezoid {
     private Player player;
     private Assets assets;
     private ShaderProgram cooldownShader;
+    private Color barColor;
+
     public TopTrapezoid(Player player, Assets assets) {
 
         this.player = player;
         this.assets = assets;
         this.cooldownShader = assets.cooldownShader;
+        this.barColor = new Color(Color.GREEN);
     }
 
     public void render(SpriteBatch batch) {
@@ -32,6 +38,7 @@ public class TopTrapezoid {
         batch.draw(assets.trapezoidBorder, (Config.Screen.window_width - TOP_WIDTH) / 2 - MARGIN,Config.Screen.window_height - 5f - HEIGHT, TOP_WIDTH + 2 *  MARGIN, HEIGHT + 5f);
         batch.setShader(cooldownShader);
         cooldownShader.setUniformf("u_percent", staminaPercentage);
+        batch.setColor(barColor);
         batch.draw(assets.trapezoidTexture, (Config.Screen.window_width - TOP_WIDTH) / 2,Config.Screen.window_height - HEIGHT, TOP_WIDTH, HEIGHT - 5f);
         batch.setShader(null);
         TextureRegion ipIcon = player.currentAbility.textureRegion;
@@ -45,5 +52,7 @@ public class TopTrapezoid {
 
     public void update() {
         staminaPercentage = player.getStaminaPercentage();
+        float hue = MathUtils.map(0, 100f, 0, .3f, staminaPercentage);
+        Utils.hsvToRgb(hue, 1f, .6f, barColor);
     }
 }
