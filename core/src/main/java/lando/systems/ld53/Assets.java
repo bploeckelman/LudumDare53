@@ -399,11 +399,11 @@ public class Assets implements Disposable {
 
         // initialize player ability textureRegion values
         PlayerAbility.bomb_throw.textureRegion = new TextureRegion(bomb.getKeyFrame(0));
-        PlayerAbility.shield_360.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(1));
         PlayerAbility.speed_up.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(0));
+        PlayerAbility.shield_360.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(.1f));
+        PlayerAbility.repulse.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(2));
         //TODO: these are not set
         PlayerAbility.grapple.textureRegion = new TextureRegion(cherry.getKeyFrame(0));
-        PlayerAbility.repulse.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(2));
 
 
         // initialize patch values
