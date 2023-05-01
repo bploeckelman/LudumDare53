@@ -95,6 +95,7 @@ public class SelectSkillUI extends Group {
 
         setVisible(true);
         setUpInitialOrder();
+        updateAbilityUnlocks();
         //Vector2 newPosition = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height - 50f);
         //setPosition(newPosition.x, newPosition.y);
         //setScale(0f, 0f);

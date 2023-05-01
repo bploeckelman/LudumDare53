@@ -54,17 +54,17 @@ public class TitleScreen extends BaseScreen {
         {
             float width = worldCamera.viewportWidth;
             float height = worldCamera.viewportHeight;
-            batch.draw(background, 0, 0, width, height);
-
-            batch.draw(dog,
-                 width / 2,  height * 2 / 3,
-                    2 * dog.getRegionWidth(), 2 * dog.getRegionHeight());
-            batch.draw(cat,
-                width / 3,  height * 2 / 3,
-                    2 * cat.getRegionWidth(), 2 * cat.getRegionHeight());
-            batch.draw(kitten,
-                width * 2 / 3,  height * 2 / 3 - 10f,
-                3 * cat.getRegionWidth(), 3 * cat.getRegionHeight());
+//            batch.draw(background, 0, 0, width, height);
+//
+//            batch.draw(dog,
+//                 width / 2,  height * 2 / 3,
+//                    2 * dog.getRegionWidth(), 2 * dog.getRegionHeight());
+//            batch.draw(cat,
+//                width / 3,  height * 2 / 3,
+//                    2 * cat.getRegionWidth(), 2 * cat.getRegionHeight());
+//            batch.draw(kitten,
+//                width * 2 / 3,  height * 2 / 3 - 10f,
+//                3 * cat.getRegionWidth(), 3 * cat.getRegionHeight());
         }
 
         batch.end();

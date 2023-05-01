@@ -7,7 +7,6 @@ import aurelienribon.tweenengine.primitives.MutableFloat;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -17,9 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld53.audio.AudioManager;
-import de.damios.guacamole.gdx.graphics.NestableFrameBuffer;
-import lando.systems.ld53.physics.test.PhysicsTestScreen;
-import lando.systems.ld53.screens.*;
+import lando.systems.ld53.screens.BaseScreen;
+import lando.systems.ld53.screens.LaunchScreen;
+import lando.systems.ld53.screens.TitleScreen;
 import lando.systems.ld53.ui.DebugInfo;
 import lando.systems.ld53.utils.Time;
 import lando.systems.ld53.utils.accessors.*;
@@ -109,8 +108,8 @@ public class Main extends ApplicationAdapter {
         if (Gdx.app.getType() == Application.ApplicationType.WebGL || Config.Debug.show_launch_screen) {
             setScreen(new LaunchScreen());
         } else {
-//            setScreen(new TitleScreen());
-            setScreen(new Cutscene1Screen()); // TODO CHANGE BEFORE UPLOADING
+            setScreen(new TitleScreen());
+//            setScreen(new Cutscene1Screen()); // TODO CHANGE BEFORE UPLOADING
         }
 
     }
