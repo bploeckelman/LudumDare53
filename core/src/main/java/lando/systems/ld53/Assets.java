@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.I18NBundle;
 import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.entities.Goal;
+import lando.systems.ld53.entities.PlayerAbility;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 import text.formic.Stringf;
 
@@ -395,6 +396,15 @@ public class Assets implements Disposable {
                     break;
             }
         }
+
+        // initialize player ability textureRegion values
+        PlayerAbility.bomb_throw.textureRegion = new TextureRegion(bomb.getKeyFrame(0));
+        PlayerAbility.shield_360.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(1));
+        PlayerAbility.speed_up.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(0));
+        //TODO: these are not set
+        PlayerAbility.grapple.textureRegion = new TextureRegion(cherry.getKeyFrame(0));
+        PlayerAbility.repulse.textureRegion = new TextureRegion(asuka.getKeyFrame(0));
+
 
         // initialize patch values
         Patch.debug.ninePatch        = new NinePatch(atlas.findRegion("ninepatch/debug"), 2, 2, 2, 2);
