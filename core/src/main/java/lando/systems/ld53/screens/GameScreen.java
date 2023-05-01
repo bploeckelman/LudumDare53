@@ -42,6 +42,8 @@ public class GameScreen extends BaseScreen {
     public boolean isSelectSkillUIShown = false;
 
     public boolean paused;
+    public float spawnTimer;
+    public Goal.Type lastSpawnedType;
 
     public GameScreen() {
         super();
@@ -78,6 +80,8 @@ public class GameScreen extends BaseScreen {
 
 
         audioManager.playMusic(AudioManager.Musics.level1Full, true, true);
+        this.spawnTimer = 5f;
+        this.lastSpawnedType = Goal.Type.yellow;
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
 //        audioManager.playSound(AudioManager.Sounds.coin);
         trapezoid = new TopTrapezoid(player, assets);
@@ -162,6 +166,13 @@ public class GameScreen extends BaseScreen {
         }
 
         if (pauseGame) return;
+
+        spawnTimer -= delta;
+        if(spawnTimer < 0) {
+
+            balls.add(new Cargo(assets, Goal.Type.getRandom(lastSpawnedType), worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
+            spawnTimer = 5f;
+        }
 
         physicsObjects.clear();
 

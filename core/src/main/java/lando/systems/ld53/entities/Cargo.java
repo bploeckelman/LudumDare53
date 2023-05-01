@@ -30,6 +30,7 @@ public class Cargo implements Entity, Collidable {
     private final Vector2 velocity = new Vector2();
     private final Vector2 position = new Vector2();
     public Goal.Type goalType;
+    public float impactTimer;
 
     private TextureRegion keyframe;
     private float animTime;
@@ -81,6 +82,8 @@ public class Cargo implements Entity, Collidable {
             RENDER_SIZE, RENDER_SIZE
         );
 
+        this.impactTimer = 1f;
+
 
     }
 
@@ -90,6 +93,7 @@ public class Cargo implements Entity, Collidable {
         float animSpeed = Calc.clampf(vel.len2() / 1000f, 0f, 1f);
         animTime += delta * animSpeed;
         keyframe = animation.getKeyFrame(animTime);
+        impactTimer -= delta;
     }
 
     @Override
@@ -175,8 +179,13 @@ public class Cargo implements Entity, Collidable {
     @Override
     public void collidedWith(Collidable object) {
         if (object instanceof Player) {
-            Main.game.audioManager.playSound(AudioManager.Sounds.zap, .25f);
-        } else {
+            if(impactTimer < 0) {
+                Main.game.audioManager.playSound(AudioManager.Sounds.zap, .25f);
+                impactTimer = .25f;
+            }
+
+        }
+        else {
             Main.game.audioManager.playSound(AudioManager.Sounds.pop);
         }
     }

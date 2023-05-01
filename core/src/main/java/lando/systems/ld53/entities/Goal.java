@@ -5,11 +5,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
+import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.utils.InfluenceRenderer;
 
 public class Goal implements Entity, Influencer {
@@ -30,6 +33,27 @@ public class Goal implements Entity, Influencer {
         public TextureRegion icon;
 
         public Color color;
+
+        public static Type getRandom(Type lastSpawned) {
+            int getIndex = MathUtils.random(0, 3);
+            Type randomType = null;
+            switch (getIndex) {
+                case 0:
+                    randomType = Type.red == lastSpawned ?  Type.green : Type.red ;
+
+                    break;
+                case 1:
+                    randomType = Type.green == lastSpawned ?  Type.yellow : Type.green ;
+                    break;
+                case 2:
+                    randomType = Type.yellow == lastSpawned ?  Type.cyan : Type.yellow ;
+                    break;
+                case 3:
+                    randomType = Type.cyan == lastSpawned ?  Type.red : Type.cyan ;
+                    break;
+            }
+            return randomType;
+        }
     }
 
     private final Rectangle bounds;
@@ -75,6 +99,7 @@ public class Goal implements Entity, Influencer {
         float dist = b.getPosition().dst(attractorPosition);
         if (dist < range /3f) {
             if(b.goalType == type) {
+                Main.game.audioManager.playSound(AudioManager.Sounds.collect, .5f);
                 // TODO: Collected it do things like score
                 b.collected = true;
             }

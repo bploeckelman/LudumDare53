@@ -31,7 +31,7 @@ public class Peg implements Entity, Collidable {
         this.animation = assets.peg;
         this.animTime = 0f;
         this.keyframe = animation.getKeyFrame(0f);
-        float scale = 0.5f;
+        float scale = 0.35f;
         float size = scale * Math.max(keyframe.getRegionWidth(), keyframe.getRegionHeight());
         float radius = size / 2f;
         this.bounds = new Rectangle(x - radius, y - radius, size, size);
