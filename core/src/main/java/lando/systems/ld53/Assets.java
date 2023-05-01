@@ -359,7 +359,7 @@ public class Assets implements Disposable {
         peg = new Animation<>(0.1f, atlas.findRegions("objects/peg/spinner"), Animation.PlayMode.LOOP);
         bomb = new Animation<>(0.1f, atlas.findRegions("objects/bomb/bomb"), Animation.PlayMode.NORMAL);
         shield = new Animation<>(0.1f, atlas.findRegions("objects/shield/shield"), Animation.PlayMode.LOOP);
-        abilityIcons = new Animation<>(0.1f, atlas.findRegions("objects/ability-icons/ability-icon"), Animation.PlayMode.NORMAL);
+        abilityIcons = new Animation<>(1f, atlas.findRegions("objects/ability-icons/ability-icon"), Animation.PlayMode.NORMAL);
 
         gobbler = new Animation<>(0.1f, atlas.findRegions("creatures/gobbler/gobbler-idle"), Animation.PlayMode.LOOP_PINGPONG);
 
@@ -399,10 +399,12 @@ public class Assets implements Disposable {
         }
 
         // initialize player ability textureRegion values
-        PlayerAbility.bomb_throw.textureRegion = new TextureRegion(bomb.getKeyFrame(0));
+//        PlayerAbility.bomb_throw.textureRegion = new TextureRegion(bomb.getKeyFrame(0));
+
         PlayerAbility.speed_up.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(0));
-        PlayerAbility.shield_360.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(.1f));
-        PlayerAbility.repulse.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(2));
+        PlayerAbility.shield_360.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(1f));
+        PlayerAbility.repulse.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(2f));
+        PlayerAbility.bomb_throw.textureRegion = new TextureRegion(abilityIcons.getKeyFrame(3));;
         //TODO: these are not set
         PlayerAbility.grapple.textureRegion = new TextureRegion(cherry.getKeyFrame(0));
 
