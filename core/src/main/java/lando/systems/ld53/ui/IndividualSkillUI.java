@@ -15,6 +15,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.entities.Player;
 import lando.systems.ld53.entities.PlayerAbility;
 import lando.systems.ld53.screens.GameScreen;
@@ -52,6 +53,17 @@ public class IndividualSkillUI extends VisWindow {
 
         stack = new Stack();
         VisImage image = new VisImage(assets.inputPrompts.get(ability.type));
+        switch(ability.type) {
+            case key_light_bang:
+                image = new VisImage(assets.bomb.getKeyFrame(0));
+                break;
+                case key_light_tilde:
+                image = new VisImage(assets.abilityIcons.getKeyFrame(0));
+                break;
+        }
+//        if(ability.type == InputPrompts.Type.key_light_bang) {
+//            image = new VisImage(assets.bomb.getKeyFrame(0));
+//        }
         lock = new VisImage(assets.lock);
         image.setSize(200f, 200f);
         image.setOrigin(100f, 100f);

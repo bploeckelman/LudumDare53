@@ -152,12 +152,15 @@ public class GameScreen extends BaseScreen {
             game.setScreen(new TitleScreen());
             return;
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             isSelectSkillUIShown = !isSelectSkillUIShown;
             selectSkillUI.show(isSelectSkillUIShown);
             Gdx.input.setInputProcessor(uiStage);
             return;
         }
+
+
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
             if(assets.level1Full.isPlaying()) {

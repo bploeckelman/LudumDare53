@@ -27,14 +27,14 @@ public class CreditScreen extends BaseScreen {
     private final TextureRegion background;
 
     private final String title = "{GRADIENT=purple;cyan}Code of Duty: NO ROSSMAN EDITION{ENDGRADIENT}";
-    private final String theme = "Made for Ludum Dare 53: Deliver";
+    private final String theme = "Made for Ludum Dare 53: Delivery";
 
     private final String thanks = "{GRADIENT=purple;cyan}Thanks for playing our game!{ENDGRADIENT}";
     private final String developers = "{COLOR=gray}Developed by:{COLOR=white}\n {GRADIENT=white;gray}Brian Ploeckelman{ENDGRADIENT} \n {GRADIENT=white;gray}Doug Graham{ENDGRADIENT} \n {GRADIENT=white;gray}Jeffrey Hwang{ENDGRADIENT}";
     private final String rossman = "{GRADIENT=gray;white}...also Brian Rossman\n(for blowing up our game){ENDGRADIENT}";
     private final String artists = "{COLOR=gray}Art by:{COLOR=white}\n {GRADIENT=white;gray}Matt Neumann{ENDGRADIENT}";
     private final String emotionalSupport = "{COLOR=cyan}Emotional Support:{COLOR=white}\n  Asuka,     Osha\n  and Cherry";
-    private final String music = "{COLOR=gray}Sound by:{COLOR=white}\n {GRADIENT=white;gray}Pete Valeo{ENDGRADIENT}";
+    private final String music = "{COLOR=gray}Music, Sounds, and Miscellaneous:{COLOR=white}\n {GRADIENT=white;gray}Pete Valeo{ENDGRADIENT}";
     private final String libgdx = "Made with {COLOR=red}<3{COLOR=white}\nand LibGDX";
     private final String disclaimer = "{GRADIENT=black;gray}Disclaimer:{ENDGRADIENT}  {GRADIENT=gold;yellow}{JUMP=.2}{WAVE=0.8;1.1;1.1}No binaries were harmed in the making of this game{ENDWAVE}{ENDJUMP}{ENDGRADIENT}";
 

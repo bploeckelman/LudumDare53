@@ -38,11 +38,13 @@ public class SelectSkillUI extends Group {
     private ImageButton previousButton;
     private ImageButton nextButton;
     private VisWindow greyOutWindow;
+    public float transitionDuration;
 
     public SelectSkillUI(GameScreen screen) {
         this.player = screen.player;
         this.assets = screen.assets;
         this.skin = screen.skin;
+        this.transitionDuration = .0325f;
         greyOutWindow = new VisWindow("");
         greyOutWindow.setPosition(0f, 0f);
         greyOutWindow.setSize(Config.Screen.window_width, Config.Screen.window_height);
@@ -195,7 +197,7 @@ public class SelectSkillUI extends Group {
         Vector2 newPosition = getNewPositionForIndex(indexOffset);
         Vector2 newScale = getNewScaleForIndex(indexOffset);
         changeColorPerIndexOffset(ui, indexOffset);
-        ui.addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, .25f), Actions.scaleTo(newScale.x, newScale.y, .25f)));
+        ui.addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, transitionDuration), Actions.scaleTo(newScale.x, newScale.y, transitionDuration)));
         if (indexOffset == 0) {
             ui.setCenterConfiguration(true);
         } else {
@@ -214,7 +216,7 @@ public class SelectSkillUI extends Group {
     public void hide(float duration) {
         Vector2 newPosition = new Vector2(Config.Screen.window_width / 2, Config.Screen.window_height - 50f);
         Vector2 newScale = Vector2.Zero;
-        addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, .25f), Actions.scaleTo(newScale.x, newScale.y, .25f)));
+        addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, transitionDuration), Actions.scaleTo(newScale.x, newScale.y, transitionDuration)));
     }
 
     public Vector2 getNewScaleForIndex(int indexOffset) {
@@ -231,7 +233,7 @@ public class SelectSkillUI extends Group {
 
     public void show(boolean show) {
         if (show) {
-            addAction(Actions.parallel(Actions.moveTo(0f, 0f, .25f), Actions.scaleTo(1f, 1f, .25f)));
+            addAction(Actions.parallel(Actions.moveTo(0f, 0f, transitionDuration), Actions.scaleTo(1f, 1f, transitionDuration)));
             setUpInitialOrder();
             setVisible(true);
         }
