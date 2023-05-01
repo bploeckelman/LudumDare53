@@ -218,7 +218,7 @@ public class Player implements Entity, Collidable {
             }
         }
         // If player does specialAttack
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
             if (stamina < SPECIAL_COST) {
                 Main.game.audioManager.playSound(AudioManager.Sounds.error, .35f);
             } else {
@@ -231,6 +231,8 @@ public class Player implements Entity, Collidable {
                 }
             }
         }
+
+
         //set player image based on currentState
         animation = animations.get(currentState);
         if (isAttacking) {
