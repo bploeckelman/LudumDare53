@@ -24,7 +24,7 @@ public class GameScreen extends BaseScreen {
 
     private Map map;
     private Array<Cargo> balls;
-    private Player player;
+    public Player player;
     private Enemy enemy;
     private BulletEnemy bulletEnemy;
 
@@ -37,7 +37,7 @@ public class GameScreen extends BaseScreen {
 
     private TopTrapezoid trapezoid;
     private SelectSkillUI selectSkillUI;
-    private boolean isSelectSkillUIShown = false;
+    public boolean isSelectSkillUIShown = false;
 
     public GameScreen() {
         super();
@@ -78,15 +78,20 @@ public class GameScreen extends BaseScreen {
 //        audioManager.playMusic(AudioManager.Musics.level1Full);
 //        audioManager.playSound(AudioManager.Sounds.coin);
         trapezoid = new TopTrapezoid(player, assets);
-        selectSkillUI = new SelectSkillUI(assets, skin, player);
+        selectSkillUI = new SelectSkillUI(this);
         uiStage.addActor(selectSkillUI);
+    }
+
+    public void hideSkillUI() {
+        isSelectSkillUIShown = false;
+        selectSkillUI.show(false);
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !isSelectSkillUIShown) {
             audioManager.stopMusic();
             game.setScreen(new TitleScreen());
             return;
@@ -99,9 +104,14 @@ public class GameScreen extends BaseScreen {
         if (isSelectSkillUIShown) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
                 selectSkillUI.showNextSkill();
+                return;
             }
             else if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
                 selectSkillUI.showPreviousSkill();
+                return;
+            }
+            else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                hideSkillUI();
             }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {

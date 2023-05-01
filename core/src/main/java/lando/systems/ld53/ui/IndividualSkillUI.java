@@ -13,6 +13,7 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.entities.Player;
+import lando.systems.ld53.screens.GameScreen;
 
 public class IndividualSkillUI extends VisWindow {
     private final Vector2 WINDOW_SIZE = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height * 2 / 3);
@@ -21,8 +22,9 @@ public class IndividualSkillUI extends VisWindow {
     private final float BUTTON_HEIGHT = 50f;
     public Player.SpecialAbility ability;
     private final float OFFSET = 50f;
+    private TextButton equipButton;
 
-    public IndividualSkillUI(Assets assets, Skin skin, Player player, Player.SpecialAbility ability) {
+    public IndividualSkillUI(Assets assets, Skin skin, Player player, Player.SpecialAbility ability, GameScreen screen) {
         super("");
         this.ability = ability;
         setBackground(Assets.Patch.metal.drawable);
@@ -46,20 +48,33 @@ public class IndividualSkillUI extends VisWindow {
         titleScreenButtonStyle.up = Assets.Patch.glass.drawable;
         titleScreenButtonStyle.down = Assets.Patch.glass_dim.drawable;
         titleScreenButtonStyle.over = Assets.Patch.glass_dim.drawable;
-        TextButton textButton = new TextButton("Equip", titleScreenButtonStyle);
-//        if ()
-        textButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-        add(textButton).height(BUTTON_HEIGHT).row();
-        textButton.addListener(new ClickListener(){
+        equipButton = new TextButton("Equip", titleScreenButtonStyle);
+        equipButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
+        add(equipButton).height(BUTTON_HEIGHT).row();
+
+        equipButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                // TODO: clicked listener
+                if (!equipButton.isDisabled()) {
+                    player.currentAbility = ability;
+                    screen.hideSkillUI();
+                }
             }
         });
+        update();
     }
     public void setSizePerOffset(int indexOffset) {
         setSize(WINDOW_SIZE.x - OFFSET * Math.abs(indexOffset)  , WINDOW_SIZE.y - OFFSET * Math.abs(indexOffset));
         float x = indexOffset > 0 ? WINDOW_POSITION.x + indexOffset * 2 * OFFSET : WINDOW_POSITION.x + indexOffset * OFFSET;
         setPosition(x, WINDOW_POSITION.y + Math.abs(indexOffset) * OFFSET / 2);
+    }
+
+    public void update() {
+        if (!ability.isUnlocked) {
+            setColor(Color.GRAY);
+            equipButton.setDisabled(true);
+        } else {
+            equipButton.setDisabled(false);
+        }
     }
 }
