@@ -26,7 +26,7 @@ public class Player implements Entity, Collidable {
     private static final Vector2 COLLISION_OFFSET = new Vector2(0, -22f);
     private static final float COLLISION_RADIUS = 25;
     private static final float RENDER_SIZE = 120f;
-    private static final float SPEED = 3000f;
+    private static final float SPEED = 4000f;
     private static final float MAX_STAMINA = 10f; // seconds to charge fully
     private static final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
     private static final float STUN_TIMER = .3f;
@@ -268,7 +268,7 @@ public class Player implements Entity, Collidable {
     private void handleSlash() {
         isAttacking = true;
 
-        Main.game.audioManager.playSound(AudioManager.Sounds.swoosh);
+//        Main.game.audioManager.playSound(AudioManager.Sounds.swoosh);
 
         switch (currentDirection) {
             case up:

@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
+import lando.systems.ld53.Main;
+import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.utils.accessors.RectangleAccessor;
 
@@ -114,6 +116,7 @@ public class BulletEnemy implements Entity {
             Bullet bullet = Bullet.pool.obtain().init(assets, x, y, radius, vel.x, vel.y);
             screen.bullets.add(bullet);
         }
+        Main.game.audioManager.playSound(AudioManager.Sounds.cannon, .125f);
     }
 
 }

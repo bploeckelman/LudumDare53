@@ -136,7 +136,7 @@ public class Enemy implements Entity, Collidable {
     public void collidedWith(Collidable object) {
 
         if(object instanceof Player) {
-            Main.game.audioManager.playSound(AudioManager.Sounds.gobble, .1f);
+            Main.game.audioManager.playSound(AudioManager.Sounds.gobble, .3f);
             Main.game.audioManager.playSound(AudioManager.Sounds.ticktock, .3f);
         }
 

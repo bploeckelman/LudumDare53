@@ -4,16 +4,16 @@
  <imagelayer id="4" name="background" offsetx="160" offsety="40">
   <image source="floor-pcb_00.png" width="960" height="640"/>
  </imagelayer>
- <imagelayer id="6" name="GG Green" offsetx="880.162" offsety="579.834">
+ <imagelayer id="6" name="GG Green" offsetx="964.162" offsety="571.834">
   <image source="game-genie-green.png" width="200" height="200"/>
  </imagelayer>
- <imagelayer id="8" name="GG Cyan" offsetx="670.501" offsety="572.76">
+ <imagelayer id="8" name="GG Cyan" offsetx="964.501" offsety="98.7597">
   <image source="game-genie-cyan.png" width="200" height="200"/>
  </imagelayer>
- <imagelayer id="7" name="GG Yellow" offsetx="415.323" offsety="568.76">
+ <imagelayer id="7" name="GG Yellow" offsetx="91.3228" offsety="92.7597">
   <image source="game-genie-yellow.png" width="200" height="200"/>
  </imagelayer>
- <imagelayer id="5" name="GG Red" offsetx="164.815" offsety="571.784">
+ <imagelayer id="5" name="GG Red" offsetx="98.8153" offsety="579.784">
   <image source="game-genie.png" width="200" height="200"/>
  </imagelayer>
  <layer id="1" name="ground" width="16" height="9">
@@ -44,25 +44,25 @@
   <object id="47" template="peg.tx" x="632.182" y="101.185"/>
   <object id="59" template="peg.tx" x="640" y="586"/>
   <object id="49" template="peg.tx" x="1170" y="608"/>
-  <object id="54" x="232.677" y="560.606" width="80" height="80">
+  <object id="54" x="168.677" y="558.606" width="80" height="80">
    <properties>
     <property name="color" value="red"/>
     <property name="type" value="goal"/>
    </properties>
   </object>
-  <object id="56" x="484.775" y="554.606" width="80" height="80">
+  <object id="56" x="160.775" y="80.6062" width="80" height="80">
    <properties>
     <property name="color" value="yellow"/>
     <property name="type" value="goal"/>
    </properties>
   </object>
-  <object id="58" x="938.824" y="558.655" width="80" height="80">
+  <object id="58" x="1030.82" y="562.655" width="80" height="80">
    <properties>
     <property name="color" value="green"/>
     <property name="type" value="goal"/>
    </properties>
   </object>
-  <object id="57" x="732.548" y="556.606" width="80" height="80">
+  <object id="57" x="1032.55" y="86.6062" width="80" height="80">
    <properties>
     <property name="color" value="cyan"/>
     <property name="type" value="goal"/>

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
@@ -31,6 +32,7 @@ public class Cargo implements Entity, Collidable {
     private final Vector2 position = new Vector2();
     public Goal.Type goalType;
     public float impactTimer;
+    public float lifetime;
 
     private TextureRegion keyframe;
     private float animTime;
@@ -82,7 +84,8 @@ public class Cargo implements Entity, Collidable {
             RENDER_SIZE, RENDER_SIZE
         );
 
-        this.impactTimer = 1f;
+        this.impactTimer = 0f;
+        this.lifetime = 1f;
 
 
     }
@@ -94,15 +97,20 @@ public class Cargo implements Entity, Collidable {
         animTime += delta * animSpeed;
         keyframe = animation.getKeyFrame(animTime);
         impactTimer -= delta;
+        lifetime -= delta * .06f;
     }
 
     @Override
     public void render(SpriteBatch batch) {
+
+        float alpha = MathUtils.map(0, 1, .35f, 1f, lifetime);
+        batch.setColor(1, 1, 1, alpha );
         batch.draw(keyframe,
             collisionShape.center.x - collisionShape.radius,
             collisionShape.center.y - collisionShape.radius,
             collisionShape.radius * 2,
             collisionShape.radius * 2);
+        batch.setColor(Color.WHITE);
     }
 
     private static final Color debugColor = new Color(1, 0, 1, 0.5f); // Color.MAGENTA half alpha
@@ -180,7 +188,8 @@ public class Cargo implements Entity, Collidable {
     public void collidedWith(Collidable object) {
         if (object instanceof Player) {
             if(impactTimer < 0) {
-                Main.game.audioManager.playSound(AudioManager.Sounds.zap, .25f);
+                Main.game.audioManager.playSound(AudioManager.Sounds.zap, .125f);
+                Main.game.audioManager.playSound(AudioManager.Sounds.swoosh, .7f);
                 impactTimer = .25f;
             }
 

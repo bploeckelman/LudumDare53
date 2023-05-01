@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
 import lando.systems.ld53.physics.Collidable;
@@ -134,16 +135,17 @@ public class GameScreen extends BaseScreen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
             if(assets.level1Full.isPlaying()) {
+                assets.level1Thin.setLooping(true);
                 assets.level1Thin.play();
                 assets.level1Thin.setVolume(audioManager.musicVolume.floatValue());
                 assets.level1Thin.setPosition(assets.level1Full.getPosition());
                 assets.level1Full.stop();
+
             }
             else if(assets.level1Thin.isPlaying()) {
-
-                assets.level1Full.setVolume(audioManager.musicVolume.floatValue());
+                assets.level1Full.setLooping(true);
                 assets.level1Full.play();
-//                audioManager.playMusic(AudioManager.Musics.level1Full);
+                assets.level1Full.setVolume(audioManager.musicVolume.floatValue());
                 assets.level1Full.setPosition(assets.level1Thin.getPosition());
                 assets.level1Thin.stop();
             }
@@ -170,7 +172,9 @@ public class GameScreen extends BaseScreen {
         spawnTimer -= delta;
         if(spawnTimer < 0) {
 
-            balls.add(new Cargo(assets, Goal.Type.getRandom(lastSpawnedType), worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
+            Goal.Type newSpawnType = Goal.Type.getRandom(lastSpawnedType);
+            lastSpawnedType = newSpawnType;
+            balls.add(new Cargo(assets, newSpawnType, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
             spawnTimer = 5f;
         }
 
@@ -209,7 +213,7 @@ public class GameScreen extends BaseScreen {
             for (int i = balls.size -1 ; i >= 0; i--){
                 Cargo b = balls.get(i);
                 goal.tryToCollectPackage(b);
-                if (b.collected) balls.removeIndex(i);
+                if (b.collected || b.lifetime <= 0) balls.removeIndex(i);
             }
         }
 
