@@ -71,7 +71,7 @@ public class IndividualSkillUI extends VisWindow {
 //        add(label80px).top().row();
         stack.add(image);
         stack.add(lock);
-        stack.add(labelContainer);
+        //stack.add(labelContainer);
         stack.setSize(80f, 80f);
         add(stack).align(Align.center);
 //        add(labelContainer);

@@ -233,6 +233,7 @@ public class GameScreen extends BaseScreen {
                 player.currentAbility = player.abilityList.get(4);
             } else {
                 bottomGameUI.buttonTables.get(4).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
+                selectSkillUI.abilityUIMap.get(player.abilityList.get(4)).lock.addAction(selectSkillUI.abilityUIMap.get(player.abilityList.get(4)).shakeLocker());
             }
         }
 

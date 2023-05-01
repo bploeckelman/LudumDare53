@@ -28,7 +28,7 @@ import java.util.List;
 
 public class SelectSkillUI extends Group {
     private final GameScreen screen;
-    private HashMap<PlayerAbility, IndividualSkillUI> abilityUIMap = new HashMap<>();
+    public HashMap<PlayerAbility, IndividualSkillUI> abilityUIMap = new HashMap<>();
     private List<PlayerAbility> abilityList;
     public IndividualSkillUI skillUIBeingShown;
     private Player player;

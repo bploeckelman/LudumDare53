@@ -31,7 +31,7 @@ public class BottomGameUIButtons extends Table {
         label.setAlignment(Align.topRight);
         stack.add(label);
         lock = new VisImage(screen.assets.lock);
-        lock.setColor(1f, 1f, 1f, 0.7f);
+        lock.setColor(1f, 1f, 1f, 0.9f);
         stack.add(lock);
         add(stack).growX().growY();
     }
