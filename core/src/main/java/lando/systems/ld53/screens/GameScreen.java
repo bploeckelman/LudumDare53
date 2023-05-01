@@ -36,6 +36,11 @@ public class GameScreen extends BaseScreen {
     public Player player;
     private Array<Enemy> enemies;
     private BulletEnemy bulletEnemy;
+    public int numberOfPackagesToCollect = 3; // can be broken out to each color if needed
+    public int redCollected = 0;
+    public int yellowCollected = 0;
+    public int greenCollected = 0;
+    public int blueCollected = 0;
 
     public final Array<Bullet> bullets;
     public final Array<Bomb> bombs;
@@ -196,6 +201,8 @@ public class GameScreen extends BaseScreen {
             paused = !paused;
         }
 
+        topGameUI.update(delta);
+
         if (pauseGame) return;
 
         spawnTimer -= delta;
@@ -262,7 +269,31 @@ public class GameScreen extends BaseScreen {
             for (int i = cargos.size -1; i >= 0; i--){
                 Cargo cargo = cargos.get(i);
                 goal.tryToCollectPackage(cargo);
-                if (cargo.collected || cargo.lifetime <= 0) {
+                if (cargo.collected) {
+                    cargos.removeIndex(i);
+                    switch (cargo.goalType) {
+                        case red:
+                            if (redCollected < numberOfPackagesToCollect) {
+                                redCollected++;
+                            }
+                            break;
+                        case yellow:
+                            if (yellowCollected < numberOfPackagesToCollect) {
+                                yellowCollected++;
+                            }                            break;
+                        case green:
+                            if (greenCollected < numberOfPackagesToCollect) {
+                                greenCollected++;
+                            }
+                            break;
+                        case cyan:
+                            if (blueCollected < numberOfPackagesToCollect) {
+                                blueCollected++;
+                            }
+                            break;
+                    }
+                }
+                else if (cargo.lifetime <= 0) {
                     cargos.removeIndex(i);
                 }
             }
@@ -273,7 +304,6 @@ public class GameScreen extends BaseScreen {
         }
 
         trapezoid.update();
-        topGameUI.update();
         uiStage.setDebugAll(Config.Debug.ui);
 
         screenShaker.update(delta);
