@@ -1,5 +1,6 @@
 package lando.systems.ld53.ui;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -151,12 +152,20 @@ public class SelectSkillUI extends Group {
     public void performParallelMoveToScaleTo(IndividualSkillUI ui, int indexOffset) {
         Vector2 newPosition = getNewPositionForIndex(indexOffset);
         Vector2 newScale = getNewScaleForIndex(indexOffset);
-        ui.addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, .5f), Actions.scaleTo(newScale.x, newScale.y, .5f)));
+        changeColorPerIndexOffset(ui, indexOffset);
+        ui.addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, .25f), Actions.scaleTo(newScale.x, newScale.y, .25f)));
     }
+
+    public void changeColorPerIndexOffset(IndividualSkillUI ui, int indexOffset) {
+        Color currentColor = ui.ability.isUnlocked ? Color.WHITE : Color.GRAY;
+        float colorOffset = 1 - Math.abs(indexOffset) * .15f;
+        ui.setColor(currentColor.r * colorOffset, currentColor.g * colorOffset, currentColor.b * colorOffset, currentColor.a);
+    }
+
     public void hide(float duration) {
         Vector2 newPosition = new Vector2(Config.Screen.window_width / 2, Config.Screen.window_height - 50f);
         Vector2 newScale = Vector2.Zero;
-        addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, .5f), Actions.scaleTo(newScale.x, newScale.y, .5f)));
+        addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, .25f), Actions.scaleTo(newScale.x, newScale.y, .25f)));
     }
 
     public Vector2 getNewScaleForIndex(int indexOffset) {
@@ -173,7 +182,7 @@ public class SelectSkillUI extends Group {
 
     public void show(boolean show) {
         if (show) {
-            addAction(Actions.parallel(Actions.moveTo(0f, 0f, .5f), Actions.scaleTo(1f, 1f, .5f)));
+            addAction(Actions.parallel(Actions.moveTo(0f, 0f, .25f), Actions.scaleTo(1f, 1f, .25f)));
             setUpInitialOrder();
             setVisible(true);
         }
