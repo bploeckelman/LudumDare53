@@ -26,7 +26,7 @@ public class CargoSpawner implements Entity {
             if (doWeNeed(lastSpawnedType)){
                 screen.cargos.add(new Cargo(screen.assets, lastSpawnedType, position.x, position.y));
                 timer = 3f;
-                screen.audioManager.playSound(AudioManager.Sounds.spawn, .26f);
+                screen.audioManager.playSound(AudioManager.Sounds.spawn, .0626f);
             }
         }
     }

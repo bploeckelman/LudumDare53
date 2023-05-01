@@ -122,13 +122,15 @@ public class Goal implements Entity, Influencer {
     @Override
     public void render(SpriteBatch batch) {
         if (!active){
-            batch.setColor(.6f, .6f, .6f, 1f);
+            batch.setColor(.3f, .3f, .3f, .5f);
         }
         batch.draw(baseKeyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(shimmerKeyframe, bounds.x, bounds.y, bounds.width, bounds.height);
-        batch.draw(icon, bounds.x + bounds.width / 4, bounds.y + bounds
-            .height / 4, bounds.width / 2, bounds.height / 2);
+        if(active) {
+            batch.draw(icon, bounds.x + bounds.width / 4, bounds.y + bounds
+                .height / 4, bounds.width / 2, bounds.height / 2);
+        }
 
         batch.setColor(Color.WHITE);
     }
