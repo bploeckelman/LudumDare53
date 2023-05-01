@@ -34,7 +34,8 @@ public class SelectSkillUI extends Group {
     private Player player;
     private Assets assets;
     private Skin skin;
-    private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height / 6);
+    private final float WINDOW_SIZE = 70f;
+    private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 2 - WINDOW_SIZE / 2, Config.Screen.window_height - 75f);
     private final float OFFSET = 50f;
     private ImageButton previousButton;
     private ImageButton nextButton;
@@ -57,7 +58,7 @@ public class SelectSkillUI extends Group {
         greyOutWindow.setTouchable(Touchable.disabled);
         greyOutWindow.setBackground(new TextureRegionDrawable(Utils.getColoredTextureRegion(new Color(.3f, .3f, .3f, .5f))));
         greyOutWindow.setMovable(false);
-        addActor(greyOutWindow);
+        //addActor(greyOutWindow);
         abilityList = Arrays.asList(PlayerAbility.values());
         for (PlayerAbility ability : abilityList) {
             IndividualSkillUI individualSkillUI = new IndividualSkillUI(assets, skin, player, ability, screen);
@@ -93,9 +94,10 @@ public class SelectSkillUI extends Group {
         addActor(buttonTable);
 
         setVisible(true);
-        Vector2 newPosition = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height - 50f);
-        setPosition(newPosition.x, newPosition.y);
-        setScale(0f, 0f);
+        setUpInitialOrder();
+        //Vector2 newPosition = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height - 50f);
+        //setPosition(newPosition.x, newPosition.y);
+        //setScale(0f, 0f);
     }
 //    public IndividualSkillUI setMainWindowWithCurrentSkill(Player player) {
 ////        IndividualSkillUI ui = new IndividualSkillUI(assets, skin, player, player.currentAbility);
@@ -244,13 +246,9 @@ public class SelectSkillUI extends Group {
         if (show) {
             addAction(Actions.parallel(Actions.moveTo(0f, 0f, transitionDuration), Actions.scaleTo(1f, 1f, transitionDuration)));
             setUpInitialOrder();
-            setVisible(true);
         }
         else {
             hide(.5f);
-//            for (IndividualSkillUI ui : abilityUIMap.values()) {
-//                performParallelMoveToScaleToHide(ui);
-//            }
         }
     }
 
@@ -266,7 +264,6 @@ public class SelectSkillUI extends Group {
         isAutoScrolling = true;
         scrollToSkillIndex = skillIndex;
         isFound = false;
-        screen.isSelectSkillUIShown = true;
         show(true);
     }
 
@@ -278,14 +275,13 @@ public class SelectSkillUI extends Group {
                 isFound = true;
             }
         }
-        else if (isFound) {
-            if (autoScrollTimer > .5f) {
-                show(false);
-                isAutoScrolling = false;
-                isFound = false;
-                screen.isSelectSkillUIShown = false;
-            }
-        }
+//        else if (isFound) {
+//            if (autoScrollTimer > 1f) {
+//                show(false);
+//                isAutoScrolling = false;
+//                isFound = false;
+//            }
+//        }
         autoScrollTimer += delta;
     }
 }

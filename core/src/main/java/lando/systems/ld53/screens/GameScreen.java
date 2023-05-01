@@ -5,22 +5,23 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
-import lando.systems.ld53.entities.enemies.*;
+import lando.systems.ld53.entities.enemies.Enemy;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
 import lando.systems.ld53.physics.PhysicsSystem;
 import lando.systems.ld53.physics.test.TestBall;
-import lando.systems.ld53.ui.*;
+import lando.systems.ld53.ui.BottomGameUI;
+import lando.systems.ld53.ui.SelectSkillUI;
+import lando.systems.ld53.ui.TopGameUI;
+import lando.systems.ld53.ui.TopTrapezoid;
 import lando.systems.ld53.utils.screenshake.CameraShaker;
 import lando.systems.ld53.world.Map;
+
 import java.util.HashMap;
 
 public class GameScreen extends BaseScreen {
@@ -96,47 +97,46 @@ public class GameScreen extends BaseScreen {
         trapezoid = new TopTrapezoid(player, assets);
         selectSkillUI = new SelectSkillUI(this);
         uiStage.addActor(selectSkillUI);
-        uiStage.addListener(new InputListener() {
-            @Override
-            public boolean keyDown(InputEvent event, int keycode) {
-                if (isSelectSkillUIShown) {
-                    if (keycode == Input.Keys.D) {
-                        selectSkillUI.showNextSkill();
-                    }
-                    else if (keycode == Input.Keys.A) {
-                        selectSkillUI.showPreviousSkill();
-                    }
-                    else if (keycode == Input.Keys.ESCAPE) {
-                        isSelectSkillUIShown = false;
-                        selectSkillUI.show(false);
-                        swapMusic();
-                        Gdx.input.setInputProcessor(null);
-                    }
-                    else if (keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE || keycode == Input.Keys.E) {
-                        IndividualSkillUI ui = selectSkillUI.skillUIBeingShown;
-                        if (ui.ability.isUnlocked) {
-                            player.currentAbility = ui.ability;
-                            hideSkillUI();
-                            swapMusic();
-                            return true;
-                        } else {
-                            ui.lock.addAction(ui.shakeLocker());
-                        }
-
-                    }
-                }
-                return super.keyUp(event, keycode);
-            }
-        });
+//        uiStage.addListener(new InputListener() {
+//            @Override
+//            public boolean keyDown(InputEvent event, int keycode) {
+//                if (isSelectSkillUIShown) {
+//                    if (keycode == Input.Keys.D) {
+//                        selectSkillUI.showNextSkill();
+//                    }
+//                    else if (keycode == Input.Keys.A) {
+//                        selectSkillUI.showPreviousSkill();
+//                    }
+//                    else if (keycode == Input.Keys.ESCAPE) {
+//                        isSelectSkillUIShown = false;
+//                        selectSkillUI.show(false);
+//                        swapMusic();
+//                        Gdx.input.setInputProcessor(null);
+//                    }
+//                    else if (keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE || keycode == Input.Keys.E) {
+//                        IndividualSkillUI ui = selectSkillUI.skillUIBeingShown;
+//                        if (ui.ability.isUnlocked) {
+//                            player.currentAbility = ui.ability;
+//                            hideSkillUI();
+//                            swapMusic();
+//                            return true;
+//                        } else {
+//                            ui.lock.addAction(ui.shakeLocker());
+//                        }
+//
+//                    }
+//                }
+//                return super.keyUp(event, keycode);
+//            }
+//        });
 
         Gdx.input.setInputProcessor(uiStage);
     }
 
-    public void hideSkillUI() {
-        isSelectSkillUIShown = false;
-        selectSkillUI.show(false);
-
-    }
+//    public void hideSkillUI() {
+//        isSelectSkillUIShown = false;
+//        selectSkillUI.show(false);
+//    }
 
     public void swapMusic() {
         if(assets.level1Full.isPlaying()) {
@@ -172,25 +172,25 @@ public class GameScreen extends BaseScreen {
 
 
 
-        if(!isSelectSkillUIShown) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-                if (!isSelectSkillUIShown) {
-                    swapMusic();
-                    isSelectSkillUIShown = !isSelectSkillUIShown;
-                    selectSkillUI.show(isSelectSkillUIShown);
-                    Gdx.input.setInputProcessor(uiStage);
-                    return;
-                }
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-                if (!isSelectSkillUIShown) {
-                    audioManager.stopMusic();
-                    game.setScreen(new TitleScreen());
-                    return;
-                }
-            }
-        }
+//        if(!isSelectSkillUIShown) {
+//            if (Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+//                if (!isSelectSkillUIShown) {
+//                    swapMusic();
+//                    isSelectSkillUIShown = !isSelectSkillUIShown;
+//                    selectSkillUI.show(isSelectSkillUIShown);
+//                    Gdx.input.setInputProcessor(uiStage);
+//                    return;
+//                }
+//            }
+//
+//            if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+//                if (!isSelectSkillUIShown) {
+//                    audioManager.stopMusic();
+//                    game.setScreen(new TitleScreen());
+//                    return;
+//                }
+//            }
+//        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1) && player.currentAbility != player.abilityList.get(0)) {
             if (player.abilityList.get(0).isUnlocked) {
                 selectSkillUI.autoScrollToSkillInit(0);
