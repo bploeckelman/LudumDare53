@@ -62,11 +62,12 @@ public class GameScreen extends BaseScreen {
         physicsSystem = new PhysicsSystem(new Rectangle(0,0, Config.Screen.window_width, Config.Screen.window_height));
 
         testBalls = new Array<>();
-        for (int i = 0; i < 100; i++){
-            Vector2 pos = new Vector2(Gdx.graphics.getWidth() * MathUtils.random(.2f, .8f), Gdx.graphics.getHeight() * MathUtils.random(.2f, .5f));
-            Vector2 vel = new Vector2(MathUtils.random(-60f, 60f), MathUtils.random(-60f, 60f));
-            testBalls.add(new TestBall(pos, vel));
-        }
+        // to hell with your invisible balls!
+//        for (int i = 0; i < 100; i++){
+//            Vector2 pos = new Vector2(Gdx.graphics.getWidth() * MathUtils.random(.2f, .8f), Gdx.graphics.getHeight() * MathUtils.random(.2f, .5f));
+//            Vector2 vel = new Vector2(MathUtils.random(-60f, 60f), MathUtils.random(-60f, 60f));
+//            testBalls.add(new TestBall(pos, vel));
+//        }
         influencers.add(new TestAttractor(new Vector2(400, 500)));
         influencers.add(new TestRepulser(new Vector2(700, 450)));
 
