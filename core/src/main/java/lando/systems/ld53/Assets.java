@@ -81,6 +81,7 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> cargoGreen;
     public Animation<TextureRegion> peg;
     public Animation<TextureRegion> bomb;
+    public Animation<TextureRegion> shield;
     public Animation<TextureRegion> abilityIcons;
 
     public Animation<TextureRegion> gobbler;
@@ -320,14 +321,14 @@ public class Assets implements Disposable {
         playerSlashRight = new Animation<>(.04f, atlas.findRegions("player/jeff-slash-right/jeff-slash-right"), Animation.PlayMode.NORMAL);
         playerSlashUp    = new Animation<>(.04f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.NORMAL);
         playerSlashDown  = new Animation<>(.04f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.NORMAL);
-        playerSlash360   = new Animation<>(.06f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
+        playerSlash360   = new Animation<>(.066f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
         playerStun       = new Animation<>(.02f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.NORMAL);
         playerTalk       = new Animation<>(.1f,  atlas.findRegions("player/jeff-talking/jeff-talking"), Animation.PlayMode.LOOP);
         playerSlashOverlayLeft  = new Animation<>(.04f, atlas.findRegions("player/swipes/swipe-left"), Animation.PlayMode.NORMAL);
         playerSlashOverlayRight = new Animation<>(.04f, atlas.findRegions("player/swipes/swipe-right"), Animation.PlayMode.NORMAL);
         playerSlashOverlayUp    = new Animation<>(.04f, atlas.findRegions("player/swipes/swipe-up"), Animation.PlayMode.NORMAL);
         playerSlashOverlayDown  = new Animation<>(.04f, atlas.findRegions("player/swipes/swipe-down"), Animation.PlayMode.NORMAL);
-        playerSlashOverlay360   = new Animation<>(.06f, atlas.findRegions("player/zero-360/zero-360"), Animation.PlayMode.NORMAL);
+        playerSlashOverlay360   = new Animation<>(.066f, atlas.findRegions("player/zero-360/zero-360"), Animation.PlayMode.NORMAL);
 
 
         Array<TextureRegion> regions = new Array<>();
@@ -357,8 +358,8 @@ public class Assets implements Disposable {
 
         peg = new Animation<>(0.1f, atlas.findRegions("objects/peg/spinner"), Animation.PlayMode.LOOP);
         bomb = new Animation<>(0.1f, atlas.findRegions("objects/bomb/bomb"), Animation.PlayMode.NORMAL);
+        shield = new Animation<>(0.1f, atlas.findRegions("objects/shield/shield"), Animation.PlayMode.LOOP);
         abilityIcons = new Animation<>(0.1f, atlas.findRegions("objects/ability-icons/ability-icon"), Animation.PlayMode.NORMAL);
-
 
         gobbler = new Animation<>(0.1f, atlas.findRegions("creatures/gobbler/gobbler-idle"), Animation.PlayMode.LOOP_PINGPONG);
 

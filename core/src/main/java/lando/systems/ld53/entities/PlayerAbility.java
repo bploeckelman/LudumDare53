@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public enum PlayerAbility {
 
-    shield_360   (2f, "Shield",    "Block It!",       true),
+    shield_360   (4f, "Shield",    "Block It!",       true),
     bomb_throw   (3f, "Bomb",      "    Blast!",         true),
     speed_up     (5f, "Speed",     "Quick like a bunny!",        true),
     repulse      (6f, "Repulse",   "Get away, please.",    true),

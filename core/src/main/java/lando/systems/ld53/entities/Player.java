@@ -42,9 +42,10 @@ public class Player implements Entity, Collidable {
     private final Vector2 position;
     private final Vector2 movement;
     private final Vector2 velocity;
-    private final Rectangle renderBounds;
-    private final Rectangle collisionBounds;
-    private final CollisionShapeCircle collisionShape;
+
+    final Rectangle renderBounds;
+    final Rectangle collisionBounds;
+    final CollisionShapeCircle collisionShape;
 
     private Animation<TextureRegion> animation;
     private Animation<TextureRegion> swipeAnimation;
@@ -60,6 +61,7 @@ public class Player implements Entity, Collidable {
     private boolean speedActive = false;
 
     public final PlayerPersonalRepulsor personalRepulsor;
+    public final PlayerShield shield;
 
     private boolean isAttacking = false;
     private boolean isStunned = false;
@@ -140,6 +142,7 @@ public class Player implements Entity, Collidable {
         currentDirection = Direction.down;
 
         personalRepulsor = new PlayerPersonalRepulsor(this);
+        shield = new PlayerShield(this);
     }
 
     @Override
@@ -314,6 +317,8 @@ public class Player implements Entity, Collidable {
         if (personalRepulsor.isActive() && !didAddSpeed) {
             velocity.add(movement.x * speed * delta, movement.y * speed * delta);
         }
+
+        shield.update(delta);
     }
 
     public float getStaminaPercentage() {
@@ -337,6 +342,7 @@ public class Player implements Entity, Collidable {
                 batch.setColor(Color.WHITE);
             }
         }
+
         batch.draw(keyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
             if(currentState == State.slash_up
                 || currentState == State.slash_down
@@ -347,6 +353,8 @@ public class Player implements Entity, Collidable {
                 batch.draw(swipeKeyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
             }
 //            batch.draw(swipeKeyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
+
+        shield.render(batch);
     }
 
     private static final Color debugColor = new Color(50f / 255f, 205f / 255f, 50f / 255f, 0.5f); // Color.LIME half alpha
@@ -383,6 +391,7 @@ public class Player implements Entity, Collidable {
     private void triggerAbility() {
         switch(currentAbility) {
             case shield_360: {
+                shield.activate();
                 currentState = State.slash_360;
                 Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh, .26f);
             } break;
@@ -440,7 +449,10 @@ public class Player implements Entity, Collidable {
 
     @Override
     public float getMass() {
-        return mass;
+        // NOTE(brian) - this isn't ideal,
+        //  want to only impact bullets and still have
+        //  them be destroyed but not push the player... hard to do right now
+        return shield.isActive() ? 5000f : mass;
     }
 
     @Override
