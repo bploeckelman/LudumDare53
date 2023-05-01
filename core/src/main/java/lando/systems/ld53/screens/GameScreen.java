@@ -131,6 +131,11 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
+            balls.add(new Cargo(assets, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
+
+        }
+
         physicsObjects.clear();
 
         physicsObjects.addAll(map.wallSegments);
