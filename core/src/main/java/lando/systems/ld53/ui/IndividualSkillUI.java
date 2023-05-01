@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -21,7 +22,7 @@ import lando.systems.ld53.entities.PlayerAbility;
 import lando.systems.ld53.screens.GameScreen;
 
 public class IndividualSkillUI extends VisWindow {
-    private final Vector2 WINDOW_SIZE = new Vector2(70f, 70f);
+    private final Vector2 WINDOW_SIZE = new Vector2(75f, 75f);
     private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 2 - WINDOW_SIZE.x, Config.Screen.window_height - 100f);
     private final float BUTTON_WIDTH = 200f;
     private final float BUTTON_HEIGHT = 50f;
@@ -49,8 +50,13 @@ public class IndividualSkillUI extends VisWindow {
         setTouchable(Touchable.disabled);
 //        VisLabel label80px = new VisLabel(ability.title, "outfit-medium-80px");
         VisLabel label20px = new VisLabel(ability.title, "outfit-medium-20px");
-        label20px.setScale(.1f);
-
+        Container labelContainer = new Container();
+        labelContainer.setActor(label20px);
+        labelContainer.setTransform(true);
+        labelContainer.setSize(80f, 80f);
+        labelContainer.setOrigin(40f, 40f);
+        labelContainer.setScale(.5f);
+        labelContainer.bottom();
         stack = new Stack();
         VisImage image = new VisImage(ability.textureRegion);
 
@@ -65,9 +71,10 @@ public class IndividualSkillUI extends VisWindow {
 //        add(label80px).top().row();
         stack.add(image);
         stack.add(lock);
-        label20px.setAlignment(Align.bottom);
-        stack.add(label20px);
-        add(stack).align(Align.center).width(50f).height(50f).row();
+        stack.add(labelContainer);
+        stack.setSize(80f, 80f);
+        add(stack).align(Align.center);
+//        add(labelContainer);
 //
 //        TextButton.TextButtonStyle outfitMediumStyle = skin.get("text", TextButton.TextButtonStyle.class);
 //        TextButton.TextButtonStyle titleScreenButtonStyle = new TextButton.TextButtonStyle(outfitMediumStyle);

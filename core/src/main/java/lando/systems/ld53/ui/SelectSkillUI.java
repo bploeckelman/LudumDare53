@@ -36,7 +36,7 @@ public class SelectSkillUI extends Group {
     private Skin skin;
     private final float WINDOW_SIZE = 70f;
     private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 2 - WINDOW_SIZE / 2, Config.Screen.window_height - 75f);
-    private final float OFFSET = 50f;
+    private final float OFFSET = 30f;
     private ImageButton previousButton;
     private ImageButton nextButton;
     private VisWindow greyOutWindow;
@@ -236,7 +236,7 @@ public class SelectSkillUI extends Group {
     }
     public Vector2 getNewPositionForIndex(int indexOffset) {
         // 1.3 is a magic number
-        float x = indexOffset > 0 ? WINDOW_POSITION.x + indexOffset * 1.3f * OFFSET : WINDOW_POSITION.x + indexOffset * OFFSET;
+        float x = indexOffset > 0 ? WINDOW_POSITION.x + indexOffset * 1.23f * OFFSET : WINDOW_POSITION.x + indexOffset * OFFSET;
         //y value works, not sure why, but it works
         return new Vector2(x, WINDOW_POSITION.y + Math.abs(indexOffset) * OFFSET / 4);
     }
