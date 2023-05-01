@@ -4,7 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.*;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -15,7 +18,6 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
-import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.entities.Player;
 import lando.systems.ld53.entities.PlayerAbility;
 import lando.systems.ld53.screens.GameScreen;
@@ -94,9 +96,11 @@ public class IndividualSkillUI extends VisWindow {
         equipButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (!equipButton.isDisabled()) {
+                if (ability.isUnlocked) {
                     player.currentAbility = ability;
                     screen.hideSkillUI();
+                } else {
+                    lock.addAction(shakeLocker());
                 }
             }
         });
@@ -126,11 +130,9 @@ public class IndividualSkillUI extends VisWindow {
     public void update() {
         if (!ability.isUnlocked) {
             setColor(Color.GRAY);
-            equipButton.setDisabled(true);
             equipButton.setText("Locked");
             lock.setVisible(true);
         } else {
-            equipButton.setDisabled(false);
             equipButton.setText("Equip");
             lock.setVisible(false);
         }
