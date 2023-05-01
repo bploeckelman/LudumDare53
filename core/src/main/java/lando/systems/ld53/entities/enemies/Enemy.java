@@ -84,6 +84,10 @@ public class Enemy implements Entity, Collidable {
             circle.radius * 2);
     }
 
+    public boolean isAlive() {
+        return true; // TODO make this real
+    }
+
     private static final Color debugColor = new Color(0, 1, 1, 0.5f); // Color.CYAN half alpha
     @Override
     public void renderDebug(ShapeDrawer shapes) {

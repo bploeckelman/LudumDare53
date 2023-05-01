@@ -29,7 +29,8 @@ public class GameScreen extends BaseScreen {
     public CargoSpawner cargoSpawner;
     public Array<Cargo> cargos;
     public Player player;
-    private Array<Enemy> enemies;
+    public Array<EnemySpawner> enemySpawners;
+    public Array<Enemy> enemies;
     private BulletEnemy bulletEnemy;
     public int numberOfPackagesToCollect = 3; // can be broken out to each color if needed
     public HashMap<Goal.Type, Integer> collectedMap = new HashMap<Goal.Type, Integer>();
@@ -70,18 +71,11 @@ public class GameScreen extends BaseScreen {
         map = new Map(this, "maps/level1.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
 
-        // TODO: read this from a map
+
+        // TODO: read these from a map
         cargoSpawner = new CargoSpawner(this, new Vector2(540, 500));
-
-        Enemy enemy = new CargoEatingEnemy(this, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
-        enemies.add(enemy);
-        enemy = new RepulseMineEnemy(this, 200, 600);
-        enemies.add(enemy);
-        enemy = new AttractMineEnemy(this, 200, 300);
-        enemies.add(enemy);
-        enemy = new InvaderEnemy(this, 200, 300);
-        enemies.add(enemy);
-
+        enemySpawners = new Array<>();
+        enemySpawners.add(new EnemySpawner(this, new Vector2(200, 600), EnemySpawner.EnemyType.random));
 
         Cargo cargo = new Cargo(assets, Goal.Type.green, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         cargos = new Array<>();
@@ -330,6 +324,10 @@ public class GameScreen extends BaseScreen {
 
         for (Cargo cargo : cargos) {
             cargo.update(delta);
+        }
+
+        for (EnemySpawner spawner : enemySpawners) {
+            spawner.update(delta);
         }
 
         bulletEnemy.update(delta);
