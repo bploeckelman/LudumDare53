@@ -64,7 +64,7 @@ public class Player implements Entity, Collidable {
         minus_attack(InputPrompts.Type.key_light_minus, "- attack!", "Remove bug", false);
 
 
-        public final InputPrompts.Type type;
+        public final InputPrompts.Type type; // TODO(brian) - eventually want an Animation for the icon instead of a ref to the input prompts sheet (scales up poorly)
         public final String title;
         public final String description;
         public boolean isUnlocked;

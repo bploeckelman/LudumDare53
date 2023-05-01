@@ -20,6 +20,8 @@ public class Cargo implements Entity, Collidable {
     private static final Vector2 COLLISION_OFFSET = new Vector2(0, 5f);
     private static final float COLLISION_RADIUS = 20;
     private static final float RENDER_SIZE = 40f;
+    // TODO - this should be set per-cargo rather than constant for all Cargo types
+    private static final float MAX_SPEED = 300;
 
     private final Rectangle renderBounds;
     private final Rectangle collisionBounds;
@@ -100,12 +102,16 @@ public class Cargo implements Entity, Collidable {
 
     @Override
     public void setVelocity(Vector2 newVel) {
-        velocity.set(newVel);
+        setVelocity(newVel.x, newVel.y);
     }
 
     @Override
     public void setVelocity(float x, float y) {
         velocity.set(x, y);
+        // cap max speed
+        if (velocity.len() > MAX_SPEED) {
+            velocity.nor().scl(MAX_SPEED);
+        }
     }
 
     @Override
