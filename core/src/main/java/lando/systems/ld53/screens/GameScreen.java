@@ -119,6 +119,7 @@ public class GameScreen extends BaseScreen {
                     else if (keycode == Input.Keys.ESCAPE) {
                         isSelectSkillUIShown = false;
                         selectSkillUI.show(false);
+                        swapMusic();
                         Gdx.input.setInputProcessor(null);
                     }
                     else if (keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE || keycode == Input.Keys.E) {
@@ -171,11 +172,7 @@ public class GameScreen extends BaseScreen {
 
         boolean pauseGame = paused || isSelectSkillUIShown;
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !isSelectSkillUIShown) {
-            audioManager.stopMusic();
-            game.setScreen(new TitleScreen());
-            return;
-        }
+
 
         if(!isSelectSkillUIShown) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
@@ -184,6 +181,14 @@ public class GameScreen extends BaseScreen {
                     isSelectSkillUIShown = !isSelectSkillUIShown;
                     selectSkillUI.show(isSelectSkillUIShown);
                     Gdx.input.setInputProcessor(uiStage);
+                    return;
+                }
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+                if (!isSelectSkillUIShown) {
+                    audioManager.stopMusic();
+                    game.setScreen(new TitleScreen());
                     return;
                 }
             }
