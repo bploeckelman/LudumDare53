@@ -36,6 +36,8 @@ public class Player implements Entity, Collidable {
     private static final float MAX_STAMINA = 10f; // seconds to charge fully
     private static final float STUN_TIMER = .3f;
 
+    final GameScreen screen;
+
     private final HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
     private final HashMap<State, Animation<TextureRegion>> swipeAnimations = new HashMap<>();
     private final Vector2 vec2 = new Vector2();
@@ -62,6 +64,7 @@ public class Player implements Entity, Collidable {
 
     public final PlayerPersonalRepulsor personalRepulsor;
     public final PlayerShield shield;
+    public final PlayerFetcher fetcher;
 
     private boolean isAttacking = false;
     private boolean isStunned = false;
@@ -94,7 +97,8 @@ public class Player implements Entity, Collidable {
     }
     public enum Direction { up, down, left, right, up_left, up_right, down_left, down_right }
 
-    public Player(Assets assets, float x, float y) {
+    public Player(GameScreen screen, float x, float y) {
+        this.screen = screen;
         this.position = new Vector2(x, y);
         this.movement = new Vector2();
         this.velocity = new Vector2();
@@ -116,6 +120,7 @@ public class Player implements Entity, Collidable {
             RENDER_SIZE, RENDER_SIZE
         );
 
+        Assets assets = screen.assets;
         animations.put(State.idle_down, assets.playerIdleDown);
         animations.put(State.idle_up, assets.playerIdleUp);
         animations.put(State.idle_left, assets.playerIdleLeft);
@@ -143,6 +148,7 @@ public class Player implements Entity, Collidable {
 
         personalRepulsor = new PlayerPersonalRepulsor(this);
         shield = new PlayerShield(this);
+        fetcher = new PlayerFetcher(this);
     }
 
     @Override
@@ -312,13 +318,15 @@ public class Player implements Entity, Collidable {
         }
 //        swipeKeyframe = swipeAnimations.get(State.slash_up).getKeyFrame(attackTimer);
 
+        shield.update(delta);
+        fetcher.update(delta);
         personalRepulsor.update(delta);
+
         // NOTE(brian) - moar hacks
+        // TODO(brian) - should this also be done when shield/fetcher are active?
         if (personalRepulsor.isActive() && !didAddSpeed) {
             velocity.add(movement.x * speed * delta, movement.y * speed * delta);
         }
-
-        shield.update(delta);
     }
 
     public float getStaminaPercentage() {
@@ -355,6 +363,7 @@ public class Player implements Entity, Collidable {
 //            batch.draw(swipeKeyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
 
         shield.render(batch);
+        fetcher.render(batch);
     }
 
     private static final Color debugColor = new Color(50f / 255f, 205f / 255f, 50f / 255f, 0.5f); // Color.LIME half alpha
@@ -407,8 +416,9 @@ public class Player implements Entity, Collidable {
                 personalRepulsor.activate();
                 Main.game.audioManager.playSound(AudioManager.Sounds.swoosh, .26f);
             } break;
-            case grapple: {
-
+            case fetch: {
+                fetcher.activate();
+                Main.game.audioManager.playSound(AudioManager.Sounds.spawn, .26f);
             } break;
         }
     }
@@ -523,6 +533,12 @@ public class Player implements Entity, Collidable {
         else if (object instanceof Cargo) {
             // swipe in the direction of the ball when colliding with it
             Cargo cargo = (Cargo) object;
+
+            // don't swipe at cargo held by asuka
+            if (fetcher.isActive() && fetcher.heldCargo == cargo) {
+                return;
+            }
+
             vec2.set(cargo.getPosition())
                 .sub(this.getPosition())
                 .nor();
@@ -557,6 +573,9 @@ public class Player implements Entity, Collidable {
 
     @Override
     public boolean shouldCollideWith(Collidable object) {
+        if (object instanceof PlayerFetcher) {
+            return false;
+        }
         return true;
     }
 }

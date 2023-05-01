@@ -10,12 +10,11 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
-import lando.systems.ld53.entities.enemies.*;
+import lando.systems.ld53.entities.enemies.Enemy;
 import lando.systems.ld53.particles.Particles;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
 import lando.systems.ld53.physics.PhysicsSystem;
-import lando.systems.ld53.physics.test.TestBall;
 import lando.systems.ld53.ui.BottomGameUI;
 import lando.systems.ld53.ui.SelectSkillUI;
 import lando.systems.ld53.ui.TopGameUI;
@@ -42,7 +41,6 @@ public class GameScreen extends BaseScreen {
     private final PhysicsSystem physicsSystem;
     private final Array<Collidable> physicsObjects;
     public final Array<Influencer> influencers;
-    private final Array<TestBall> testBalls;
 
     private TopTrapezoid trapezoid;
     private SelectSkillUI selectSkillUI;
@@ -73,20 +71,12 @@ public class GameScreen extends BaseScreen {
         cargos = new Array<>();
 
         map = new Map(this, "maps/level1.tmx");
-        player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
+        player = new Player(this, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
 
         bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
 
         physicsObjects = new Array<>();
         physicsSystem = new PhysicsSystem(new Rectangle(0,0, Config.Screen.window_width, Config.Screen.window_height));
-
-        testBalls = new Array<>();
-        // to hell with your invisible balls!
-//        for (int i = 0; i < 100; i++){
-//            Vector2 pos = new Vector2(Gdx.graphics.getWidth() * MathUtils.random(.2f, .8f), Gdx.graphics.getHeight() * MathUtils.random(.2f, .5f));
-//            Vector2 vel = new Vector2(MathUtils.random(-60f, 60f), MathUtils.random(-60f, 60f));
-//            testBalls.add(new TestBall(pos, vel));
-//        }
 
         influencers = new Array<>();
         influencers.addAll(map.goals);
@@ -286,12 +276,15 @@ public class GameScreen extends BaseScreen {
 
         physicsObjects.addAll(map.wallSegments);
         physicsObjects.addAll(map.pegs);
-        physicsObjects.addAll(testBalls);
         physicsObjects.addAll(bullets);
         physicsObjects.addAll(bombs);
         physicsObjects.addAll(cargos);
-        physicsObjects.add(player);
         physicsObjects.addAll(enemies);
+        physicsObjects.add(player);
+
+        if (player.fetcher.isActive()) {
+            physicsObjects.add(player.fetcher);
+        }
 
         for (Bomb bomb : bombs) {
             if (!influencers.contains(bomb.repulsor, true)) {
