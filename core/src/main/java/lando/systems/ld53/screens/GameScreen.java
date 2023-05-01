@@ -13,6 +13,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
+import lando.systems.ld53.entities.enemies.CargoEatingEnemy;
+import lando.systems.ld53.entities.enemies.Enemy;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
 import lando.systems.ld53.physics.PhysicsSystem;
@@ -29,9 +31,9 @@ import lando.systems.ld53.world.Map;
 public class GameScreen extends BaseScreen {
 
     private Map map;
-    private Array<Cargo> cargos;
+    public Array<Cargo> cargos;
     public Player player;
-    private Enemy enemy;
+    private Array<Enemy> enemies;
     private BulletEnemy bulletEnemy;
 
     public final Array<Bullet> bullets;
@@ -60,10 +62,12 @@ public class GameScreen extends BaseScreen {
 
         bullets = new Array<>();
         bombs = new Array<>();
+        enemies = new Array<>();
 
         map = new Map("maps/level1.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
-        enemy = new Enemy(assets, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
+        Enemy enemy = new CargoEatingEnemy(this, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
+        enemies.add(enemy);
         Cargo cargo = new Cargo(assets, Goal.Type.green, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f));
         cargos = new Array<>();
         cargos.add(cargo);
@@ -205,7 +209,7 @@ public class GameScreen extends BaseScreen {
         physicsObjects.addAll(bombs);
         physicsObjects.addAll(cargos);
         physicsObjects.add(player);
-        physicsObjects.add(enemy);
+        physicsObjects.addAll(enemies);
 
         for (Bomb bomb : bombs) {
             if (!influencers.contains(bomb.repulsor, true)) {
@@ -241,7 +245,9 @@ public class GameScreen extends BaseScreen {
         }
 
         bulletEnemy.update(delta);
-        enemy.update(delta);
+        for (Enemy enemy : enemies) {
+            enemy.update(delta);
+        }
         player.update(delta);
         map.update(delta);
         for (Goal goal : map.goals){
@@ -288,7 +294,9 @@ public class GameScreen extends BaseScreen {
 
             // players/enemies
             bulletEnemy.render(batch);
-            enemy.render(batch);
+            for (Enemy enemy : enemies) {
+                enemy.render(batch);
+            }
             player.render(batch);
 
             // pegs after players/enemies

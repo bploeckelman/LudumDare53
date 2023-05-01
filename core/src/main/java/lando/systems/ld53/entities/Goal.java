@@ -81,7 +81,7 @@ public class Goal implements Entity, Influencer {
         this.attractorPosition = new Vector2();
         bounds.getCenter(attractorPosition);
         this.range = Math.max(bounds.width, bounds.height) * 1.5f;
-        this.strength = 900;
+        this.strength = 1500;
         influenceRenderer = new InfluenceRenderer(this, type.color);
         this.icon = type.icon;
 

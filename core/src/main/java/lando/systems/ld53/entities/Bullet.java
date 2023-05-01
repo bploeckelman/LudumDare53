@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Pools;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
+import lando.systems.ld53.entities.enemies.Enemy;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;

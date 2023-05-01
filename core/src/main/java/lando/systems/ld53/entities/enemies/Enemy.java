@@ -1,4 +1,4 @@
-package lando.systems.ld53.entities;
+package lando.systems.ld53.entities.enemies;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -10,31 +10,39 @@ import com.badlogic.gdx.math.Vector2;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
+import lando.systems.ld53.entities.Entity;
+import lando.systems.ld53.entities.Player;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
+import lando.systems.ld53.screens.GameScreen;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
 public class Enemy implements Entity, Collidable {
 
-    private final Rectangle bounds;
-    private final CollisionShapeCircle circle;
-    private final Animation<TextureRegion> animation;
-    private final Vector2 velocity;
-    private final Vector2 v = new Vector2();
+    private static final float MAX_SPEED = 300;
+
+
+    protected final GameScreen screen;
+    protected final Rectangle bounds;
+    protected final CollisionShapeCircle circle;
+    protected final Animation<TextureRegion> animation;
+    protected final Vector2 velocity;
+    protected final Vector2 v = new Vector2();
 
     // TODO(brian) - use target to set velocity? need to add behavioral code
-    private Vector2 target;
-    private float moveTime;
+    protected Vector2 target;
+    protected float moveTime;
 
-    private TextureRegion keyframe;
-    private float animTime;
+    protected TextureRegion keyframe;
+    protected float animTime;
 
-    public float mass = 10f;
-    public float friction = 0.5f;
+    protected float mass = 10f;
+    protected float friction = 0.3f;
 
-    public Enemy(Assets assets, float x, float y) {
-        this.animation = assets.gobbler;
+    public Enemy(GameScreen screen, float x, float y) {
+        this.screen = screen;
+        this.animation = screen.assets.gobbler;
         this.animTime = 0f;
         this.keyframe = animation.getKeyFrame(0f);
         float size = 0.5f * Math.max(keyframe.getRegionWidth(), keyframe.getRegionHeight());
@@ -53,17 +61,17 @@ public class Enemy implements Entity, Collidable {
         // TODO - custom behavior code should go here,
         //  but don't set positions directly, the physics system has to do that
         //  we just need to influence
-        moveTime -= delta;
-        if (moveTime <= 0f) {
-            moveTime = MathUtils.random(1f, 3f);
-            float x = MathUtils.random(80, 1200);
-            float y = MathUtils.random(80, 640);
-            target.set(x, y);
-
-            float speed = 300f;
-            v.set(target).sub(getPosition()).nor().scl(speed);
-            velocity.add(v);
-        }
+//        moveTime -= delta;
+//        if (moveTime <= 0f) {
+//            moveTime = MathUtils.random(1f, 3f);
+//            float x = MathUtils.random(80, 1200);
+//            float y = MathUtils.random(80, 640);
+//            target.set(x, y);
+//
+//            float speed = 300f;
+//            v.set(target).sub(getPosition()).nor().scl(speed);
+//            velocity.add(v);
+//        }
     }
 
     @Override
@@ -104,6 +112,9 @@ public class Enemy implements Entity, Collidable {
     @Override
     public void setVelocity(float x, float y) {
         velocity.set(x, y);
+        if (velocity.len() > MAX_SPEED) {
+            velocity.nor().scl(MAX_SPEED);
+        }
     }
 
     @Override
