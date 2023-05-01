@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import lando.systems.ld53.Main;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
 
@@ -16,6 +17,8 @@ public class Goal implements Entity, Influencer {
         , red
         ;
         public Animation<TextureRegion> anim;
+        public Animation<TextureRegion> baseAnim;
+        public Animation<TextureRegion> shimmerAnim;
     }
 
     private final Rectangle bounds;
@@ -25,6 +28,8 @@ public class Goal implements Entity, Influencer {
     private final Type type;
 
     private TextureRegion keyframe;
+    private TextureRegion baseKeyframe;
+    private TextureRegion shimmerKeyframe;
     private float animTime;
 
     public Goal(RectangleMapObject rectMapObject) {
@@ -33,6 +38,8 @@ public class Goal implements Entity, Influencer {
         this.bounds = new Rectangle(rect);
         this.type = Type.valueOf(colorProp);
         this.keyframe = type.anim.getKeyFrame(0f);
+        this.shimmerKeyframe = type.shimmerAnim.getKeyFrame(0f);
+        this.baseKeyframe = type.baseAnim.getKeyFrame(0f);
         this.animTime = 0f;
         this.attractorPosition = new Vector2();
         bounds.getCenter(attractorPosition);
@@ -44,6 +51,8 @@ public class Goal implements Entity, Influencer {
     public void update(float delta) {
         animTime += delta;
         keyframe = type.anim.getKeyFrame(animTime);
+        shimmerKeyframe = type.shimmerAnim.getKeyFrame(animTime);
+        baseKeyframe = type.baseAnim.getKeyFrame(animTime);
     }
 
     public void tryToCollectPackage(Cargo b) {
@@ -56,7 +65,9 @@ public class Goal implements Entity, Influencer {
 
     @Override
     public void render(SpriteBatch batch) {
+        batch.draw(baseKeyframe, bounds.x, bounds.y, bounds.width, bounds.height);
         batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
+        batch.draw(shimmerKeyframe, bounds.x, bounds.y, bounds.width, bounds.height);
     }
 
 

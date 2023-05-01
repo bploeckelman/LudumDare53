@@ -74,6 +74,9 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> gobbler;
     public Animation<TextureRegion> etWalk;
     public Animation<TextureRegion> etFloat;
+    public Animation<TextureRegion> goalPanelBase;
+//    public Animation<TextureRegion> goalPanelColor;
+    public Animation<TextureRegion> goalShimmer;
 
     public Array<ShaderProgram> randomTransitions;
     public ShaderProgram starWarsShader;
@@ -327,10 +330,16 @@ public class Assets implements Disposable {
         etWalk = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-walk"), Animation.PlayMode.LOOP);
         etFloat = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-float"), Animation.PlayMode.LOOP_PINGPONG);
 
+        goalPanelBase = new Animation<>(0.1f, atlas.findRegions("objects/goal-base"), Animation.PlayMode.LOOP);
+        goalShimmer = new Animation<>(0.1f, atlas.findRegions("objects/goal-shimmer"), Animation.PlayMode.LOOP);
+
+
         // initialize Goal animations for each type
         for (Goal.Type type : Goal.Type.values()) {
-            String regionsPath = Stringf.format("objects/goal-%s/goal-%s", type.name(), type.name());
+            String regionsPath = Stringf.format("objects/goal-panel-%s/goal-panel-%s", type.name(), type.name());
             type.anim = new Animation<>(0.1f, atlas.findRegions(regionsPath), Animation.PlayMode.LOOP);
+            type.baseAnim = new Animation<>(0.1f, atlas.findRegions("objects/goal-base/goal-base"), Animation.PlayMode.LOOP);
+            type.shimmerAnim = new Animation<>(0.1f, atlas.findRegions("objects/goal-shimmer/goal-shimmer"), Animation.PlayMode.LOOP);
         }
 
         // initialize patch values
