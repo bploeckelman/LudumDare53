@@ -3,6 +3,7 @@ package lando.systems.ld53.ui;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -36,6 +37,9 @@ public class IndividualSkillUI extends VisWindow {
         setSize(WINDOW_SIZE.x, WINDOW_SIZE.y);
         setPosition(WINDOW_POSITION.x, WINDOW_POSITION.y);
         setTransform(true);
+        setMovable(false);
+        setResizable(false);
+        setTouchable(Touchable.disabled);
         VisLabel label80px = new VisLabel(ability.title, "outfit-medium-80px");
         VisLabel label20px = new VisLabel(ability.description, "outfit-medium-20px");
         label20px.setWrap(true);
@@ -73,10 +77,12 @@ public class IndividualSkillUI extends VisWindow {
         });
         update();
     }
-    public void setSizePerOffset(int indexOffset) {
-        setSize(WINDOW_SIZE.x - OFFSET * Math.abs(indexOffset)  , WINDOW_SIZE.y - OFFSET * Math.abs(indexOffset));
-        float x = indexOffset > 0 ? WINDOW_POSITION.x + indexOffset * 2 * OFFSET : WINDOW_POSITION.x + indexOffset * OFFSET;
-        setPosition(x, WINDOW_POSITION.y + Math.abs(indexOffset) * OFFSET / 2);
+    public void setCenterConfiguration(boolean isCenter) {
+        if (isCenter) {
+            setTouchable(Touchable.enabled);
+        } else {
+            setTouchable(Touchable.disabled);
+        }
     }
 
     public void update() {

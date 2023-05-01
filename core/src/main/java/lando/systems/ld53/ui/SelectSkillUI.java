@@ -3,9 +3,12 @@ package lando.systems.ld53.ui;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
@@ -25,9 +28,10 @@ public class SelectSkillUI extends Group {
     private Player player;
     private Assets assets;
     private Skin skin;
-    private final Vector2 WINDOW_SIZE = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height * 2 / 3);
     private final Vector2 WINDOW_POSITION = new Vector2(Config.Screen.window_width / 3, Config.Screen.window_height / 6);
     private final float OFFSET = 50f;
+    private ImageButton previousButton;
+    private ImageButton nextButton;
 
     public SelectSkillUI(GameScreen screen) {
         this.player = screen.player;
@@ -40,12 +44,29 @@ public class SelectSkillUI extends Group {
             addActor(individualSkillUI);
         }
         TextureRegionDrawable prevButtonDrawable = new TextureRegionDrawable(assets.inputPrompts.get(InputPrompts.Type.hand_point_left));
-        ImageButton previousButton = new ImageButton(prevButtonDrawable);
-        previousButton.setPosition(200f, 400f);
-        previousButton.setSize(200f, 200f);
-        previousButton.setScale(2f, 2f);
-        addActor(previousButton);
-
+        prevButtonDrawable.setMinSize(100f, 100f);
+        TextureRegionDrawable nextButtonDrawable = new TextureRegionDrawable(assets.inputPrompts.get(InputPrompts.Type.hand_point_right));
+        nextButtonDrawable.setMinSize(100f, 100f);
+        Table buttonTable = new Table();
+        buttonTable.setPosition(200f, 200f);
+        buttonTable.setSize(Config.Screen.window_width - 400f, 100f);
+        previousButton = new ImageButton(prevButtonDrawable);
+        nextButton = new ImageButton(nextButtonDrawable);
+        previousButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                showPreviousSkill();
+            }
+        });
+        nextButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                showNextSkill();
+            }
+        });
+        buttonTable.add(previousButton).left().expandX();
+        buttonTable.add(nextButton).right().expandX();
+        addActor(buttonTable);
         Vector2 newPosition = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height - 50f);
         setPosition(newPosition.x, newPosition.y);
         setScale(0f, 0f);
@@ -146,11 +167,7 @@ public class SelectSkillUI extends Group {
         performParallelMoveToScaleTo(abilityUIMap.get(abilityList.get(currentIndex)), 0);
         performParallelMoveToScaleTo(abilityUIMap.get(abilityList.get(rightIndex1)), 1);
         performParallelMoveToScaleTo(abilityUIMap.get(abilityList.get(rightIndex2)), 2);
-//        abilityUIMap.get(abilityList.get(leftIndex2)).setSizePerOffset(-2);
-//        abilityUIMap.get(abilityList.get(leftIndex1)).setSizePerOffset(-1);
-//        abilityUIMap.get(abilityList.get(currentIndex)).setSizePerOffset(0);
-//        abilityUIMap.get(abilityList.get(rightIndex1)).setSizePerOffset(1);
-//        abilityUIMap.get(abilityList.get(rightIndex2)).setSizePerOffset(2);
+
         abilityUIMap.get(abilityList.get(leftIndex1)).toFront();
         abilityUIMap.get(abilityList.get(rightIndex1)).toFront();
         abilityUIMap.get(abilityList.get(currentIndex)).toFront();
@@ -162,6 +179,13 @@ public class SelectSkillUI extends Group {
         Vector2 newScale = getNewScaleForIndex(indexOffset);
         changeColorPerIndexOffset(ui, indexOffset);
         ui.addAction(Actions.parallel(Actions.moveTo(newPosition.x, newPosition.y, .25f), Actions.scaleTo(newScale.x, newScale.y, .25f)));
+        if (indexOffset == 0) {
+            ui.setCenterConfiguration(true);
+        } else {
+            ui.setCenterConfiguration(false);
+        }
+        previousButton.toFront();
+        nextButton.toFront();
     }
 
     public void changeColorPerIndexOffset(IndividualSkillUI ui, int indexOffset) {
