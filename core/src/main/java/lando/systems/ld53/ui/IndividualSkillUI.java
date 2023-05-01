@@ -54,18 +54,8 @@ public class IndividualSkillUI extends VisWindow {
         label20px.setWrap(true);
 
         stack = new Stack();
-        VisImage image = new VisImage(assets.inputPrompts.get(ability.type));
-        switch(ability.type) {
-            case key_light_bang: // Bomb
-                image = new VisImage(assets.bomb.getKeyFrame(0));
-                break;
-                case key_light_tilde: // Speed
-                image = new VisImage(assets.abilityIcons.getKeyFrame(0));
-                break;
-            case key_light_at: // Shield
-                image = new VisImage(assets.abilityIcons.getKeyFrame(1));
-                break;
-        }
+        VisImage image = new VisImage(ability.textureRegion);
+
 //        if(ability.type == InputPrompts.Type.key_light_bang) {
 //            image = new VisImage(assets.bomb.getKeyFrame(0));
 //        }
