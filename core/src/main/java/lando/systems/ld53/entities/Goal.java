@@ -97,7 +97,7 @@ public class Goal implements Entity, Influencer {
 
     public void tryToCollectPackage(Cargo b) {
         float dist = b.getPosition().dst(attractorPosition);
-        if (dist < range / 4f) {
+        if (dist < range / 2f) {
             if(b.goalType == type) {
                 Main.game.audioManager.playSound(AudioManager.Sounds.collect, .5f);
                 // TODO: Collected it do things like score
