@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.*;
-import com.badlogic.gdx.graphics.g3d.Shader;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -302,7 +301,7 @@ public class Assets implements Disposable {
         playerSlashUp    = new Animation<>(.016f, atlas.findRegions("player/jeff-slash-up/jeff-slash-up"), Animation.PlayMode.NORMAL);
         playerSlashDown  = new Animation<>(.016f, atlas.findRegions("player/jeff-slash-down/jeff-slash-down"), Animation.PlayMode.NORMAL);
         playerSlash360   = new Animation<>(.06f, atlas.findRegions("player/jeff-slash-360/jeff-slash-360"), Animation.PlayMode.NORMAL);
-        playerStun       = new Animation<>(.03f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.NORMAL);
+        playerStun       = new Animation<>(.03f, atlas.findRegions("player/jeff-stun/jeff-stun"), Animation.PlayMode.LOOP);
 
         Array<TextureRegion> regions = new Array<>();
         regions.addAll(

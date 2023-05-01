@@ -29,6 +29,7 @@ public class Player implements Entity, Collidable {
     private static final float SPEED = 3000f;
     private static final float MAX_STAMINA = 10f; // seconds to charge fully
     private static final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
+    private static final float STUN_TIMER = .3f;
 
     private final HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
     private final Vector2 vec2 = new Vector2();
@@ -157,7 +158,7 @@ public class Player implements Entity, Collidable {
         }
         //player is stunned, so keep going without changing state if anim not finished
         else if (isStunned) {
-            if (animation.isAnimationFinished(stunTimer)) {
+            if (stunTimer > STUN_TIMER) {
                 currentState = State.idle_down;
                 stunTimer = 0;
                 isStunned = false;
