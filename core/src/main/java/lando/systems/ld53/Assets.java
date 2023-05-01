@@ -377,15 +377,19 @@ public class Assets implements Disposable {
             switch(type) {
                 case red:
                     type.icon = cargoRed.getKeyFrame(1);
+                    type.iconAnimation = cargoRed;
                     break;
                 case cyan:
                     type.icon = cargoCyan.getKeyFrame(0);
+                    type.iconAnimation = cargoCyan;
                     break;
                 case green:
                     type.icon = cargoGreen.getKeyFrame(0);
+                    type.iconAnimation = cargoGreen;
                     break;
                 case yellow:
                     type.icon = cargoYellow.getKeyFrame(0);
+                    type.iconAnimation = cargoYellow;
                     break;
                 default:
                     break;

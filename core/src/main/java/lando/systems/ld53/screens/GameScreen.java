@@ -123,11 +123,13 @@ public class GameScreen extends BaseScreen {
                         selectSkillUI.show(false);
                         Gdx.input.setInputProcessor(null);
                     }
-                    else if (keycode == Input.Keys.ENTER) {
+                    else if (keycode == Input.Keys.ENTER || keycode == Input.Keys.SPACE || keycode == Input.Keys.E) {
                         IndividualSkillUI ui = selectSkillUI.skillUIBeingShown;
                         if (ui.ability.isUnlocked) {
                             player.currentAbility = ui.ability;
                             hideSkillUI();
+                            swapMusic();
+                            return true;
                         } else {
                             ui.lock.addAction(ui.shakeLocker());
                         }
@@ -147,6 +149,24 @@ public class GameScreen extends BaseScreen {
 
     }
 
+    public void swapMusic() {
+        if(assets.level1Full.isPlaying()) {
+            assets.level1Thin.setLooping(true);
+            assets.level1Thin.play();
+            assets.level1Thin.setVolume(audioManager.musicVolume.floatValue());
+            assets.level1Thin.setPosition(assets.level1Full.getPosition());
+            assets.level1Full.stop();
+
+        }
+        else if(assets.level1Thin.isPlaying()) {
+            assets.level1Full.setLooping(true);
+            assets.level1Full.play();
+            assets.level1Full.setVolume(audioManager.musicVolume.floatValue());
+            assets.level1Full.setPosition(assets.level1Thin.getPosition());
+            assets.level1Thin.stop();
+        }
+    }
+
     @Override
     public void update(float delta) {
         super.update(delta);
@@ -159,31 +179,39 @@ public class GameScreen extends BaseScreen {
             return;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-            isSelectSkillUIShown = !isSelectSkillUIShown;
-            selectSkillUI.show(isSelectSkillUIShown);
-            Gdx.input.setInputProcessor(uiStage);
-            return;
+        if(!isSelectSkillUIShown) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+                if (!isSelectSkillUIShown) {
+                    swapMusic();
+                    isSelectSkillUIShown = !isSelectSkillUIShown;
+                    selectSkillUI.show(isSelectSkillUIShown);
+                    Gdx.input.setInputProcessor(uiStage);
+                    return;
+                }
+            }
         }
 
 
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
-            if(assets.level1Full.isPlaying()) {
-                assets.level1Thin.setLooping(true);
-                assets.level1Thin.play();
-                assets.level1Thin.setVolume(audioManager.musicVolume.floatValue());
-                assets.level1Thin.setPosition(assets.level1Full.getPosition());
-                assets.level1Full.stop();
 
-            }
-            else if(assets.level1Thin.isPlaying()) {
-                assets.level1Full.setLooping(true);
-                assets.level1Full.play();
-                assets.level1Full.setVolume(audioManager.musicVolume.floatValue());
-                assets.level1Full.setPosition(assets.level1Thin.getPosition());
-                assets.level1Thin.stop();
-            }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
+            swapMusic();
+//            if(assets.level1Full.isPlaying()) {
+//                assets.level1Thin.setLooping(true);
+//                assets.level1Thin.play();
+//                assets.level1Thin.setVolume(audioManager.musicVolume.floatValue());
+//                assets.level1Thin.setPosition(assets.level1Full.getPosition());
+//                assets.level1Full.stop();
+//
+//            }
+//            else if(assets.level1Thin.isPlaying()) {
+//                assets.level1Full.setLooping(true);
+//                assets.level1Full.play();
+//                assets.level1Full.setVolume(audioManager.musicVolume.floatValue());
+//                assets.level1Full.setPosition(assets.level1Thin.getPosition());
+//                assets.level1Thin.stop();
+//            }
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {

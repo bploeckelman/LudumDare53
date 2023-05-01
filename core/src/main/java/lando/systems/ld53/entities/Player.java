@@ -1,5 +1,6 @@
 package lando.systems.ld53.entities;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -18,6 +19,7 @@ import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
 import lando.systems.ld53.screens.GameScreen;
+import lando.systems.ld53.ui.SelectSkillUI;
 import lando.systems.ld53.utils.Calc;
 import lando.systems.ld53.utils.VectorPool;
 import space.earlygrey.shapedrawer.ShapeDrawer;
@@ -220,16 +222,24 @@ public class Player implements Entity, Collidable {
         }
 
         // If player does specialAttack
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
-            float cost = currentAbility.cost;
-            if (stamina < cost) {
-                Main.game.audioManager.playSound(AudioManager.Sounds.error, .35f);
-            } else if (currentAbility.isUnlocked) {
-                isAttacking = true;
-                stamina -= cost;
-                triggerAbility();
+
+            if(Main.game.currentScreen instanceof GameScreen) {
+                GameScreen gameScreen = (GameScreen) Main.game.currentScreen;
+                if(!gameScreen.isSelectSkillUIShown) {
+                    if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched()) {
+                        float cost = currentAbility.cost;
+                        if (stamina < cost) {
+                            Main.game.audioManager.playSound(AudioManager.Sounds.error, .35f);
+                        } else {
+                            isAttacking = true;
+                            stamina -= cost;
+                            triggerAbility();
+                        }
+                    }
+
+                }
             }
-        }
+
 
         //set player image based on currentState
         boolean didAddSpeed = false; // NOTE(brian) - this is a dumb workaround

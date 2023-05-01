@@ -88,7 +88,7 @@ public class IndividualSkillUI extends VisWindow {
         titleScreenButtonStyle.up = Assets.Patch.glass.drawable;
         titleScreenButtonStyle.down = Assets.Patch.glass_dim.drawable;
         titleScreenButtonStyle.over = Assets.Patch.glass_dim.drawable;
-        equipButton = new TextButton("Equip", titleScreenButtonStyle);
+        equipButton = new TextButton("Equip (E)", titleScreenButtonStyle);
         equipButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         equipButton.pad(10f);
         add(equipButton).height(BUTTON_HEIGHT).row();
@@ -98,7 +98,9 @@ public class IndividualSkillUI extends VisWindow {
             public void clicked(InputEvent event, float x, float y) {
                 if (ability.isUnlocked) {
                     player.currentAbility = ability;
+                    screen.swapMusic();
                     screen.hideSkillUI();
+
                 } else {
                     lock.addAction(shakeLocker());
                 }
@@ -133,7 +135,7 @@ public class IndividualSkillUI extends VisWindow {
             equipButton.setText("Locked");
             lock.setVisible(true);
         } else {
-            equipButton.setText("Equip");
+            equipButton.setText("Equip (E)");
             lock.setVisible(false);
         }
     }

@@ -31,6 +31,7 @@ public class Goal implements Entity, Influencer {
         public Animation<TextureRegion> baseAnim;
         public Animation<TextureRegion> shimmerAnim;
         public TextureRegion icon;
+        public Animation<TextureRegion>  iconAnimation;
 
         public Color color;
 
@@ -40,7 +41,6 @@ public class Goal implements Entity, Influencer {
             switch (getIndex) {
                 case 0:
                     randomType = Type.red == lastSpawned ?  Type.green : Type.red ;
-
                     break;
                 case 1:
                     randomType = Type.green == lastSpawned ?  Type.yellow : Type.green ;
@@ -91,6 +91,8 @@ public class Goal implements Entity, Influencer {
     public void update(float delta) {
         animTime += delta;
         keyframe = type.anim.getKeyFrame(animTime);
+        icon = type.iconAnimation.getKeyFrame(animTime);
+
         shimmerKeyframe = type.shimmerAnim.getKeyFrame(animTime);
         baseKeyframe = type.baseAnim.getKeyFrame(animTime);
     }
