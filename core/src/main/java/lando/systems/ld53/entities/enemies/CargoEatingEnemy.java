@@ -48,6 +48,7 @@ public class CargoEatingEnemy extends Enemy {
             if (collectionRadius * collectionRadius > nearestCargoDist2) {
                 // TODO: particles, chomp sound
                 chasedCargo.lifetime -= 2f * dt;
+                screen.particles.gobblerGobble(targetPosition.x, targetPosition.y);
             }
         }
 

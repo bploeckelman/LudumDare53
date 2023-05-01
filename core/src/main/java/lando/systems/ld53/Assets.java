@@ -33,6 +33,9 @@ public class Assets implements Disposable {
     public AssetManager mgr;
     public TextureAtlas atlas;
     public I18NBundle strings;
+    public Particles particles;
+    public Array<Animation<TextureRegion>> numberParticles;
+
 
     public BitmapFont font;
     public BitmapFont smallFont;
@@ -166,6 +169,17 @@ public class Assets implements Disposable {
         glass_green, glass_yellow, glass_red, glass_blue, glass_dim, glass_active;
         public NinePatch ninePatch;
         public NinePatchDrawable drawable;
+    }
+
+    public static class Particles {
+        public TextureRegion circle;
+        public TextureRegion sparkle;
+        public TextureRegion smoke;
+        public TextureRegion ring;
+        public TextureRegion dollar;
+        public TextureRegion blood;
+        public TextureRegion sparks;
+        public TextureRegion line;
     }
 
     public static class NinePatches {
@@ -466,6 +480,22 @@ public class Assets implements Disposable {
         NinePatches.metal_green                     = new NinePatch(atlas.findRegion("ninepatch/metal-green"),             12, 12, 12, 12);
         NinePatches.metal_yellow                    = new NinePatch(atlas.findRegion("ninepatch/metal-yellow"),            12, 12, 12, 12);
         NinePatches.shear                           = new NinePatch(atlas.findRegion("ninepatch/shear"),                   75, 75, 12, 12);
+
+        // Particles
+        // initialize particle images
+        particles = new Particles();
+        particles.circle  = atlas.findRegion("particles/circle");
+        particles.ring    = atlas.findRegion("particles/ring");
+        particles.smoke   = atlas.findRegion("particles/smoke");
+        particles.sparkle = atlas.findRegion("particles/sparkle");
+        particles.dollar  = atlas.findRegion("particles/dollars");
+        particles.blood   = atlas.findRegion("characters/blood-stain");
+        particles.sparks  = atlas.findRegion("particles/sparks");
+        particles.line    = atlas.findRegion("particles/line");
+        numberParticles = new Array<>();
+        for (int i = 0; i <= 9; ++i) {
+            numberParticles.add(new Animation<>(0.1f, atlas.findRegions("particles/font-points-" + i)));
+        }
 
         //Shaders
         randomTransitions = new Array<>();

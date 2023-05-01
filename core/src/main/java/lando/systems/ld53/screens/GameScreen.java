@@ -10,7 +10,8 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
-import lando.systems.ld53.entities.enemies.Enemy;
+import lando.systems.ld53.entities.enemies.*;
+import lando.systems.ld53.particles.Particles;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.Influencer;
 import lando.systems.ld53.physics.PhysicsSystem;
@@ -52,6 +53,8 @@ public class GameScreen extends BaseScreen {
     public boolean paused;
     public float spawnTimer;
     public Goal.Type lastSpawnedType;
+
+    public Particles particles;
 
     public GameScreen() {
         super();
@@ -130,6 +133,7 @@ public class GameScreen extends BaseScreen {
 //            }
 //        });
 
+        particles = new Particles(assets);
         Gdx.input.setInputProcessor(uiStage);
     }
 
@@ -361,6 +365,7 @@ public class GameScreen extends BaseScreen {
         uiStage.setDebugAll(Config.Debug.ui);
 
         screenShaker.update(delta);
+        particles.update(delta);
     }
 
     @Override
@@ -372,6 +377,7 @@ public class GameScreen extends BaseScreen {
         batch.setProjectionMatrix(screenShaker.getCombinedMatrix());
         batch.begin();
         {
+            particles.draw(batch, Particles.Layer.background);
             for (Influencer influencer : influencers){
                 influencer.renderInfluence(batch);
             }
@@ -383,6 +389,8 @@ public class GameScreen extends BaseScreen {
             for (WallSegment segment : map.wallSegments) {
                 segment.render(batch);
             }
+
+            particles.draw(batch, Particles.Layer.middle);
 
             // players/enemies
             bulletEnemy.render(batch);
@@ -408,6 +416,8 @@ public class GameScreen extends BaseScreen {
             for (Bullet bullet : bullets) {
                 bullet.render(batch);
             }
+
+            particles.draw(batch, Particles.Layer.foreground);
 
             // debug drawing
             if (Config.Debug.general){

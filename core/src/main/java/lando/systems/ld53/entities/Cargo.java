@@ -103,9 +103,9 @@ public class Cargo implements Entity, Collidable {
         impactTimer -= delta;
         lifetime -= delta * .06f;
 
-        float alphaTime = MathUtils.map(0, 1, .2f, 2f, lifetime);
+        float alphaTime = MathUtils.map(0, 1, .4f, 2f, lifetime);
         if ((accum % 1f)  > alphaTime ) {
-            alpha = 0;
+            alpha = .3f;
         } else {
             alpha = 1f;
         }
