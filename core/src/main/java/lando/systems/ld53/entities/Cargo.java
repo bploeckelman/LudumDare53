@@ -36,6 +36,8 @@ public class Cargo implements Entity, Collidable {
 
     private TextureRegion keyframe;
     private float animTime;
+    private float accum;
+    private float alpha;
 
     public float mass = 8f;
     public float friction = 0.9f;
@@ -86,24 +88,32 @@ public class Cargo implements Entity, Collidable {
 
         this.impactTimer = 0f;
         this.lifetime = 1f;
+        this.alpha = 1;
 
 
     }
 
     @Override
     public void update(float delta) {
+        accum += delta * 3f;
         Vector2 vel = getVelocity();
         float animSpeed = Calc.clampf(vel.len2() / 1000f, 0f, 1f);
         animTime += delta * animSpeed;
         keyframe = animation.getKeyFrame(animTime);
         impactTimer -= delta;
         lifetime -= delta * .06f;
+
+        float alphaTime = MathUtils.map(0, 1, .2f, 2f, lifetime);
+        if ((accum % 1f)  > alphaTime ) {
+            alpha = 0;
+        } else {
+            alpha = 1f;
+        }
+
     }
 
     @Override
     public void render(SpriteBatch batch) {
-
-        float alpha = MathUtils.map(0, 1, .2f, 1f, lifetime);
 //        float alpha = MathUtils.sin(lifetime * 10f);
         batch.setColor(1, 1, 1, alpha );
         batch.draw(keyframe,
