@@ -4,17 +4,21 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.kotcrab.vis.ui.widget.VisWindow;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.assets.InputPrompts;
 import lando.systems.ld53.entities.Player;
 import lando.systems.ld53.screens.GameScreen;
+import lando.systems.ld53.utils.Utils;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,11 +36,19 @@ public class SelectSkillUI extends Group {
     private final float OFFSET = 50f;
     private ImageButton previousButton;
     private ImageButton nextButton;
+    private VisWindow greyOutWindow;
 
     public SelectSkillUI(GameScreen screen) {
         this.player = screen.player;
         this.assets = screen.assets;
         this.skin = screen.skin;
+        greyOutWindow = new VisWindow("");
+        greyOutWindow.setPosition(0f, 0f);
+        greyOutWindow.setSize(Config.Screen.window_width, Config.Screen.window_height);
+        greyOutWindow.setTouchable(Touchable.disabled);
+        greyOutWindow.setBackground(new TextureRegionDrawable(Utils.getColoredTextureRegion(new Color(.3f, .3f, .3f, .5f))));
+        greyOutWindow.setMovable(false);
+        addActor(greyOutWindow);
         abilityList = Arrays.asList(Player.SpecialAbility.values());
         for (Player.SpecialAbility ability : abilityList) {
             IndividualSkillUI individualSkillUI = new IndividualSkillUI(assets, skin, player, ability, screen);
@@ -66,6 +78,8 @@ public class SelectSkillUI extends Group {
         });
         buttonTable.add(previousButton).left().expandX();
         buttonTable.add(nextButton).right().expandX();
+        previousButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveBy(0f, 20f, .5f), Actions.moveBy(-0f, -20f, .5f))));
+        nextButton.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.moveBy(0f, 20f, .5f), Actions.moveBy(-0f, -20f, .5f))));
         addActor(buttonTable);
         Vector2 newPosition = new Vector2(Config.Screen.window_width / 2f, Config.Screen.window_height - 50f);
         setPosition(newPosition.x, newPosition.y);
