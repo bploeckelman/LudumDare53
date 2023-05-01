@@ -15,7 +15,9 @@ public class StoryScreen extends BaseScreen {
     private float storyAccum;
     private float phaseAccum;
     private int clickPhase;
+    private int maxClick;
     private String subtitles;
+    private String startSubtitles;
     public float motionCounter1;
     public float accumulator;
     public boolean isStoryOver;
@@ -31,9 +33,11 @@ public class StoryScreen extends BaseScreen {
         storyAccum = 0;
         phaseAccum = 0;
         clickPhase = 0;
+        maxClick = 4;
         isStoryOver = false;
-        subtitles = "Have you ever had an idea come to you in a dream?\n\n " +
-            "One so fully formed, you felt as if it came from somewhere else?";
+        startSubtitles = "Have you ever had an idea for a game come to you in a dream?\n\n" +
+            "One so fully formed that it felt as if it was put there by someone - or someTHING - else?";
+        subtitles = startSubtitles;
 
 
 
@@ -77,19 +81,37 @@ public class StoryScreen extends BaseScreen {
 
                 phaseAccum = 0;
 
-                if(clickPhase < 2) {
-                    subtitles = "Have you ever had an idea come to you in a dream?\n\n " +
-                        "One so fully formed, you felt as if it must have come from somewhere else?";
+                if(clickPhase < maxClick) {
+                    subtitles = startSubtitles;
+
                 }
 
                 switch (clickPhase) {
                     case 0:
-                        subtitles = "No?";
+                        subtitles = "Perhaps a genie?\n\n";
                         break;
                     case 1:
-                        subtitles = "Well buckle the fuck up honey, because here we GO!";
+                        subtitles = "Perhaps a genie? Possibly some sort of GAME genie?\n\n" +
+                            "One that requires you to deliver colorful, uniquely shaped objects to their respective\n" +
+                            "goal areas on each level map?\n\n";
+
                         break;
+
                     case 2:
+                        subtitles = "Perhaps a genie? Possibly some sort of GAME genie?\n\n" +
+                            "One that requires you to deliver colorful, uniquely shaped objects to their respective\n" +
+                            "goal areas on each level map?\n\n"+
+                            "And in the process, deliver a finished game (complete with different abilities and\n" +
+                            "enemies and spawners thereof) while also navigating forcefields that change\n" +
+                            "the behavior of the various in-game objects in unusual ways?\n";
+                        break;
+                    case 3:
+                        subtitles = "Us either.\n\n" +
+                            "That would be a weird, weird premise for a game.\n\n" +
+                            "And really quite a stretch for a game jam whose theme was \"delivery\".";
+                        break;
+
+                    case 4:
                         game.setScreen(new GameScreen());
                         break;
 //                    case 3:
@@ -135,7 +157,7 @@ public class StoryScreen extends BaseScreen {
 //                        game.getScreenManager().pushScreen("game", TransitionManager.TransitionType.PAGE_CURL.name());
                         break;
                 }
-                if(clickPhase < 2) {
+                if(clickPhase < maxClick) {
                     clickPhase++;
                 }
 

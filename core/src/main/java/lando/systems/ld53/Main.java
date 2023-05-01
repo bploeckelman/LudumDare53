@@ -112,8 +112,8 @@ public class Main extends ApplicationAdapter {
         if (Gdx.app.getType() == Application.ApplicationType.WebGL || Config.Debug.show_launch_screen) {
             setScreen(new LaunchScreen());
         } else {
-//            setScreen(new TitleScreen());
-            setScreen(new GameScreen()); // TODO CHANGE BEFORE UPLOADING
+            setScreen(new TitleScreen());
+//            setScreen(new GameScreen()); // TODO CHANGE BEFORE UPLOADING
         }
 
     }
