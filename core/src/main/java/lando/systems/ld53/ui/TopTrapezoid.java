@@ -3,6 +3,7 @@ package lando.systems.ld53.ui;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
+import com.kotcrab.vis.ui.widget.VisImage;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.entities.Player;
@@ -34,6 +35,18 @@ public class TopTrapezoid {
         batch.draw(assets.trapezoidTexture, (Config.Screen.window_width - TOP_WIDTH) / 2,Config.Screen.window_height - HEIGHT, TOP_WIDTH, HEIGHT - 5f);
         batch.setShader(null);
         TextureRegion ipIcon = assets.inputPrompts.get(player.currentAbility.type);
+
+        switch(player.currentAbility.type) {
+            case key_light_bang: // Bomb
+                ipIcon = assets.bomb.getKeyFrame(0);
+                break;
+            case key_light_tilde: // Speed
+                ipIcon = assets.abilityIcons.getKeyFrame(0);
+                break;
+            case key_light_at: // Shield
+                ipIcon = assets.abilityIcons.getKeyFrame(1);
+                break;
+        }
         if (Config.Debug.general) {
             assets.font.draw(batch, (int)staminaPercentage + "%", (Config.Screen.window_width - TOP_WIDTH) / 2,Config.Screen.window_height - HEIGHT);
         }
