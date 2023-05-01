@@ -46,7 +46,7 @@ public class Enemy implements Entity, Collidable {
         this.animation = screen.assets.gobbler;
         this.animTime = 0f;
         this.keyframe = animation.getKeyFrame(0f);
-        float size = 40;
+        float size = 60;
         this.circle = new CollisionShapeCircle(size / 2f, x, y);
         this.bounds = new Rectangle(x - circle.radius, y - circle.radius, size, size);
         this.velocity = new Vector2();
