@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Queue;
+import de.damios.guacamole.tuple.Pair;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
@@ -27,9 +29,9 @@ public class Player implements Entity, Collidable {
     private static final Vector2 COLLISION_OFFSET = new Vector2(0, -22f);
     private static final float COLLISION_RADIUS = 25;
     private static final float RENDER_SIZE = 120f;
-    private static final float SPEED = 2000f;
+    private static final float SPEED_NORMAL = 2000f;
+    private static final float SPEED_FAST = 4000f;
     private static final float MAX_STAMINA = 10f; // seconds to charge fully
-    private static final float SPECIAL_COST = 2f; //TODO: ability specific cost set in enum of abilities
     private static final float STUN_TIMER = .3f;
 
     private final HashMap<State, Animation<TextureRegion>> animations = new HashMap<>();
@@ -49,12 +51,19 @@ public class Player implements Entity, Collidable {
     private State currentState;
     private Direction currentDirection;
 
+    private final Queue<Pair<Rectangle, TextureRegion>> speedGhosts = new Queue<>();
+    private final float SPEED_DURATION = 3f;
+    private float speedTimer = 0f;
+    private float speedGhostAddTime = 0f;
+    private boolean speedActive = false;
+
     private boolean isAttacking = false;
     private boolean isStunned = false;
     private float animTimer = 0;
     private float attackTimer = 0;
     private float stunTimer = 0;
     private float stamina = MAX_STAMINA;
+    private float speed = SPEED_NORMAL;
 
     public float mass = 20f;
     public float friction = 0.001f;
@@ -215,7 +224,7 @@ public class Player implements Entity, Collidable {
             float cost = currentAbility.cost;
             if (stamina < cost) {
                 Main.game.audioManager.playSound(AudioManager.Sounds.error, .35f);
-            } else {
+            } else if (currentAbility.isUnlocked) {
                 isAttacking = true;
                 stamina -= cost;
                 triggerAbility();
@@ -223,6 +232,7 @@ public class Player implements Entity, Collidable {
         }
 
         //set player image based on currentState
+        boolean didAddSpeed = false; // NOTE(brian) - this is a dumb workaround
         animation = animations.get(currentState);
         swipeAnimation = swipeAnimations.get(State.slash_up);
         if (isAttacking) {
@@ -245,7 +255,41 @@ public class Player implements Entity, Collidable {
         }
         else {
             keyframe = animation.getKeyFrame(animTimer);
-            velocity.add(movement.x * SPEED * delta, movement.y * SPEED * delta);
+            velocity.add(movement.x * speed * delta, movement.y * speed * delta);
+            didAddSpeed = true;
+        }
+
+        // handle speed updates
+        if (speedActive) {
+            // update speed effect
+            speedTimer -= delta;
+            if (speedTimer <= 0) {
+                speedTimer = 0;
+                speedGhostAddTime = 0;
+                speedActive = false;
+                speedGhosts.clear();
+                speed = SPEED_NORMAL;
+            } else {
+                // NOTE(brian) - hacky workaround for some of the state flags interfering with this effect
+                if (!didAddSpeed) {
+                    velocity.add(movement.x * speed * delta, movement.y * speed * delta);
+                }
+
+                // update ghosts
+                float addInterval = 0.08f;
+                speedGhostAddTime += delta;
+                if (speedGhostAddTime > addInterval) {
+                    speedGhostAddTime -= addInterval;
+
+                    Pair<Rectangle, TextureRegion> ghost = new Pair<>(new Rectangle(renderBounds), keyframe);
+                    speedGhosts.addLast(ghost);
+
+                    // limit the number of ghosts there can be
+                    if (speedGhosts.size > 5) {
+                        speedGhosts.removeFirst();
+                    }
+                }
+            }
         }
 //        swipeKeyframe = swipeAnimations.get(State.slash_up).getKeyFrame(attackTimer);
     }
@@ -256,6 +300,21 @@ public class Player implements Entity, Collidable {
 
     @Override
     public void render(SpriteBatch batch) {
+        if (!speedGhosts.isEmpty()) {
+            for (int i = 0; i < speedGhosts.size; i++) {
+                Pair<Rectangle, TextureRegion> ghost = speedGhosts.get(i);
+                Rectangle bounds = ghost.x;
+                TextureRegion region = ghost.y;
+
+                float minAlpha = 0.2f;
+                float maxAlpha = 0.8f;
+                float t = i / (float) (speedGhosts.size - 1);
+                float alpha = minAlpha + t * (maxAlpha - minAlpha);
+                batch.setColor(1, 1, 1, alpha);
+                batch.draw(keyframe, bounds.x, bounds.y, bounds.width, bounds.height);
+                batch.setColor(Color.WHITE);
+            }
+        }
         batch.draw(keyframe, renderBounds.x, renderBounds.y, renderBounds.width, renderBounds.height);
             if(currentState == State.slash_up
                 || currentState == State.slash_down
@@ -310,7 +369,8 @@ public class Player implements Entity, Collidable {
                 Main.game.audioManager.playSound(AudioManager.Sounds.impact, .26f);
             } break;
             case speed_up: {
-
+                speedUp();
+                Main.game.audioManager.playSound(AudioManager.Sounds.bigswoosh, .26f);
             } break;
             case repulse: {
 
@@ -345,6 +405,14 @@ public class Player implements Entity, Collidable {
         screen.bombs.add(bomb);
 
         VectorPool.freeAll(pos, vel);
+    }
+
+    private void speedUp() {
+        speed = SPEED_FAST;
+        speedTimer = SPEED_DURATION;
+        speedActive = true;
+        speedGhostAddTime = 0;
+        speedGhosts.clear();
     }
 
     @Override
