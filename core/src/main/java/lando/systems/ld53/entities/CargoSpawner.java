@@ -36,7 +36,7 @@ public class CargoSpawner implements Entity {
         for (Cargo c : screen.cargos){
             if (c.goalType == type) currently++;
         }
-        return currently < screen.numberOfPackagesToCollect;
+        return currently < screen.needToCollectMap.get(type);
     }
 
     @Override

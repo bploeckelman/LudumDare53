@@ -32,8 +32,8 @@ public class GameScreen extends BaseScreen {
     public Array<EnemySpawner> enemySpawners;
     public Array<Enemy> enemies;
     private BulletEnemy bulletEnemy;
-    public int numberOfPackagesToCollect = 3; // can be broken out to each color if needed
-    public HashMap<Goal.Type, Integer> collectedMap = new HashMap<Goal.Type, Integer>();
+    public HashMap<Goal.Type, Integer> collectedMap = new HashMap<>();
+    public HashMap<Goal.Type, Integer> needToCollectMap = new HashMap<>();
 
     public final Array<Bullet> bullets;
     public final Array<Bomb> bombs;
@@ -60,6 +60,12 @@ public class GameScreen extends BaseScreen {
         collectedMap.put(Goal.Type.red, 0);
         collectedMap.put(Goal.Type.yellow, 0);
         collectedMap.put(Goal.Type.green, 0);
+
+        // TODO: this should be based on the level
+        needToCollectMap.put(Goal.Type.cyan, 3);
+        needToCollectMap.put(Goal.Type.red, 3);
+        needToCollectMap.put(Goal.Type.yellow, 5);
+        needToCollectMap.put(Goal.Type.green, 3);
 
         worldCamera.setToOrtho(false, Config.Screen.framebuffer_width, Config.Screen.framebuffer_height);
         worldCamera.update();
@@ -153,7 +159,7 @@ public class GameScreen extends BaseScreen {
     public boolean isLevelDone(){
         boolean completed = true;
         for (Goal.Type type : Goal.Type.values()){
-           if (collectedMap.get(type) < numberOfPackagesToCollect) completed = false;
+           if (collectedMap.get(type) < needToCollectMap.get(type)) completed = false;
         }
         return completed;
     }
@@ -341,7 +347,7 @@ public class GameScreen extends BaseScreen {
                 goal.tryToCollectPackage(cargo);
                 if (cargo.collected) {
                     cargos.removeIndex(i);
-                    if (collectedMap.get(cargo.goalType) < numberOfPackagesToCollect){
+                    if (collectedMap.get(cargo.goalType) < needToCollectMap.get(cargo.goalType)){
                         collectedMap.put(cargo.goalType, collectedMap.get(cargo.goalType) + 1);
                     }
                 }

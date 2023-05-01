@@ -161,10 +161,10 @@ public class TopGameUI extends Table {
         greenCountLabel.setText(screen.collectedMap.get(Goal.Type.green));
         blueCountLabel.setText(screen.collectedMap.get(Goal.Type.cyan));
 
-        redCapLabel.setText(screen.numberOfPackagesToCollect);
-        yellowCapLabel.setText(screen.numberOfPackagesToCollect);
-        greenCapLabel.setText(screen.numberOfPackagesToCollect);
-        blueCapLabel.setText(screen.numberOfPackagesToCollect);
+        redCapLabel.setText(screen.needToCollectMap.get(Goal.Type.red));
+        yellowCapLabel.setText(screen.needToCollectMap.get(Goal.Type.yellow));
+        greenCapLabel.setText(screen.needToCollectMap.get(Goal.Type.green));
+        blueCapLabel.setText(screen.needToCollectMap.get(Goal.Type.cyan));
 
     }
 
