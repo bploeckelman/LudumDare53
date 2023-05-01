@@ -269,6 +269,10 @@ public class GameScreen extends BaseScreen {
                 goal.render(batch);
             }
 
+            for (WallSegment segment : map.wallSegments) {
+                segment.render(batch);
+            }
+
             // players/enemies
             bulletEnemy.render(batch);
             enemy.render(batch);

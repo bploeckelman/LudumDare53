@@ -2,8 +2,10 @@ package lando.systems.ld53.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import lando.systems.ld53.Main;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeSegment;
@@ -27,6 +29,13 @@ public class WallSegment implements Collidable {
             Color.YELLOW, 4f);
         shapes.filledCircle(collisionShape.start, 8f, Color.GOLDENROD);
         shapes.filledCircle(collisionShape.end, 8f, Color.GOLDENROD);
+    }
+
+    public void render(SpriteBatch batch) {
+        float width = 2f;
+        batch.setColor(.5f, .3f, .1f, 1f);
+        batch.draw(Main.game.assets.pixelRegion, collisionShape.start.x, collisionShape.start.y - width/2f, 0, width/2f, collisionShape.delta.len(), width, 1, 1, collisionShape.getRotation());
+        batch.setColor(Color.WHITE);
     }
 
     @Override
