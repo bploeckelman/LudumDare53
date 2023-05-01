@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Align;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.entities.Goal;
 import lando.systems.ld53.screens.GameScreen;
 
 import java.util.ArrayList;
@@ -155,10 +156,10 @@ public class TopGameUI extends Table {
         blueCargo.setDrawable(blueTextureRegionDrawableList.get((int)(animTimer * 12) % blueTextureRegionDrawableList.size()));
         greenCargo.setDrawable(greenTextureRegionDrawableList.get((int)(animTimer * 12) % greenTextureRegionDrawableList.size()));
 
-        redCountLabel.setText(screen.redCollected);
-        yellowCountLabel.setText(screen.yellowCollected);
-        greenCountLabel.setText(screen.greenCollected);
-        blueCountLabel.setText(screen.blueCollected);
+        redCountLabel.setText(screen.collectedMap.get(Goal.Type.red));
+        yellowCountLabel.setText(screen.collectedMap.get(Goal.Type.yellow));
+        greenCountLabel.setText(screen.collectedMap.get(Goal.Type.green));
+        blueCountLabel.setText(screen.collectedMap.get(Goal.Type.cyan));
 
         redCapLabel.setText(screen.numberOfPackagesToCollect);
         yellowCapLabel.setText(screen.numberOfPackagesToCollect);

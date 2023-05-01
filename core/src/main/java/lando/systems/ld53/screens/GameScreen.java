@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.utils.Array;
@@ -20,19 +21,18 @@ import lando.systems.ld53.physics.test.TestBall;
 import lando.systems.ld53.ui.*;
 import lando.systems.ld53.utils.screenshake.CameraShaker;
 import lando.systems.ld53.world.Map;
+import java.util.HashMap;
 
 public class GameScreen extends BaseScreen {
 
     private Map map;
+    public CargoSpawner cargoSpawner;
     public Array<Cargo> cargos;
     public Player player;
     private Array<Enemy> enemies;
     private BulletEnemy bulletEnemy;
     public int numberOfPackagesToCollect = 3; // can be broken out to each color if needed
-    public int redCollected = 0;
-    public int yellowCollected = 0;
-    public int greenCollected = 0;
-    public int blueCollected = 0;
+    public HashMap<Goal.Type, Integer> collectedMap = new HashMap<Goal.Type, Integer>();
 
     public final Array<Bullet> bullets;
     public final Array<Bomb> bombs;
@@ -54,6 +54,10 @@ public class GameScreen extends BaseScreen {
 
     public GameScreen() {
         super();
+        collectedMap.put(Goal.Type.cyan, 0);
+        collectedMap.put(Goal.Type.red, 0);
+        collectedMap.put(Goal.Type.yellow, 0);
+        collectedMap.put(Goal.Type.green, 0);
 
         worldCamera.setToOrtho(false, Config.Screen.framebuffer_width, Config.Screen.framebuffer_height);
         worldCamera.update();
@@ -65,6 +69,9 @@ public class GameScreen extends BaseScreen {
 
         map = new Map("maps/level1.tmx");
         player = new Player(assets, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
+
+        // TODO: read this from a map
+        cargoSpawner = new CargoSpawner(this, new Vector2(540, 500));
 
         Enemy enemy = new CargoEatingEnemy(this, worldCamera.viewportWidth / 2f - 200f, worldCamera.viewportHeight * (1f / 3f));
         enemies.add(enemy);
@@ -249,15 +256,7 @@ public class GameScreen extends BaseScreen {
 
         if (pauseGame) return;
 
-        spawnTimer -= delta;
-        if(spawnTimer < 0) {
 
-            Goal.Type newSpawnType = Goal.Type.getRandom(lastSpawnedType);
-            lastSpawnedType = newSpawnType;
-            cargos.add(new Cargo(assets, newSpawnType, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
-            spawnTimer = 5f;
-            audioManager.playSound(AudioManager.Sounds.spawn, .26f);
-        }
 
         physicsObjects.clear();
 
@@ -299,6 +298,8 @@ public class GameScreen extends BaseScreen {
             }
         }
 
+        cargoSpawner.update(delta);
+
         for (Cargo cargo : cargos) {
             cargo.update(delta);
         }
@@ -315,26 +316,8 @@ public class GameScreen extends BaseScreen {
                 goal.tryToCollectPackage(cargo);
                 if (cargo.collected) {
                     cargos.removeIndex(i);
-                    switch (cargo.goalType) {
-                        case red:
-                            if (redCollected < numberOfPackagesToCollect) {
-                                redCollected++;
-                            }
-                            break;
-                        case yellow:
-                            if (yellowCollected < numberOfPackagesToCollect) {
-                                yellowCollected++;
-                            }                            break;
-                        case green:
-                            if (greenCollected < numberOfPackagesToCollect) {
-                                greenCollected++;
-                            }
-                            break;
-                        case cyan:
-                            if (blueCollected < numberOfPackagesToCollect) {
-                                blueCollected++;
-                            }
-                            break;
+                    if (collectedMap.get(cargo.goalType) < numberOfPackagesToCollect){
+                        collectedMap.put(cargo.goalType, collectedMap.get(cargo.goalType) + 1);
                     }
                 }
                 else if (cargo.lifetime <= 0) {
