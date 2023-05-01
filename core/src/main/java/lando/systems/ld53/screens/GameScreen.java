@@ -21,6 +21,7 @@ import lando.systems.ld53.physics.test.TestBall;
 import lando.systems.ld53.physics.test.TestRepulser;
 import lando.systems.ld53.ui.IndividualSkillUI;
 import lando.systems.ld53.ui.SelectSkillUI;
+import lando.systems.ld53.ui.TopGameUI;
 import lando.systems.ld53.ui.TopTrapezoid;
 import lando.systems.ld53.utils.screenshake.CameraShaker;
 import lando.systems.ld53.world.Map;
@@ -43,6 +44,7 @@ public class GameScreen extends BaseScreen {
 
     private TopTrapezoid trapezoid;
     private SelectSkillUI selectSkillUI;
+    private TopGameUI topGameUI;
     public boolean isSelectSkillUIShown = false;
 
     public boolean paused;
@@ -257,7 +259,7 @@ public class GameScreen extends BaseScreen {
         }
 
         trapezoid.update();
-//        topGameUI.update(player.getStaminaPercentage());
+        topGameUI.update();
         uiStage.setDebugAll(Config.Debug.ui);
 
         screenShaker.update(delta);
@@ -325,8 +327,8 @@ public class GameScreen extends BaseScreen {
     @Override
     public void initializeUI() {
         super.initializeUI();
-        //topGameUI = new TopGameUI(this);
-        //uiStage.addActor(topGameUI);
+        topGameUI = new TopGameUI(this);
+        uiStage.addActor(topGameUI);
     }
 
 }

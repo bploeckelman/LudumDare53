@@ -149,7 +149,7 @@ public class Assets implements Disposable {
 
     public enum Patch {
         debug, panel, metal, glass,
-        glass_green, glass_yellow, glass_dim, glass_active;
+        glass_green, glass_yellow, glass_red, glass_blue, glass_dim, glass_active;
         public NinePatch ninePatch;
         public NinePatchDrawable drawable;
     }
@@ -382,6 +382,8 @@ public class Assets implements Disposable {
         Patch.glass.ninePatch        = new NinePatch(atlas.findRegion("ninepatch/glass"), 8, 8, 8, 8);
         Patch.glass_green.ninePatch  = new NinePatch(atlas.findRegion("ninepatch/glass-green"), 8, 8, 8, 8);
         Patch.glass_yellow.ninePatch = new NinePatch(atlas.findRegion("ninepatch/glass-yellow"), 8, 8, 8, 8);
+        Patch.glass_red.ninePatch  = new NinePatch(atlas.findRegion("ninepatch/glass-red"), 8, 8, 8, 8);
+        Patch.glass_blue.ninePatch = new NinePatch(atlas.findRegion("ninepatch/glass-blue"), 8, 8, 8, 8);
         Patch.glass_dim.ninePatch    = new NinePatch(atlas.findRegion("ninepatch/glass-dim"), 8, 8, 8, 8);
         Patch.glass_active.ninePatch = new NinePatch(atlas.findRegion("ninepatch/glass-active"), 8, 8, 8, 8);
         Patch.metal.ninePatch        = new NinePatch(atlas.findRegion("ninepatch/metal"), 12, 12, 12, 12);
@@ -394,6 +396,8 @@ public class Assets implements Disposable {
         Patch.glass_dim.drawable    = new NinePatchDrawable(Patch.glass_dim.ninePatch);
         Patch.glass_active.drawable = new NinePatchDrawable(Patch.glass_active.ninePatch);
         Patch.metal.drawable        = new NinePatchDrawable(Patch.metal.ninePatch);
+        Patch.glass_red.drawable    = new NinePatchDrawable(Patch.glass_red.ninePatch);
+        Patch.glass_blue.drawable   = new NinePatchDrawable(Patch.glass_blue.ninePatch);
 
         NinePatches.plain_dim                       = new NinePatch(atlas.findRegion("ninepatch/plain-dim"),               12, 12, 12, 12);
         NinePatches.plain_gradient                  = new NinePatch(atlas.findRegion("ninepatch/plain-gradient"),           2,  2,  2,  2);
