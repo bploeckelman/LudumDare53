@@ -58,13 +58,14 @@ public class SelectSkillUI extends Group {
             abilityUIMap.put(ability, individualSkillUI);
             addActor(individualSkillUI);
         }
-        TextureRegionDrawable prevButtonDrawable = new TextureRegionDrawable(assets.inputPrompts.get(InputPrompts.Type.hand_point_left));
-        prevButtonDrawable.setMinSize(100f, 100f);
-        TextureRegionDrawable nextButtonDrawable = new TextureRegionDrawable(assets.inputPrompts.get(InputPrompts.Type.hand_point_right));
-        nextButtonDrawable.setMinSize(100f, 100f);
+//        TextureRegionDrawable prevButtonDrawable = new TextureRegionDrawable(assets.inputPrompts.get(InputPrompts.Type.hand_point_left));
+        TextureRegionDrawable prevButtonDrawable = new TextureRegionDrawable(assets.inputPrompts.get(InputPrompts.Type.key_light_a));
+        prevButtonDrawable.setMinSize(75f, 75f);
+        TextureRegionDrawable nextButtonDrawable = new TextureRegionDrawable(assets.inputPrompts.get(InputPrompts.Type.key_light_key_d));
+        nextButtonDrawable.setMinSize(75f, 75f);
         Table buttonTable = new Table();
-        buttonTable.setPosition(200f, 200f);
-        buttonTable.setSize(Config.Screen.window_width - 400f, 100f);
+        buttonTable.setPosition(225f, 200f);
+        buttonTable.setSize(Config.Screen.window_width - 475f, 100f);
         previousButton = new ImageButton(prevButtonDrawable);
         nextButton = new ImageButton(nextButtonDrawable);
         previousButton.addListener(new ClickListener(){
