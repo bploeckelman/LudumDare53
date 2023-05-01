@@ -4,8 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -29,8 +28,12 @@ public class IndividualSkillUI extends VisWindow {
     private TextButton equipButton;
     private Stack stack;
     private Assets assets;
-    private VisImage lock;
+    public VisImage lock;
     public PlayerAbility ability;
+    public SequenceAction sequenceAction;
+    public RepeatAction shakeLockAction;
+    public MoveToAction returnToOriginalRotationAction;
+    private boolean isCenter = false;
 
     public IndividualSkillUI(Assets assets, Skin skin, Player player, PlayerAbility ability, GameScreen screen) {
         super("");
@@ -52,10 +55,12 @@ public class IndividualSkillUI extends VisWindow {
         lock = new VisImage(assets.lock);
         image.setSize(200f, 200f);
         image.setOrigin(100f, 100f);
+        image.setAlign(Align.center);
         image.addAction(Actions.repeat(RepeatAction.FOREVER, Actions.sequence(Actions.scaleTo(1.1f, 1.1f, .4f), Actions.scaleTo(1f, 1f, .4f))));
         top();
         add(label80px).top().row();
         stack.add(image);
+        stack.add(lock);
         add(stack).align(Align.center).width(200f).height(200f).row();
         add(label20px).growX().growY().pad(20f).align(Align.center).row();
 
@@ -83,6 +88,7 @@ public class IndividualSkillUI extends VisWindow {
         update();
     }
     public void setCenterConfiguration(boolean isCenter) {
+        this.isCenter = isCenter;
         if (isCenter) {
             setTouchable(Touchable.enabled);
         } else {
@@ -90,16 +96,28 @@ public class IndividualSkillUI extends VisWindow {
         }
     }
 
+    public SequenceAction shakeLocker() {
+        shakeLockAction = Actions.repeat(3,
+            Actions.sequence(
+                Actions.moveBy(0f, 10f, .05f),
+                Actions.moveBy(0f, -10f, .05f)
+            )
+        );
+        returnToOriginalRotationAction = Actions.moveTo(0f, 0f, .1f);
+        sequenceAction = Actions.sequence(shakeLockAction, returnToOriginalRotationAction);
+        return sequenceAction;
+    }
+
     public void update() {
         if (!ability.isUnlocked) {
             setColor(Color.GRAY);
             equipButton.setDisabled(true);
             equipButton.setText("Locked");
-            stack.addActor(lock);
+            lock.setVisible(true);
         } else {
             equipButton.setDisabled(false);
             equipButton.setText("Equip");
-            stack.removeActor(lock);
+            lock.setVisible(false);
         }
     }
 }

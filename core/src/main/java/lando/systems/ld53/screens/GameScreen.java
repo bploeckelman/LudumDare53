@@ -19,6 +19,7 @@ import lando.systems.ld53.physics.PhysicsSystem;
 import lando.systems.ld53.physics.test.TestAttractor;
 import lando.systems.ld53.physics.test.TestBall;
 import lando.systems.ld53.physics.test.TestRepulser;
+import lando.systems.ld53.ui.IndividualSkillUI;
 import lando.systems.ld53.ui.SelectSkillUI;
 import lando.systems.ld53.ui.TopTrapezoid;
 import lando.systems.ld53.utils.screenshake.CameraShaker;
@@ -104,6 +105,16 @@ public class GameScreen extends BaseScreen {
                         isSelectSkillUIShown = false;
                         selectSkillUI.show(false);
                         Gdx.input.setInputProcessor(null);
+                    }
+                    else if (keycode == Input.Keys.ENTER) {
+                        IndividualSkillUI ui = selectSkillUI.skillUIBeingShown;
+                        if (ui.ability.isUnlocked) {
+                            player.currentAbility = ui.ability;
+                            hideSkillUI();
+                        } else {
+                            ui.lock.addAction(ui.shakeLocker());
+                        }
+
                     }
                 }
                 return super.keyUp(event, keycode);

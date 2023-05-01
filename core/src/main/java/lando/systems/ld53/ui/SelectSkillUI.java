@@ -29,7 +29,7 @@ import java.util.List;
 public class SelectSkillUI extends Group {
     private HashMap<PlayerAbility, IndividualSkillUI> abilityUIMap = new HashMap<>();
     private List<PlayerAbility> abilityList;
-    private IndividualSkillUI skillUIBeingShown;
+    public IndividualSkillUI skillUIBeingShown;
     private Player player;
     private Assets assets;
     private Skin skin;

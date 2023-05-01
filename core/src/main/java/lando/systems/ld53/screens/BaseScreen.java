@@ -3,14 +3,12 @@ package lando.systems.ld53.screens;
 import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.kotcrab.vis.ui.VisUI;
 import lando.systems.ld53.Assets;
@@ -18,7 +16,6 @@ import lando.systems.ld53.Config;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.utils.screenshake.CameraShaker;
-import lombok.var;
 
 public abstract class BaseScreen implements Disposable {
 
