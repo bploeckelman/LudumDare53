@@ -38,6 +38,10 @@ public class TopGameUI extends Table {
     private VisLabel greenCapLabel;
     private Label label;
     private GameScreen screen;
+    private Table redTable;
+    private Table yellowTable;
+    private Table greenTable;
+    private Table blueTable;
 
 
     public TopGameUI(GameScreen screen) {
@@ -45,10 +49,10 @@ public class TopGameUI extends Table {
         setWidth(Config.Screen.window_width);
         setHeight(UI_HEIGHT);
         setPosition(0f, Config.Screen.window_height - UI_HEIGHT);
-        Table redTable = new Table();
-        Table yellowTable = new Table();
-        Table greenTable = new Table();
-        Table blueTable = new Table();
+        redTable = new Table();
+        yellowTable = new Table();
+        greenTable = new Table();
+        blueTable = new Table();
         redTable.setBackground(Assets.Patch.glass_red.drawable);
         yellowTable.setBackground(Assets.Patch.glass_yellow.drawable);
         greenTable.setBackground(Assets.Patch.glass_green.drawable);
@@ -165,6 +169,19 @@ public class TopGameUI extends Table {
         yellowCapLabel.setText(screen.needToCollectMap.get(Goal.Type.yellow));
         greenCapLabel.setText(screen.needToCollectMap.get(Goal.Type.green));
         blueCapLabel.setText(screen.needToCollectMap.get(Goal.Type.cyan));
+
+        if (screen.needToCollectMap.get(Goal.Type.red) < 1) {
+            redTable.setVisible(false);
+        }
+        if (screen.needToCollectMap.get(Goal.Type.yellow) < 1) {
+            yellowTable.setVisible(false);
+        }
+        if (screen.needToCollectMap.get(Goal.Type.green) < 1) {
+            greenTable.setVisible(false);
+        }
+        if (screen.needToCollectMap.get(Goal.Type.cyan) < 1) {
+            blueTable.setVisible(false);
+        }
 
     }
 
