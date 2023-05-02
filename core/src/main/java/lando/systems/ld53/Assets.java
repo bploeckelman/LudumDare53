@@ -45,6 +45,7 @@ public class Assets implements Disposable {
     public Texture pixel;
     public Texture gdx;
     public Texture titleScreen;
+    public Texture titleMask;
     public Texture trapezoidTexture;
     public Texture trapezoidBorder;
 
@@ -263,6 +264,7 @@ public class Assets implements Disposable {
             mgr.load("images/trapezoid-border.png", Texture.class);
 
             mgr.load("images/title-blank/title-blank_00.png", Texture.class);
+            mgr.load("images/title-blank/title-top-mask_00.png", Texture.class);
 
             mgr.load("fonts/outfit-medium-20px.fnt", BitmapFont.class);
             mgr.load("fonts/outfit-medium-40px.fnt", BitmapFont.class);
@@ -337,6 +339,7 @@ public class Assets implements Disposable {
 
         gdx = mgr.get("images/libgdx.png");
         titleScreen = mgr.get("images/title-blank/title-blank_00.png", Texture.class);
+        titleMask = mgr.get("images/title-blank/title-top-mask_00.png", Texture.class);
 
         trapezoidBorder = mgr.get("images/trapezoid-border.png", Texture.class);
         trapezoidTexture = mgr.get("images/trapezoid.png", Texture.class);
@@ -354,7 +357,7 @@ public class Assets implements Disposable {
         osha = new Animation<>(.1f, atlas.findRegions("pets/kitten"), Animation.PlayMode.LOOP);
 
         titleGenie = new Animation<>(.15f, atlas.findRegions("title-screen/title-genie/title-genie"), Animation.PlayMode.LOOP);
-        titlePc = new Animation<>(.1f, atlas.findRegions("title-screen/title-pc/title-pc"), Animation.PlayMode.LOOP);
+        titlePc = new Animation<>(.15f, atlas.findRegions("title-screen/title-pc/title-pc"), Animation.PlayMode.LOOP);
         titleSleep = new Animation<>(.2f, atlas.findRegions("title-screen/title-sleep/title-sleep"), Animation.PlayMode.LOOP);
         titleTextCrunchTime = new Animation<>(.1f, atlas.findRegions("title-screen/title-text-crunchtime/title-text-crunchtime"), Animation.PlayMode.LOOP);
         titleTextGame = new Animation<>(.1f, atlas.findRegions("title-screen/title-text-game/title-text-game"), Animation.PlayMode.LOOP);

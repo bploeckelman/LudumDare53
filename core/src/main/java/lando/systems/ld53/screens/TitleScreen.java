@@ -17,6 +17,7 @@ import lando.systems.ld53.utils.accessors.Vector2Accessor;
 public class TitleScreen extends BaseScreen {
 
     private final Texture background;
+    private final Texture backgroundMask;
     private Vector2 titlePcPos;
     private Vector2 titleGeniePos;
     private Vector2 titleSleepPos;
@@ -26,15 +27,17 @@ public class TitleScreen extends BaseScreen {
     private Vector2 titleZZZPos;
 
 
-    private TextureRegion titlePc = assets.titlePc.getKeyFrame(0f);
+    private Animation<TextureRegion> titlePc = assets.titlePc;
+    private TextureRegion titlePcFrame;
     private Animation<TextureRegion> titleGenieAnim = assets.titleGenie;
     private TextureRegion titleGenieFrame;
     private Animation<TextureRegion> titleSleepAnim = assets.titleSleep;
     private TextureRegion titleSleepFrame;
-    private TextureRegion titleTextCrunchTime = assets.titleTextCrunchTime.getKeyFrame(0f);
+    private TextureRegion titleTextCrunchTime = assets.titleTextCrunchTime.getKeyFrame(0.1f);
     private TextureRegion titleTextGame = assets.titleTextGame.getKeyFrame(0f);
     private TextureRegion titleTextGenie = assets.titleTextGenie.getKeyFrame(0f);
-    private TextureRegion titleZZZ = assets.titleZZZ.getKeyFrame(0f);
+    private Animation<TextureRegion> titleZZZ = assets.titleZZZ;
+    private TextureRegion titleZZZFrame;
     private boolean drawUI = false;
     private boolean showCrunch = false;
 
@@ -53,6 +56,7 @@ public class TitleScreen extends BaseScreen {
         worldCamera.update();
         Gdx.input.setInputProcessor(uiStage);
         background = assets.titleScreen;
+        backgroundMask = assets.titleMask;
     }
 
     @Override
@@ -62,6 +66,8 @@ public class TitleScreen extends BaseScreen {
         stateTime += delta;
         titleSleepFrame = titleSleepAnim.getKeyFrame(stateTime);
         titleGenieFrame = titleGenieAnim.getKeyFrame(stateTime);
+        titleZZZFrame = titleZZZ.getKeyFrame(stateTime);
+        titlePcFrame = titlePc.getKeyFrame(stateTime);
 
         Timeline.createSequence()
             .push(Tween.to(titlePcPos, Vector2Accessor.Y, .1f)
@@ -98,14 +104,15 @@ public class TitleScreen extends BaseScreen {
             float width = worldCamera.viewportWidth;
             float height = worldCamera.viewportHeight;
             batch.draw(background, 0, 0, width, height);
-            batch.draw(titlePc, titlePcPos.x, titlePcPos.y, titlePc.getRegionWidth(), titlePc.getRegionHeight());
+            batch.draw(backgroundMask, 0, 0, width, height);
+            batch.draw(titlePcFrame, titlePcPos.x, titlePcPos.y, titlePcFrame.getRegionWidth(), titlePcFrame.getRegionHeight());
             batch.draw(titleSleepFrame, titleSleepPos.x, titleSleepPos.y, titleSleepFrame.getRegionWidth(), titleSleepFrame.getRegionHeight());
             batch.draw(titleGenieFrame, titleGeniePos.x, titleGeniePos.y, titleGenieFrame.getRegionWidth(), titleGenieFrame.getRegionHeight());
             batch.draw(titleTextGame, titleTextGamePos.x, titleTextGamePos.y, titleTextGame.getRegionWidth(), titleTextGame.getRegionHeight());
             batch.draw(titleTextGenie, titleTextGeniePos.x, titleTextGeniePos.y, titleTextGenie.getRegionWidth(), titleTextGenie.getRegionHeight());
             if (showCrunch) {
                 batch.draw(titleTextCrunchTime, titleTextCrunchTimePos.x, titleTextCrunchTimePos.y, titleTextCrunchTime.getRegionWidth(), titleTextCrunchTime.getRegionHeight());
-                batch.draw(titleZZZ, titleZZZPos.x, titleZZZPos.y, titleZZZ.getRegionWidth(), titleZZZ.getRegionHeight());
+                batch.draw(titleZZZFrame, titleZZZPos.x, titleZZZPos.y, titleZZZFrame.getRegionWidth(), titleZZZFrame.getRegionHeight());
             }
         }
 
