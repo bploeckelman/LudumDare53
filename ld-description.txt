@@ -1,0 +1,37 @@
+- ** [HTML5/WebGL](https://lando.systems/games/ld53-LINKHERE) **
+- ** [Desktop/Java](https://lando.systems/games/ld5-LINKHERE) **
+- ** [Source](https://github.com/bploeckelman/LudumDare53) **
+
+# Game, Genie! Crunch Time 🧞‍♂️#
+
+Collect colorful shapes as you build
+
+Enjoy original art, music, and color commentary from Lando Systems.
+
+# Controls:
+---
+**Left Click & Hold** to swing your golf scythe and get some reapin done
+
+
+# About the Team:
+---
+
+[LandoSystems](https://lando.systems) is a group of jammers from Madison, Wisconsin that varies in size from 2 to 12 people. This is the team's 27th Ludum Dare game!! :grinning:
+
+# Team Members:
+---
+
+Code:
+- Doug Graham [dsgraham](https://twitter.com/dsgraham) :elephant: [dsgraham on mastodon](https://mastodon.gamedev.place/@dsgraham)
+- Brian Ploeckelman [PalpatinesSmile](https://twitter.com/PalpatinesSmile) :elephant: [brian on mastodon](https://mastodon.gamedev.place/@brian)
+- Jeffrey Hwang :elephant: [jeffreyhwang on mastodon](https://mastodon.gamedev.place/@jeffreyhwang)
+- Brian Rossman
+
+Art:
+- Matt Neumann
+
+Audio (and Code and Story, Triple Threat!):
+- Pete Valeo
+
+Testing:
+- Cal Rossman

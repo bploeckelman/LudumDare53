@@ -31,8 +31,8 @@ public class Player implements Entity, Collidable {
     private static final Vector2 COLLISION_OFFSET = new Vector2(0, -22f);
     private static final float COLLISION_RADIUS = 25;
     private static final float RENDER_SIZE = 120f;
-    private static final float SPEED_NORMAL = 2000f;
-    private static final float SPEED_FAST = 4000f;
+    private static final float SPEED_NORMAL = 3000f;
+    private static final float SPEED_FAST = 5000f;
     private static final float MAX_STAMINA = 10f; // seconds to charge fully
     private static final float STUN_TIMER = .3f;
 

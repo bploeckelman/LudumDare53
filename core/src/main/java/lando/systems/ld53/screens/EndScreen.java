@@ -153,7 +153,7 @@ public class EndScreen extends BaseScreen {
                       subtitles = "I'd like that.\n\n" +
                           "... can I call you dad for the next one?";
                       genieSubtitles = "\n\n\n\n" +
-                          "Wow.\n\n"+
+                          "\n\n"+
                           "Okay, we're done here.";
                         break;
 
