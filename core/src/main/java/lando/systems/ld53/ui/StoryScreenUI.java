@@ -51,7 +51,7 @@ public class StoryScreenUI extends Group {
                 screen.audioManager.stopMusic();
                 screen.exitingScreen = true;
                 Gdx.input.setInputProcessor(null);
-                screen.game.setScreen(new TutorialScreen());
+                screen.game.setScreen(new GameScreen(GameScreen.Levels.preview));
             }
         });
 

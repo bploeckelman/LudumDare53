@@ -49,7 +49,7 @@ public class TutorialScreen extends BaseScreen {
                 page++;
                 targetAlpha = 1f;
                 if (page >= 3) {
-                    Main.game.setScreen(new GameScreen(GameScreen.Levels.preview));
+                    Main.game.setScreen(new StoryScreen());
                 }
             } else {
                 if (Gdx.input.justTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)){

@@ -88,9 +88,6 @@ public class TitleScreen extends BaseScreen {
             }))
             .start(tween);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
 
     }
 

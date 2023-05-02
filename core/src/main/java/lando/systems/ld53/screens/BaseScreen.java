@@ -62,12 +62,12 @@ public abstract class BaseScreen implements Disposable {
             worldCamera.update();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
-            Config.Debug.general = !Config.Debug.general;
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.F2)) {
-            Config.Debug.ui = !Config.Debug.ui;
-        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.F1)) {
+//            Config.Debug.general = !Config.Debug.general;
+//        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.F2)) {
+//            Config.Debug.ui = !Config.Debug.ui;
+//        }
 
         screenShaker.update(delta);
         uiStage.act(delta);

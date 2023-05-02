@@ -55,11 +55,6 @@ public class Cutscene3Screen extends BaseScreen {
 
         storyAccum += delta;
 
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
-
         phaseAccum += delta;
 
         if (((Gdx.input.justTouched() && phaseAccum > .2f) || phaseAccum > .25F)&& !isStoryOver) {

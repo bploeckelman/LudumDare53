@@ -120,7 +120,7 @@ public class StoryScreen extends BaseScreen {
                         break;
 
                     case 6:
-                        game.setScreen(new TutorialScreen());
+                        game.setScreen(new GameScreen(GameScreen.Levels.preview));
                         break;
 //                    case 3:
 //

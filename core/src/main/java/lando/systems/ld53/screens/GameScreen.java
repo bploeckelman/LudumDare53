@@ -283,24 +283,6 @@ public class GameScreen extends BaseScreen {
             player.activateSkill();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
-            swapMusic();
-//            if(assets.level1Full.isPlaying()) {
-//                assets.level1Thin.setLooping(true);
-//                assets.level1Thin.play();
-//                assets.level1Thin.setVolume(audioManager.musicVolume.floatValue());
-//                assets.level1Thin.setPosition(assets.level1Full.getPosition());
-//                assets.level1Full.stop();
-//
-//            }
-//            else if(assets.level1Thin.isPlaying()) {
-//                assets.level1Full.setLooping(true);
-//                assets.level1Full.play();
-//                assets.level1Full.setVolume(audioManager.musicVolume.floatValue());
-//                assets.level1Full.setPosition(assets.level1Thin.getPosition());
-//                assets.level1Thin.stop();
-//            }
-        }
 
         topGameUI.update(delta);
         bottomGameUI.update(delta);
