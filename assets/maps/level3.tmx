@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="10" nextobjectid="71">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="10" nextobjectid="71">
  <tileset firstgid="1" source="tileset80x80.tsx"/>
  <imagelayer id="4" name="background" offsetx="80" offsety="80">
   <image source="floor-pcb_00.png" width="1120" height="560"/>
  </imagelayer>
+ <layer id="1" name="ground" width="16" height="9">
+  <data encoding="base64">
+   OAAAADgAAAA4AAAAOAAAADgAAAA4AAAAOAAAADgAAAA4AAAAOAAAADgAAAA4AAAAOAAAADgAAAA4AAAAOAAAADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAA4AAAAOAAAADgAAAA4AAAAOAAAADgAAAA4AAAAOAAAADgAAAA4AAAAOAAAADgAAAA4AAAAOAAAADgAAAA4AAAA
+  </data>
+ </layer>
  <imagelayer id="6" name="GG Green" opacity="0.8" offsetx="958.591" offsety="799.804">
   <image source="game-genie-green-left.png" width="200" height="200"/>
  </imagelayer>
@@ -16,11 +21,6 @@
  <imagelayer id="5" name="GG Red" opacity="0.8" offsetx="98.8153" offsety="579.784">
   <image source="game-genie-red.png" width="200" height="200"/>
  </imagelayer>
- <layer id="1" name="ground" width="16" height="9">
-  <data encoding="base64">
-   OQAAADoAAAA7AAAAPAAAAD0AAAA5AAAAOgAAADsAAAA8AAAAPQAAADkAAAA6AAAAOwAAADwAAAA9AAAAOgAAADoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADkAAAA5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6AAAAOgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOQAAADkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADoAAAA6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAAOQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOgAAADoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADkAAAA5AAAAOgAAADsAAAA8AAAAOQAAADoAAAA7AAAAPAAAADkAAAA6AAAAOwAAADwAAAA5AAAAOgAAADsAAAA8AAAA
-  </data>
- </layer>
  <objectgroup id="2" name="collision">
   <object id="9" x="80" y="80">
    <polyline points="0,0 1120,0"/>
@@ -56,14 +56,8 @@
     <property name="type" value="goal"/>
    </properties>
   </object>
-  <object id="65" template="cargo-spawner.tx" x="520" y="320"/>
-  <object id="66" template="cargo-spawner.tx" x="680" y="320"/>
-  <object id="67" name="enemy-spawner" x="600" y="160" width="80" height="80">
-   <properties>
-    <property name="enemy" value="cargo_eater"/>
-    <property name="type" value="enemy-spawner"/>
-   </properties>
-  </object>
+  <object id="65" template="cargo-spawner.tx" x="320" y="80"/>
+  <object id="66" template="cargo-spawner.tx" x="880" y="560"/>
   <object id="68" name="enemy-spawner" x="120" y="360" width="80" height="80">
    <properties>
     <property name="enemy" value="attract"/>
@@ -73,12 +67,6 @@
   <object id="69" name="enemy-spawner" x="1080" y="360" width="80" height="80">
    <properties>
     <property name="enemy" value="repulse"/>
-    <property name="type" value="enemy-spawner"/>
-   </properties>
-  </object>
-  <object id="70" name="enemy-spawner" x="600" y="480" width="80" height="80">
-   <properties>
-    <property name="enemy" value="invader"/>
     <property name="type" value="enemy-spawner"/>
    </properties>
   </object>
