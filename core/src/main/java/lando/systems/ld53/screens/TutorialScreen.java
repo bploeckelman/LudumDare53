@@ -41,7 +41,7 @@ public class TutorialScreen extends BaseScreen {
         accum += delta;
 
         if (alpha < targetAlpha) alpha = Math.min(targetAlpha, alpha + delta * 2f);
-        if (alpha > targetAlpha) alpha = Math.max(targetAlpha, alpha - delta * 2f);
+        if (alpha > targetAlpha) alpha = Math.max(targetAlpha, alpha - delta * 4f);
         textColor.set(.8f, .8f, 1f, alpha);
 
         if (alpha == targetAlpha){

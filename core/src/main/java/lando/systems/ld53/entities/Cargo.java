@@ -101,7 +101,7 @@ public class Cargo implements Entity, Collidable {
         animTime += delta * animSpeed;
         keyframe = animation.getKeyFrame(animTime);
         impactTimer -= delta;
-        lifetime -= delta * .06f;
+        lifetime -= delta * .03f;
 
         float alphaTime = MathUtils.map(0, 1, .4f, 2f, lifetime);
         if ((accum % 1f)  > alphaTime ) {
