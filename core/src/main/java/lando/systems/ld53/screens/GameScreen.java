@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
+import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.entities.*;
 import lando.systems.ld53.entities.enemies.Enemy;
@@ -54,12 +55,19 @@ public class GameScreen extends BaseScreen {
 
     public Particles particles;
 
+    private float levelDoneTimer;
+    private float accum;
+    private Levels currentLevel;
+
     public enum Levels {
         preview, level2, level3, level4
     }
 
     public GameScreen(Levels level) {
         super();
+        levelDoneTimer = 0;
+        accum = 0;
+        currentLevel = level;
         collectedMap.put(Goal.Type.cyan, 0);
         collectedMap.put(Goal.Type.red, 0);
         collectedMap.put(Goal.Type.yellow, 0);
@@ -198,6 +206,8 @@ public class GameScreen extends BaseScreen {
         for (Goal.Type type : Goal.Type.values()){
            if (collectedMap.get(type) < needToCollectMap.get(type)) completed = false;
         }
+
+        if (currentLevel == Levels.preview && accum > 15) return true;
         return completed;
     }
 
@@ -207,27 +217,6 @@ public class GameScreen extends BaseScreen {
 
         boolean pauseGame = paused || isSelectSkillUIShown;
 
-
-
-//        if(!isSelectSkillUIShown) {
-//            if (Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
-//                if (!isSelectSkillUIShown) {
-//                    swapMusic();
-//                    isSelectSkillUIShown = !isSelectSkillUIShown;
-//                    selectSkillUI.show(isSelectSkillUIShown);
-//                    Gdx.input.setInputProcessor(uiStage);
-//                    return;
-//                }
-//            }
-//
-//            if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-//                if (!isSelectSkillUIShown) {
-//                    audioManager.stopMusic();
-//                    game.setScreen(new TitleScreen());
-//                    return;
-//                }
-//            }
-//        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1) && player.currentAbility != player.abilityList.get(0)) {
             if (player.abilityList.get(0).isUnlocked) {
                 selectSkillUI.autoScrollToSkillInit(0);
@@ -289,22 +278,6 @@ public class GameScreen extends BaseScreen {
 //            }
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
-            cargos.add(new Cargo(assets, Goal.Type.red, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_8)) {
-            cargos.add(new Cargo(assets, Goal.Type.cyan, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
-            cargos.add(new Cargo(assets, Goal.Type.green, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
-            cargos.add(new Cargo(assets, Goal.Type.yellow, worldCamera.viewportWidth / 2f, worldCamera.viewportHeight * (2f / 3f)));
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            paused = !paused;
-        }
-
         topGameUI.update(delta);
         bottomGameUI.update(delta);
         if (selectSkillUI.isAutoScrolling) {
@@ -312,7 +285,30 @@ public class GameScreen extends BaseScreen {
         }
 
         if (pauseGame) return;
+        accum += delta;
 
+        if (isLevelDone()){
+            levelDoneTimer += delta;
+            if (levelDoneTimer > 2f) {
+                paused = true;
+                BaseScreen nextScreen = new Cutscene1Screen();
+                switch (currentLevel){
+                    case preview:
+                        nextScreen = new Cutscene1Screen();
+                        break;
+                    case level2:
+                        nextScreen = new Cutscene2Screen();
+                        break;
+                    case level3:
+                        nextScreen = new Cutscene3Screen();
+                        break;
+                    case level4:
+                        nextScreen = new EndScreen();
+                        break;
+                }
+                Main.game.setScreen(nextScreen);
+            }
+        }
 
 
         physicsObjects.clear();
