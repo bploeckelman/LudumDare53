@@ -207,7 +207,7 @@ public class GameScreen extends BaseScreen {
            if (collectedMap.get(type) < needToCollectMap.get(type)) completed = false;
         }
 
-        if (currentLevel == Levels.preview && accum > 15) return true;
+        if (currentLevel == Levels.preview && accum > 10) return true;
         return completed;
     }
 
