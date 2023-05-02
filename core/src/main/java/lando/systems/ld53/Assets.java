@@ -48,6 +48,14 @@ public class Assets implements Disposable {
     public Texture trapezoidTexture;
     public Texture trapezoidBorder;
 
+    public Animation<TextureRegion> titleGenie;
+    public Animation<TextureRegion> titlePc;
+    public Animation<TextureRegion> titleSleep;
+    public Animation<TextureRegion> titleTextCrunchTime;
+    public Animation<TextureRegion> titleTextGame;
+    public Animation<TextureRegion> titleTextGenie;
+    public Animation<TextureRegion> titleZZZ;
+
     public TextureRegion ring;
     public TextureRegion lock;
     public TextureRegion pixelRegion;
@@ -249,6 +257,8 @@ public class Assets implements Disposable {
             mgr.load("images/trapezoid.png", Texture.class);
             mgr.load("images/trapezoid-border.png", Texture.class);
 
+            mgr.load("images/title-blank/title-blank_00.png", Texture.class);
+
             mgr.load("fonts/outfit-medium-20px.fnt", BitmapFont.class);
             mgr.load("fonts/outfit-medium-40px.fnt", BitmapFont.class);
             mgr.load("fonts/outfit-medium-80px.fnt", BitmapFont.class);
@@ -321,7 +331,8 @@ public class Assets implements Disposable {
         strings = mgr.get("i18n/strings", I18NBundle.class);
 
         gdx = mgr.get("images/libgdx.png");
-        titleScreen = mgr.get("images/title-screen.png");
+        titleScreen = mgr.get("images/title-blank/title-blank_00.png", Texture.class);
+
         trapezoidBorder = mgr.get("images/trapezoid-border.png", Texture.class);
         trapezoidTexture = mgr.get("images/trapezoid.png", Texture.class);
 
@@ -336,6 +347,14 @@ public class Assets implements Disposable {
         cherry = new Animation<>(0.1f, atlas.findRegions("pets/cat"), Animation.PlayMode.LOOP);
         asuka = new Animation<>(0.1f, atlas.findRegions("pets/dog"), Animation.PlayMode.LOOP);
         osha = new Animation<>(.1f, atlas.findRegions("pets/kitten"), Animation.PlayMode.LOOP);
+
+        titleGenie = new Animation<>(.15f, atlas.findRegions("title-screen/title-genie/title-genie"), Animation.PlayMode.LOOP);
+        titlePc = new Animation<>(.1f, atlas.findRegions("title-screen/title-pc/title-pc"), Animation.PlayMode.LOOP);
+        titleSleep = new Animation<>(.2f, atlas.findRegions("title-screen/title-sleep/title-sleep"), Animation.PlayMode.LOOP);
+        titleTextCrunchTime = new Animation<>(.1f, atlas.findRegions("title-screen/title-text-crunchtime/title-text-crunchtime"), Animation.PlayMode.LOOP);
+        titleTextGame = new Animation<>(.1f, atlas.findRegions("title-screen/title-text-game/title-text-game"), Animation.PlayMode.LOOP);
+        titleTextGenie = new Animation<>(.1f, atlas.findRegions("title-screen/title-text-genie/title-text-genie"), Animation.PlayMode.LOOP);
+        titleZZZ = new Animation<>(.1f, atlas.findRegions("title-screen/title-zzz/title-zzz"), Animation.PlayMode.LOOP);
 
         playerIdleDown   = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-down/jeff-idle-down"), Animation.PlayMode.LOOP);
         playerIdleUp     = new Animation<>(.1f, atlas.findRegions("player/jeff-idle-up/jeff-idle-up"), Animation.PlayMode.LOOP);

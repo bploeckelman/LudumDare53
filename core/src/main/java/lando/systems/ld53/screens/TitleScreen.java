@@ -3,8 +3,10 @@ package lando.systems.ld53.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
 import lando.systems.ld53.ui.TitleScreenUI;
@@ -12,9 +14,25 @@ import lando.systems.ld53.ui.TitleScreenUI;
 public class TitleScreen extends BaseScreen {
 
     private final Texture background;
-    private TextureRegion dog;
-    private TextureRegion cat;
-    private TextureRegion kitten;
+    private Vector2 titlePcPos;
+    private Vector2 titleGeniePos;
+    private Vector2 titleSleepPos;
+    private Vector2 titleTextCrunchTimePos;
+    private Vector2 titleTextGamePos;
+    private Vector2 titleTextGeniePos;
+    private Vector2 titleZZZPos;
+
+
+    private TextureRegion titlePc = assets.titlePc.getKeyFrame(0f);
+    private Animation<TextureRegion> titleGenieAnim = assets.titleGenie;
+    private TextureRegion titleGenieFrame;
+    private Animation<TextureRegion> titleSleepAnim = assets.titleSleep;
+    private TextureRegion titleSleepFrame;
+    private TextureRegion titleTextCrunchTime = assets.titleTextCrunchTime.getKeyFrame(0f);
+    private TextureRegion titleTextGame = assets.titleTextGame.getKeyFrame(0f);
+    private TextureRegion titleTextGenie = assets.titleTextGenie.getKeyFrame(0f);
+    private TextureRegion titleZZZ = assets.titleZZZ.getKeyFrame(0f);
+
     private float stateTime;
 
     public TitleScreen() {
@@ -23,7 +41,6 @@ public class TitleScreen extends BaseScreen {
         worldCamera.setToOrtho(false, Config.Screen.window_width, Config.Screen.window_height);
         worldCamera.update();
         Gdx.input.setInputProcessor(uiStage);
-
         background = assets.titleScreen;
     }
 
@@ -32,12 +49,8 @@ public class TitleScreen extends BaseScreen {
         super.update(delta);
 
         stateTime += delta;
-        dog = assets.asuka.getKeyFrame(stateTime);
-        cat = assets.cherry.getKeyFrame(stateTime);
-        kitten = assets.osha.getKeyFrame(stateTime);
-        if (!dog.isFlipX()) dog.flip(true, false);
-        if (!cat.isFlipX()) cat.flip(true, false);
-        if (!kitten.isFlipX()) kitten.flip(true, false);
+        titleSleepFrame = titleSleepAnim.getKeyFrame(stateTime);
+        titleGenieFrame = titleGenieAnim.getKeyFrame(stateTime);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             Gdx.app.exit();
@@ -48,23 +61,27 @@ public class TitleScreen extends BaseScreen {
     @Override
     public void render(SpriteBatch batch) {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
+        titlePcPos = new Vector2(0, -120);
+        titleSleepPos = new Vector2(500, 0);
+        titleTextCrunchTimePos = new Vector2(930, 250);
+        titleTextGamePos = new Vector2(170, 430);
+        titleTextGeniePos = new Vector2(670, 435);
+        titleGeniePos = new Vector2(550, 180);
+        titleZZZPos = new Vector2(0, 0);
 
         batch.setProjectionMatrix(worldCamera.combined);
         batch.begin();
         {
             float width = worldCamera.viewportWidth;
             float height = worldCamera.viewportHeight;
-//            batch.draw(background, 0, 0, width, height);
-//
-//            batch.draw(dog,
-//                 width / 2,  height * 2 / 3,
-//                    2 * dog.getRegionWidth(), 2 * dog.getRegionHeight());
-//            batch.draw(cat,
-//                width / 3,  height * 2 / 3,
-//                    2 * cat.getRegionWidth(), 2 * cat.getRegionHeight());
-//            batch.draw(kitten,
-//                width * 2 / 3,  height * 2 / 3 - 10f,
-//                3 * cat.getRegionWidth(), 3 * cat.getRegionHeight());
+            batch.draw(background, 0, 0, width, height);
+            batch.draw(titlePc, titlePcPos.x, titlePcPos.y, titlePc.getRegionWidth(), titlePc.getRegionHeight());
+            batch.draw(titleSleepFrame, titleSleepPos.x, titleSleepPos.y, titleSleepFrame.getRegionWidth(), titleSleepFrame.getRegionHeight());
+            batch.draw(titleGenieFrame, titleGeniePos.x, titleGeniePos.y, titleGenieFrame.getRegionWidth(), titleGenieFrame.getRegionHeight());
+            batch.draw(titleTextGame, titleTextGamePos.x, titleTextGamePos.y, titleTextGame.getRegionWidth(), titleTextGame.getRegionHeight());
+            batch.draw(titleTextGenie, titleTextGeniePos.x, titleTextGeniePos.y, titleTextGenie.getRegionWidth(), titleTextGenie.getRegionHeight());
+            batch.draw(titleTextCrunchTime, titleTextCrunchTimePos.x, titleTextCrunchTimePos.y, titleTextCrunchTime.getRegionWidth(), titleTextCrunchTime.getRegionHeight());
+
         }
 
         batch.end();
