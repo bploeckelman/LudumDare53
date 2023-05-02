@@ -11,6 +11,7 @@ import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.screens.BaseScreen;
 import lando.systems.ld53.screens.GameScreen;
+import lando.systems.ld53.screens.TutorialScreen;
 
 public class StoryScreenUI extends Group {
 
@@ -50,7 +51,7 @@ public class StoryScreenUI extends Group {
                 screen.audioManager.stopMusic();
                 screen.exitingScreen = true;
                 Gdx.input.setInputProcessor(null);
-                screen.game.setScreen(new GameScreen(GameScreen.Levels.preview));
+                screen.game.setScreen(new TutorialScreen());
             }
         });
 
