@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="10" nextobjectid="71">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="11" nextobjectid="77">
  <tileset firstgid="1" source="tileset80x80.tsx"/>
- <imagelayer id="4" name="background" offsetx="81.4273" offsety="966.351">
-  <image source="floor-pcb_00.png" width="1120" height="560"/>
- </imagelayer>
- <imagelayer id="5" name="GG Red" opacity="0.8" offsetx="98.8153" offsety="579.784">
-  <image source="game-genie-red.png" width="200" height="200"/>
- </imagelayer>
  <layer id="1" name="ground" width="16" height="9">
   <data encoding="base64">
-   OQAAADoAAAA7AAAAPAAAAD0AAAA5AAAAOgAAADsAAAA8AAAAPQAAADkAAAA6AAAAOwAAADwAAAA9AAAAOgAAADoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADkAAAA5AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6AAAAOgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOQAAADkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADoAAAA6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA5AAAAOQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOgAAADoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADkAAAA5AAAAOgAAADsAAAA8AAAAOQAAADoAAAA7AAAAPAAAADkAAAA6AAAAOwAAADwAAAA5AAAAOgAAADsAAAA8AAAA
+   OQAAADoAAAA7AAAAPAAAAD0AAAA5AAAAOgAAADsAAAA8AAAAPQAAADkAAAA6AAAAOwAAADwAAAA9AAAAOgAAADoAAAABAAAAAgAAAAMAAAAEAAAABQAAAAYAAAABAAAAAgAAAAMAAAAEAAAABQAAAAYAAAABAAAAAgAAADkAAAA5AAAACQAAAAoAAAALAAAADAAAAA0AAAAOAAAACQAAAAoAAAALAAAADAAAAA0AAAAOAAAACQAAAAoAAAA6AAAAOgAAABEAAAASAAAAEwAAABQAAAAVAAAAFgAAABEAAAASAAAAEwAAABQAAAAVAAAAFgAAABEAAAASAAAAOQAAADkAAAAZAAAAGgAAABsAAAAcAAAAHQAAAB4AAAAZAAAAGgAAABsAAAAcAAAAHQAAAB4AAAAZAAAAGgAAADoAAAA6AAAAIQAAACIAAAAjAAAAJAAAACUAAAAmAAAAIQAAACIAAAAjAAAAJAAAACUAAAAmAAAAIQAAACIAAAA5AAAAOQAAACkAAAAqAAAAKwAAACwAAAAtAAAALgAAACkAAAAqAAAAKwAAACwAAAAtAAAALgAAACkAAAAqAAAAOgAAADoAAAAxAAAAMgAAADMAAAA0AAAANQAAADYAAAAxAAAAMgAAADMAAAA0AAAANQAAADYAAAAxAAAAMgAAADkAAAA5AAAAOgAAADsAAAA8AAAAOQAAADoAAAA7AAAAPAAAADkAAAA6AAAAOwAAADwAAAA5AAAAOgAAADsAAAA8AAAA
   </data>
  </layer>
+ <imagelayer id="10" name="GG cyan" offsetx="941" offsety="454">
+  <image source="game-genie-cyan-left.png" width="200" height="200"/>
+ </imagelayer>
  <objectgroup id="2" name="collision">
   <object id="9" x="80" y="80">
    <polyline points="0,0 1120,0"/>
@@ -27,20 +24,20 @@
   </object>
  </objectgroup>
  <objectgroup id="3" name="objects">
-  <object id="39" template="peg.tx" x="870" y="362"/>
-  <object id="41" template="peg.tx" x="371" y="368.667" width="20" height="20.3333"/>
-  <object id="54" x="160" y="560" width="80" height="80">
+  <object id="39" template="peg.tx" x="909" y="349"/>
+  <object id="41" template="peg.tx" x="309" y="310" width="20" height="20.3333"/>
+  <object id="66" template="cargo-spawner.tx" x="160" y="160"/>
+  <object id="67" name="enemy-spawner" x="640" y="160" width="80" height="80">
    <properties>
-    <property name="color" value="red"/>
-    <property name="type" value="goal"/>
-   </properties>
-  </object>
-  <object id="66" template="cargo-spawner.tx" x="680" y="320"/>
-  <object id="67" name="enemy-spawner" x="600" y="160" width="80" height="80">
-   <properties>
-    <property name="enemy" value="cargo_eater"/>
+    <property name="enemy" value="random"/>
     <property name="type" value="enemy-spawner"/>
    </properties>
   </object>
+  <object id="71" template="goal.tx" x="998" y="440"/>
+  <object id="72" template="peg.tx" x="1152" y="350"/>
+  <object id="73" template="peg.tx" x="1150" y="591"/>
+  <object id="74" template="peg.tx" x="910" y="590"/>
+  <object id="75" template="peg.tx" x="150" y="109" width="20" height="20.3333"/>
+  <object id="76" template="peg.tx" x="109" y="150" width="20" height="20.3333"/>
  </objectgroup>
 </map>

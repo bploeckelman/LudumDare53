@@ -62,7 +62,7 @@ public class Goal implements Entity, Influencer {
     private final InfluenceRenderer influenceRenderer;
     private final float range;
     private float strength;
-    private final Type type;
+    public final Type type;
 
     private TextureRegion keyframe;
     private TextureRegion baseKeyframe;

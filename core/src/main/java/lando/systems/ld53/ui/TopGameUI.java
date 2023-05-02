@@ -182,7 +182,6 @@ public class TopGameUI extends Table {
         if (screen.needToCollectMap.get(Goal.Type.cyan) < 1) {
             blueTable.setVisible(false);
         }
-
     }
 
 

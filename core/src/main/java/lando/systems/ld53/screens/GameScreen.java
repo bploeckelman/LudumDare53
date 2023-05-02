@@ -73,12 +73,6 @@ public class GameScreen extends BaseScreen {
         collectedMap.put(Goal.Type.yellow, 0);
         collectedMap.put(Goal.Type.green, 0);
 
-        // TODO: this should be based on the level
-        needToCollectMap.put(Goal.Type.cyan, 3);
-        needToCollectMap.put(Goal.Type.red, 3);
-        needToCollectMap.put(Goal.Type.yellow, 5);
-        needToCollectMap.put(Goal.Type.green, 3);
-
         worldCamera.setToOrtho(false, Config.Screen.framebuffer_width, Config.Screen.framebuffer_height);
         worldCamera.update();
         screenShaker = new CameraShaker(worldCamera);
@@ -99,7 +93,7 @@ public class GameScreen extends BaseScreen {
                 break;
             case level2:
                 map = new Map(this, "maps/level2.tmx"); //get level2
-                PlayerAbility.bomb_throw.isUnlocked = false;
+                PlayerAbility.bomb_throw.isUnlocked = true;
                 PlayerAbility.speed_up.isUnlocked = false;
                 PlayerAbility.shield_360.isUnlocked = true;
                 PlayerAbility.repulse.isUnlocked = false;
@@ -122,6 +116,21 @@ public class GameScreen extends BaseScreen {
                 PlayerAbility.fetch.isUnlocked = true;
                 break;
         }
+
+        needToCollectMap.put(Goal.Type.cyan, 0);
+        needToCollectMap.put(Goal.Type.red, 0);
+        needToCollectMap.put(Goal.Type.yellow, 0);
+        needToCollectMap.put(Goal.Type.green, 0);
+
+        for (Goal goal : map.goals) {
+            int amount = 1;
+            if (level == Levels.preview) amount = 2;
+            if (level == Levels.level2)  amount = 3;
+            if (level == Levels.level3)  amount = 4;
+            if (level == Levels.level4)  amount = 5;
+            needToCollectMap.put(goal.type, amount);
+        }
+
         player = new Player(this, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
 
         bulletEnemy = new BulletEnemy(assets, this, -5, -100f);
