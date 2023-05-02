@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.*;
 import lando.systems.ld53.Assets;
+import lando.systems.ld53.entities.Goal;
+import lando.systems.ld53.utils.Utils;
 
 public class Particles implements Disposable {
 
@@ -84,6 +86,28 @@ public class Particles implements Disposable {
                     .timeToLive(1f)
                     .startColor(tempColor)
                     .init());
+        }
+    }
+
+    public void scoreGoal(Goal g) {
+        for (int i = 0; i < 100; i ++) {
+            float x = g.getPosition().x + MathUtils.random(-30, 30);
+            float y = g.getPosition().y + MathUtils.random(-30, 30);
+            Utils.hsvToRgb(MathUtils.random(1f), 1f, 1f, tempColor);
+            float speed = MathUtils.random(30f, 100f);
+            float dir = MathUtils.random(360);
+
+            activeParticles.get(Layer.foreground).add(Particle.initializer(particlePool.obtain())
+                .keyframe(assets.particles.dollar)
+                .startPos(x, y)
+                .velocity(MathUtils.cosDeg(dir) * speed, MathUtils.sinDeg(dir) * speed)
+                .startColor(tempColor)
+                .endColor(0,0,0,0)
+                .startSize(30f)
+                .endSize(0f)
+                .timeToLive(MathUtils.random(1f, 3f))
+                .init()
+            );
         }
     }
 

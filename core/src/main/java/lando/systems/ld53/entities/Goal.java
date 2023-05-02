@@ -112,6 +112,7 @@ public class Goal implements Entity, Influencer {
         if (dist < range / 3f) {
             if(b.goalType == type) {
                 Main.game.audioManager.playSound(AudioManager.Sounds.collect, .5f);
+                screen.particles.scoreGoal(this);
                 // TODO: Collected it do things like score
                 b.collected = true;
             }
