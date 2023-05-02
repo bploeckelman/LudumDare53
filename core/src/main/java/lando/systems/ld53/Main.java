@@ -110,6 +110,7 @@ public class Main extends ApplicationAdapter {
         } else {
             setScreen(new TitleScreen());
 //            setScreen(new Cutscene1Screen()); // TODO CHANGE BEFORE UPLOADING
+
         }
 
     }

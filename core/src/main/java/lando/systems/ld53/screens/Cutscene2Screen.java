@@ -16,7 +16,9 @@ public class Cutscene2Screen extends BaseScreen {
     private int clickPhase;
     private int maxClick;
     private String subtitles;
+    private String genieSubtitles;
     private String startSubtitles;
+    private String startGenieSubtitles;
     public float motionCounter1;
     public float accumulator;
     public boolean isStoryOver;
@@ -34,8 +36,10 @@ public class Cutscene2Screen extends BaseScreen {
         clickPhase = 0;
         maxClick = 4;
         isStoryOver = false;
-        startSubtitles = "Wow, yeah, exactly like that. Jeez.\n\n" ;
+        startSubtitles = "Okay, not bad for one day's work.\n\n" ;
+        startGenieSubtitles = " " ;
         subtitles = startSubtitles;
+        genieSubtitles = startGenieSubtitles;
 
 
 
@@ -76,26 +80,33 @@ public class Cutscene2Screen extends BaseScreen {
 
                 switch (clickPhase) {
                     case 0:
-                        subtitles = "Okay, so that was just a dream?\n\n";
+                        subtitles = "I still need to get the assets updated though...\n\n";
+                        genieSubtitles = "And make the level a little less boring.\n\n";
                         break;
                     case 1:
-                        subtitles = "I still have to BUILD and SHIP this whole thing?\n\n";
+                        subtitles = "And make the level a little less boring...\n\n";
+                        genieSubtitles = "That's... I literally JUST said exactly that\n\n";
 
                         break;
 
                     case 2:
-                        subtitles = "I still have to BUILD and SHIP this whole thing?\n\n" +
-                            "On a deadline for Ludum Dare?\n\n" +
-                            "At least it's still just the first day...\n\n";
+                        subtitles = " ";
+                        genieSubtitles = "...";
+
                         break;
                     case 3:
-                        subtitles = "I still have to BUILD and SHIP this whole thing?\n\n" +
-                            "On a deadline for Ludum Dare?\n\n" +
-                            "At least it's still just the first day...\n\n"+
-                            "And I DO have those game genies to help me deliver the finished game...";
+                        subtitles = " ";
+                        genieSubtitles = "...\n\n" +
+                            "...not feeling great about this.";
+                        break;
+                    case 4:
+                        subtitles = "Me either. And I don't even have phenomenal cosmic power.";
+                        genieSubtitles = "\n\n" +
+                            "...Let's just get on with it.";
                         break;
 
-                    case 4:
+
+                    case 5:
                         game.setScreen(new GameScreen(GameScreen.Levels.level2));
 //                        subtitles = "Us either.\n\n" +
 //                            "That would be a weird, weird premise for a game.\n\n";
@@ -150,9 +161,9 @@ public class Cutscene2Screen extends BaseScreen {
 //                        game.getScreenManager().pushScreen("game", TransitionManager.TransitionType.PAGE_CURL.name());
                         break;
                 }
-                if(clickPhase < maxClick) {
+//                if(clickPhase < maxClick) {
                     clickPhase++;
-                }
+//                }
 
             }
         }
@@ -179,7 +190,9 @@ public class Cutscene2Screen extends BaseScreen {
             assets.largeFont.setColor(Color.WHITE);
 
             assets.layout.setText(assets.largeFont, subtitles, Color.WHITE, worldCamera.viewportWidth, Align.left, true);
+            assets.genieLayout.setText(assets.largeFont, genieSubtitles, Color.GOLDENROD, worldCamera.viewportWidth * .8f, Align.right, true);
             assets.largeFont.draw(batch, assets.layout, 100, worldCamera.viewportHeight * .85f );
+            assets.largeFont.draw(batch, assets.genieLayout, 100, worldCamera.viewportHeight * .75f );
 
         }
 

@@ -30,6 +30,7 @@ public class Assets implements Disposable {
     public SpriteBatch batch;
     public ShapeDrawer shapes;
     public GlyphLayout layout;
+    public GlyphLayout genieLayout;
     public AssetManager mgr;
     public TextureAtlas atlas;
     public I18NBundle strings;
@@ -235,6 +236,7 @@ public class Assets implements Disposable {
         batch = new SpriteBatch();
         shapes = new ShapeDrawer(batch, pixelRegion);
         layout = new GlyphLayout();
+        genieLayout = new GlyphLayout();
 
         mgr = new AssetManager();
         {

@@ -40,7 +40,7 @@ public class Cutscene3ScreenUI extends Group {
         float left = screen.windowCamera.viewportWidth * .8f;
         float top = screen.windowCamera.viewportHeight * .15f;
 
-        startGameButton = new TextButton("Start Game", storyScreenButtonStyle);
+        startGameButton = new TextButton("Start Level", storyScreenButtonStyle);
         startGameButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
         startGameButton.setPosition(left, top);
         startGameButton.addListener(new ClickListener(){
