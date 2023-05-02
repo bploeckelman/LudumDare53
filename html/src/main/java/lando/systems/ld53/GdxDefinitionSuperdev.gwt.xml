@@ -6,7 +6,9 @@
 
     <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.utils.typinglabel.TypingGlyph" />
   <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.utils.typinglabel.effects" />
-  <collapse-all-properties />
+    <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.particles.Particle" />
+
+    <collapse-all-properties />
   <add-linker name="xsiframe"/>
   <set-configuration-property name="devModeRedirectEnabled" value="true"/>
   <set-configuration-property name="xsiframe.failIfScriptTag" value="FALSE"/>

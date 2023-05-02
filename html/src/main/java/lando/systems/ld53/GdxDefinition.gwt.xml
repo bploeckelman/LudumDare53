@@ -21,6 +21,8 @@
   <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.utils.typinglabel.effects" />
   <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.entities.Bullet" />
   <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.physics.Collision" />
+    <extend-configuration-property name="gdx.reflect.include" value="lando.systems.ld53.particles.Particle" />
+
 
   <entry-point class="lando.systems.ld53.gwt.GwtLauncher" />
   <set-configuration-property name="gdx.assetpath" value="../assets" />
