@@ -30,7 +30,7 @@ public class Bullet implements Entity, Collidable, Pool.Poolable {
     private TextureRegion keyframe;
     private float animTime;
 
-    public float mass = 500f;
+    public float mass = 700f;
     public float friction = 1f;
     public float lifetime = 5f;
     public boolean alive = false;

@@ -29,7 +29,7 @@ public class BulletEnemy implements Entity {
     private final GameScreen screen;
     private final Rectangle bounds;
     private final Animation<TextureRegion> animMove;
-    private final Animation<TextureRegion> animFloat;
+    private final Animation<TextureRegion> animShoot;
 
     private Animation<TextureRegion> animation;
     private TextureRegion keyframe;
@@ -37,16 +37,20 @@ public class BulletEnemy implements Entity {
 
     private final float scale = 1.5f;
 
+    private boolean isShooting = false;
+    private boolean isFlipped = false;
+
     public BulletEnemy(Assets assets, GameScreen screen, float x, float y) {
         this.assets = assets;
         this.screen = screen;
         this.animMove = assets.bossIdle;
-        this.animFloat = assets.bossShoot;
-        this.animation = animFloat;
+        this.animShoot = assets.bossShoot;
+        this.animation = animShoot;
         this.animTime = 0;
         this.stateTime = 0;
         TextureRegion frame = animMove.getKeyFrame(0f);
         this.bounds = new Rectangle(x, y,  frame.getRegionWidth() * scale, frame.getRegionHeight() * scale);
+        isFlipped = false;
     }
 
     @Override
@@ -63,6 +67,9 @@ public class BulletEnemy implements Entity {
 
             if (prevState == shoot) {
                 shoot();
+                isShooting = true;
+            } else {
+                isShooting = false;
             }
 
             if (state == enter) {
@@ -85,15 +92,25 @@ public class BulletEnemy implements Entity {
             } break;
             case enter:
             case exit: {
-                animation = animFloat;
+                animation = animMove;
             } break;
         }
 
         animTime += delta;
-        if (state == idle) {
+        if (state == idle && !isShooting) {
             animTime = 0f;
         }
-        keyframe = animation.getKeyFrame(animTime);
+
+        if (isShooting) {
+            animation = animShoot;
+            keyframe = animation.getKeyFrame(animTime);
+            if (!isFlipped) {
+                keyframe.flip(true, false);
+                isFlipped = true;
+            }
+        } else {
+            keyframe = animation.getKeyFrame(animTime);
+        }
 
         bounds.setSize(keyframe.getRegionWidth() * scale, keyframe.getRegionHeight() * scale);
     }

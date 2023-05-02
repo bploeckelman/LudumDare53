@@ -577,4 +577,15 @@ public class Player implements Entity, Collidable {
         }
         return true;
     }
+
+    public void activateSkill() {
+        float cost = currentAbility.cost;
+        if (stamina < cost) {
+            Main.game.audioManager.playSound(AudioManager.Sounds.error, .35f);
+        } else {
+            isAttacking = true;
+            stamina -= cost;
+            triggerAbility();
+        }
+    }
 }
