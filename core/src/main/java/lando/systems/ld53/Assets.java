@@ -97,9 +97,14 @@ public class Assets implements Disposable {
     public Animation<TextureRegion> abilityIcons;
 
     public Animation<TextureRegion> gobbler;
+    public Animation<TextureRegion> thief;
+    public Animation<TextureRegion> reapo;
+    public Animation<TextureRegion> turtle;
     public Animation<TextureRegion> etWalk;
     public Animation<TextureRegion> etFloat;
-    public Animation<TextureRegion> thief;
+    public Animation<TextureRegion> bossIdle;
+    public Animation<TextureRegion> bossShoot;
+
     public Animation<TextureRegion> goalPanelBase;
 //    public Animation<TextureRegion> goalPanelColor;
     public Animation<TextureRegion> goalShimmer;
@@ -410,8 +415,12 @@ public class Assets implements Disposable {
 
         gobbler = new Animation<>(0.1f, atlas.findRegions("creatures/gobbler/gobbler-idle"), Animation.PlayMode.LOOP_PINGPONG);
         thief = new Animation<>(0.1f, atlas.findRegions("creatures/thief/thief"), Animation.PlayMode.LOOP);
+        reapo = new Animation<>(0.1f, atlas.findRegions("creatures/reapo-man/reapo-idle-a"), Animation.PlayMode.LOOP);
+        turtle = new Animation<>(0.1f, atlas.findRegions("creatures/turtle/turtle"), Animation.PlayMode.LOOP);
         etWalk = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-walk"), Animation.PlayMode.LOOP);
         etFloat = new Animation<>(0.1f, atlas.findRegions("creatures/et/et-float"), Animation.PlayMode.LOOP_PINGPONG);
+        bossIdle = new Animation<>(0.1f, atlas.findRegions("creatures/chromo-boss/boss-idle-a"), Animation.PlayMode.LOOP);
+        bossShoot = new Animation<>(0.1f, atlas.findRegions("creatures/chromo-boss/boss-attack-punch"), Animation.PlayMode.NORMAL);
 
         goalPanelBase = new Animation<>(0.1f, atlas.findRegions("objects/goal-base"), Animation.PlayMode.LOOP);
         goalShimmer = new Animation<>(0.1f, atlas.findRegions("objects/goal-shimmer"), Animation.PlayMode.LOOP);

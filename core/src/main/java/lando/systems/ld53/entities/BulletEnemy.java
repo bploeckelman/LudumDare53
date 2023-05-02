@@ -35,13 +35,13 @@ public class BulletEnemy implements Entity {
     private TextureRegion keyframe;
     private float animTime;
 
-    private final float scale = 4f;
+    private final float scale = 1.5f;
 
     public BulletEnemy(Assets assets, GameScreen screen, float x, float y) {
         this.assets = assets;
         this.screen = screen;
-        this.animMove = assets.etWalk;
-        this.animFloat = assets.etFloat;
+        this.animMove = assets.bossIdle;
+        this.animFloat = assets.bossShoot;
         this.animation = animFloat;
         this.animTime = 0;
         this.stateTime = 0;

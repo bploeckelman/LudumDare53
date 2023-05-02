@@ -54,6 +54,11 @@ public class Enemy implements Entity, Collidable {
         this.moveTime = 0f;
     }
 
+    public void updateSize(float size) {
+        circle.radius = size / 2f;
+        bounds.setPosition(circle.center.x - circle.radius, circle.center.y - circle.radius);
+    }
+
     @Override
     public void update(float delta) {
         animTime += delta;

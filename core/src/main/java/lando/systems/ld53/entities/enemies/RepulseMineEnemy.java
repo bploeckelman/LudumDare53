@@ -13,14 +13,13 @@ public class RepulseMineEnemy extends Enemy{
 
     public RepulseMineEnemy(GameScreen screen, float x, float y) {
         super(screen, x, y);
-        this.animation = screen.assets.gobbler;
+        this.animation = screen.assets.turtle;
         this.keyframe = animation.getKeyFrame(0f);
 
         this.targetPosition = new Vector2();
         timeInPhase = 0;
         waitTimer = 1f;
-
-
+        updateSize(30);
     }
 
     @Override

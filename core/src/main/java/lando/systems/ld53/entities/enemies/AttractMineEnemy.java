@@ -14,14 +14,13 @@ public class AttractMineEnemy extends Enemy{
 
     public AttractMineEnemy(GameScreen screen, float x, float y) {
         super(screen, x, y);
-        this.animation = screen.assets.gobbler;
+        this.animation = screen.assets.reapo;
         this.keyframe = animation.getKeyFrame(0f);
 
         this.targetPosition = new Vector2();
         timeInPhase = 0;
         waitTimer = 1f;
-
-
+        updateSize(50f);
     }
 
     @Override

@@ -2,7 +2,7 @@
 <map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="10" nextobjectid="71">
  <tileset firstgid="1" source="tileset80x80.tsx"/>
  <imagelayer id="4" name="background" offsetx="80" offsety="80">
-  <image source="floor-pcb_00.png" width="1120" height="560"/>
+  <image source="floor-tron_00.png" width="1120" height="560"/>
  </imagelayer>
  <imagelayer id="6" name="GG Green" opacity="0.8" offsetx="980" offsety="580">
   <image source="game-genie-green-left.png" width="200" height="200"/>

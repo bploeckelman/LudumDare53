@@ -116,7 +116,7 @@ public class GameScreen extends BaseScreen {
         }
         player = new Player(this, Config.Screen.window_width / 2f, Config.Screen.window_height / 2f);
 
-        bulletEnemy = new BulletEnemy(assets, this, 5, -100f);
+        bulletEnemy = new BulletEnemy(assets, this, -5, -100f);
 
         physicsObjects = new Array<>();
         physicsSystem = new PhysicsSystem(new Rectangle(0,0, Config.Screen.window_width, Config.Screen.window_height));
