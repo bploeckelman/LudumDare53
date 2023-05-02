@@ -111,7 +111,7 @@ public class Cutscene1Screen extends BaseScreen {
                         break;
 
                     case 5:
-                        game.setScreen(new GameScreen(GameScreen.Levels.level1));
+                        game.setScreen(new GameScreen(GameScreen.Levels.level2));
 //                        subtitles = "Us either.\n\n" +
 //                            "That would be a weird, weird premise for a game.\n\n";
                         break;

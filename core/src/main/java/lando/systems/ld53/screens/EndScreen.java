@@ -7,9 +7,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.ScreenUtils;
 import lando.systems.ld53.Config;
-import lando.systems.ld53.ui.Cutscene2ScreenUI;
+import lando.systems.ld53.ui.Cutscene3ScreenUI;
+import lando.systems.ld53.ui.EndScreenUI;
 
-public class Cutscene2Screen extends BaseScreen {
+public class EndScreen extends BaseScreen {
     //    private final Texture background;
     private float storyAccum;
     private float phaseAccum;
@@ -24,7 +25,7 @@ public class Cutscene2Screen extends BaseScreen {
     public boolean isStoryOver;
 //    public Map<Float, String> subtitlesMap;
 
-    public Cutscene2Screen() {
+    public EndScreen() {
         super();
 
         worldCamera.setToOrtho(false, Config.Screen.window_width, Config.Screen.window_height);
@@ -36,8 +37,8 @@ public class Cutscene2Screen extends BaseScreen {
         clickPhase = 0;
         maxClick = 4;
         isStoryOver = false;
-        startSubtitles = "Okay, not bad for one day's work.\n\n" ;
-        startGenieSubtitles = " " ;
+        startSubtitles = "I think this might just work!\n\n" ;
+        startGenieSubtitles = "...\n\n" ;
         subtitles = startSubtitles;
         genieSubtitles = startGenieSubtitles;
 
@@ -80,34 +81,63 @@ public class Cutscene2Screen extends BaseScreen {
 
                 switch (clickPhase) {
                     case 0:
-                        subtitles = "I still need to get the assets updated though...\n\n";
-                        genieSubtitles = "And make the level a little less boring.\n\n";
+                        subtitles = "Two days down, and we mostly have a game!\n\n";
+                        genieSubtitles = "... That's...";
                         break;
                     case 1:
-                        subtitles = "And make the level a little less boring...\n\n";
-                        genieSubtitles = "That's... I literally JUST said exactly that\n\n";
+                        subtitles = "Two days down, and we mostly have a game!\n\n";;
+                        genieSubtitles = "That is an awfully generous interpretation of \"we\"\n\n" +
+                            "Who exactly do you think is doing all the work here?";
 
                         break;
 
                     case 2:
-                        subtitles = " ";
-                        genieSubtitles = "...";
-
+                        subtitles = "What do you mean?\n\n" +
+                            "Other than the programming and graphics and music and gameplay and level design,\n" +
+                            "I'm doing EVERYTHING!\n";
+                        genieSubtitles = "\n\n" +
+                            "So you're the \"ideas guy\". Wow.\n\n" +
+                            "What's crunch time like when you're trying to ship ideas?";
                         break;
                     case 3:
-                        subtitles = " ";
-                        genieSubtitles = "...\n\n" +
-                            "...not feeling great about this.";
+                        subtitles = "What do you mean?\n\n" +
+                            "Other than the programming and graphics and music and gameplay and level design,\n" +
+                            "I'm doing EVERYTHING!\n\n";
+                        genieSubtitles = "\n\n" +
+                            "So you're the \"ideas guy\". Wow.\n\n" +
+                            "What's crunch time like when you're trying to ship ideas?\n\n" +
+                            "Pretty stressful? Lots of naps, I imagine?";
                         break;
                     case 4:
-                        subtitles = "Me either. And I don't even have phenomenal cosmic power.";
+                        subtitles = "Only when I get the sleepies!\n\n";
+                        genieSubtitles = "\n\n...";
+                        break;
+                    case 5:
+                        subtitles = "Only when I get the sleepies!\n\n";
+                        genieSubtitles = "\n\n... \n\nChrist. Let's wrap this up - I've got a lamp that needs rubbing, if you catch my meaning.";
+                        break;
+                  case 6:
+                        subtitles = "Dude! Eew.\n\n";
                         genieSubtitles = "\n\n" +
-                            "...Let's just get on with it.";
+                            "Whatever, square. Sounds like someone needs THEIR lamp rubbed.";
+                        break;
+                  case 7:
+                        subtitles = "Also, what's the deal with all those sprites? I feel like I've seen them all before...\n\n";
+                        genieSubtitles = "" +
+                            "Yeah, and?";
+                        break;
+                  case 8:
+                        subtitles = "Also, what's the deal with all those sprites? I feel like I've seen them all before...\n\n";
+                        genieSubtitles = "" +
+                            "Yeah, and?\n\n" +
+                            "Don't exactly see you burning the midnight oil over here. \n\n" +
+                            "In fact, haven't seen you do much of ANYTHING at this point.\n\n" +
+                            "Let's just bring this thing home.";
                         break;
 
 
-                    case 5:
-                        game.setScreen(new GameScreen(GameScreen.Levels.level3));
+                    case 9:
+                        game.setScreen(new GameScreen(GameScreen.Levels.level4));
 //                        subtitles = "Us either.\n\n" +
 //                            "That would be a weird, weird premise for a game.\n\n";
                         break;
@@ -161,9 +191,7 @@ public class Cutscene2Screen extends BaseScreen {
 //                        game.getScreenManager().pushScreen("game", TransitionManager.TransitionType.PAGE_CURL.name());
                         break;
                 }
-//                if(clickPhase < maxClick) {
                     clickPhase++;
-//                }
 
             }
         }
@@ -204,8 +232,8 @@ public class Cutscene2Screen extends BaseScreen {
     @Override
     public void initializeUI() {
         super.initializeUI();
-        Cutscene2ScreenUI cutscene2ScreenUI = new Cutscene2ScreenUI(this);
-        uiStage.addActor(cutscene2ScreenUI);
+        EndScreenUI EndScreenUI = new EndScreenUI(this);
+        uiStage.addActor(EndScreenUI);
     }
 
 

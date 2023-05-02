@@ -55,7 +55,7 @@ public class GameScreen extends BaseScreen {
     public Particles particles;
 
     public enum Levels {
-        preview, level1, level2, level3
+        preview, level2, level3, level4
     }
 
     public GameScreen(Levels level) {
@@ -89,23 +89,23 @@ public class GameScreen extends BaseScreen {
                 PlayerAbility.repulse.isUnlocked = true;
                 PlayerAbility.fetch.isUnlocked = true;
                 break;
-            case level1:
-                map = new Map(this, "maps/level1.tmx"); //get level2
+            case level2:
+                map = new Map(this, "maps/level2.tmx"); //get level2
                 PlayerAbility.bomb_throw.isUnlocked = false;
                 PlayerAbility.speed_up.isUnlocked = false;
                 PlayerAbility.shield_360.isUnlocked = true;
                 PlayerAbility.repulse.isUnlocked = false;
                 PlayerAbility.fetch.isUnlocked = false;
                 break;
-            case level2:
-                map = new Map(this, "maps/level1.tmx"); //update to level 3
+            case level3:
+                map = new Map(this, "maps/level3.tmx"); //update to level 3
                 PlayerAbility.bomb_throw.isUnlocked = true;
                 PlayerAbility.speed_up.isUnlocked = true;
                 PlayerAbility.shield_360.isUnlocked = true;
                 PlayerAbility.repulse.isUnlocked = false;
                 PlayerAbility.fetch.isUnlocked = false;
                 break;
-            case level3:
+            case level4:
                 map = new Map(this, "maps/level1.tmx");
                 PlayerAbility.bomb_throw.isUnlocked = true;
                 PlayerAbility.speed_up.isUnlocked = true;

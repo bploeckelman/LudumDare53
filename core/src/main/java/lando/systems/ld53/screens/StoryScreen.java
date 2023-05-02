@@ -104,11 +104,15 @@ public class StoryScreen extends BaseScreen {
                     case 3:
                         subtitles = "And in the process, they would be helping you deliver a finished game (complete with\n" +
                             "different abilities and enemies and spawners thereof) while also navigating\n" +
-                            "forcefields that change the behavior of the various in-game objects in unusual ways?\n";
+                            "forcefields that change the behavior of the various in-game objects in unusual ways?\n\n" +
+                            "Maybe while using...\n\n" +
+                            "WASD and Arrows to move\n" +
+                            "Spacebar to activate special abilities\n" +
+                            "and number keys to select between the different abilities?";
                         break;
 
                         case 4:
-                        subtitles = "Us either.\n\n" +
+                        subtitles = "Me either.\n\n" +
                             "That would be a weird, weird premise for a game.\n\n";
                         break;
                         case 5:

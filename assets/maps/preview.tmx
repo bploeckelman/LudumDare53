@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="10" nextobjectid="71">
+<map version="1.10" tiledversion="1.10.1" orientation="orthogonal" renderorder="right-down" width="16" height="9" tilewidth="80" tileheight="80" infinite="0" nextlayerid="10" nextobjectid="71">
  <tileset firstgid="1" source="tileset80x80.tsx"/>
  <imagelayer id="4" name="background" offsetx="80" offsety="80">
   <image source="floor-pcb_00.png" width="1120" height="560"/>
  </imagelayer>
- <imagelayer id="6" name="GG Green" opacity="0.8" offsetx="958.591" offsety="799.804">
+ <imagelayer id="6" name="GG Green" opacity="0.8" offsetx="980" offsety="580">
   <image source="game-genie-green-left.png" width="200" height="200"/>
  </imagelayer>
  <imagelayer id="8" name="GG Cyan" opacity="0.8" offsetx="980" offsety="100">
   <image source="game-genie-cyan-left.png" width="200" height="200"/>
  </imagelayer>
- <imagelayer id="7" name="GG Yellow" opacity="0.8" offsetx="10.0803" offsety="883.586">
+ <imagelayer id="7" name="GG Yellow" opacity="0.8" offsetx="100" offsety="100">
   <image source="game-genie-yellow.png" width="200" height="200"/>
  </imagelayer>
  <imagelayer id="5" name="GG Red" opacity="0.8" offsetx="98.8153" offsety="579.784">
@@ -47,6 +47,18 @@
   <object id="54" x="160" y="560" width="80" height="80">
    <properties>
     <property name="color" value="red"/>
+    <property name="type" value="goal"/>
+   </properties>
+  </object>
+  <object id="56" x="160" y="80" width="80" height="80">
+   <properties>
+    <property name="color" value="yellow"/>
+    <property name="type" value="goal"/>
+   </properties>
+  </object>
+  <object id="58" x="1040" y="560" width="80" height="80">
+   <properties>
+    <property name="color" value="green"/>
     <property name="type" value="goal"/>
    </properties>
   </object>

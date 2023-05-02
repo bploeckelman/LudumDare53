@@ -92,7 +92,7 @@ public class Cutscene3Screen extends BaseScreen {
 
                     case 2:
                         subtitles = "What do you mean?\n\n" +
-                            "Other than the programming and graphics and music and gameplay,\n" +
+                            "Other than the programming and graphics and music and gameplay and level design,\n" +
                             "I'm doing EVERYTHING!\n";
                         genieSubtitles = "\n\n" +
                             "So you're the \"ideas guy\". Wow.\n\n" +
@@ -100,7 +100,7 @@ public class Cutscene3Screen extends BaseScreen {
                         break;
                     case 3:
                         subtitles = "What do you mean?\n\n" +
-                            "Other than the programming and graphics and music and gameplay,\n" +
+                            "Other than the programming and graphics and music and gameplay and level design,\n" +
                             "I'm doing EVERYTHING!\n\n";
                         genieSubtitles = "\n\n" +
                             "So you're the \"ideas guy\". Wow.\n\n" +
@@ -136,7 +136,7 @@ public class Cutscene3Screen extends BaseScreen {
 
 
                     case 9:
-                        game.setScreen(new GameScreen(GameScreen.Levels.level3));
+                        game.setScreen(new GameScreen(GameScreen.Levels.level4));
 //                        subtitles = "Us either.\n\n" +
 //                            "That would be a weird, weird premise for a game.\n\n";
                         break;

@@ -12,7 +12,7 @@ import lando.systems.ld53.audio.AudioManager;
 import lando.systems.ld53.screens.BaseScreen;
 import lando.systems.ld53.screens.GameScreen;
 
-public class Cutscene1ScreenUI extends Group {
+public class EndScreenUI extends Group {
 
 
 
@@ -23,7 +23,7 @@ public class Cutscene1ScreenUI extends Group {
     private final float BUTTON_HEIGHT = 50f;
     private final float BUTTON_PADDING = 10f;
 
-    public Cutscene1ScreenUI(BaseScreen screen) {
+    public EndScreenUI(BaseScreen screen) {
         SettingsUI settingsUI = new SettingsUI(screen.assets, screen.skin, screen.audioManager, screen.windowCamera);
 
         TextButton.TextButtonStyle outfitMediumStyle = screen.skin.get("text", TextButton.TextButtonStyle.class);
@@ -50,7 +50,7 @@ public class Cutscene1ScreenUI extends Group {
                 screen.audioManager.stopMusic();
                 screen.exitingScreen = true;
                 Gdx.input.setInputProcessor(null);
-                screen.game.setScreen(new GameScreen(GameScreen.Levels.level2));
+                screen.game.setScreen(new GameScreen(GameScreen.Levels.level3));
             }
         });
 
