@@ -122,10 +122,9 @@ public class TutorialScreen extends BaseScreen {
         assets.layout.setText(assets.font, "Packages", textColor, bounds.width, Align.center, true);
         assets.font.draw(batch, assets.layout, bounds.x, bounds.y + 400 - 10);
 
-        for (int i = 0; i < 4; i++){
-            TextureRegion tex = Goal.Type.cyan.baseAnim.getKeyFrame(accum);
-            batch.draw(tex, bounds.x + 445 + (i * (delta+10)), bounds.y + 290, delta, delta);
-        }
+        TextureRegion tex = Goal.Type.cyan.baseAnim.getKeyFrame(accum);
+        batch.draw(tex, Config.Screen.window_width/2f - 30, bounds.y + 290, delta, delta);
+
         assets.layout.setText(assets.font, "Goals", textColor, bounds.width, Align.center, true);
         assets.font.draw(batch, assets.layout, bounds.x, bounds.y + 290 - 10);
 
