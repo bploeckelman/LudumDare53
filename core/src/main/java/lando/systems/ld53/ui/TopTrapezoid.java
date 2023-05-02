@@ -46,7 +46,7 @@ public class TopTrapezoid {
         if (Config.Debug.general) {
             assets.font.draw(batch, (int)staminaPercentage + "%", (Config.Screen.window_width - TOP_WIDTH) / 2,Config.Screen.window_height - HEIGHT);
         }
-        batch.draw(ipIcon, Config.Screen.window_width / 2 - ABILITY_ICON_SIZE.x / 2, Config.Screen.window_height - HEIGHT, ABILITY_ICON_SIZE.x, ABILITY_ICON_SIZE.y);
+        //batch.draw(ipIcon, Config.Screen.window_width / 2 - ABILITY_ICON_SIZE.x / 2, Config.Screen.window_height - HEIGHT, ABILITY_ICON_SIZE.x, ABILITY_ICON_SIZE.y);
         batch.end();
     }
 

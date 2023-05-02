@@ -149,7 +149,7 @@ public class GameScreen extends BaseScreen {
 //        audioManager.playSound(AudioManager.Sounds.coin);
         trapezoid = new TopTrapezoid(player, assets);
         selectSkillUI = new SelectSkillUI(this);
-        uiStage.addActor(selectSkillUI);
+        //uiStage.addActor(selectSkillUI);
 //        uiStage.addListener(new InputListener() {
 //            @Override
 //            public boolean keyDown(InputEvent event, int keycode) {
