@@ -1,16 +1,33 @@
 - ** [HTML5/WebGL](https://lando.systems/games/ld53-LINKHERE) **
 - ** [Desktop/Java](https://lando.systems/games/ld5-LINKHERE) **
 - ** [Source](https://github.com/bploeckelman/LudumDare53) **
+# 🧞‍♂️ Game, Genie! It's Crunch Time 🧞‍♂️#
 
-# Game, Genie! Crunch Time 🧞‍♂️#
 
-Collect colorful shapes as you build
+I can show you the world... of game development!
 
-Enjoy original art, music, and color commentary from Lando Systems.
+Making a game shining, shimmering, splendid is a lot easier when you've got a genie doing the work for you.
+
+
+**Collect colorful items** and use your **special abilities** to fend off enemies in a **billiards-style bounce-fest**.
+
+Use your abilities to get each type of item into its respective genie's goal as you playtest the game you're developing over the game jam weekend.
+
+![ld53-gif.gif](///raw/1ca/43/z/5a23a.gif)
+
+
+Enjoy this magic code-pet ride from Lando Systems.
 
 # Controls:
 ---
-**Left Click & Hold** to swing your golf scythe and get some reapin done
+**WASD**/**Arrow keys**: Move around the board
+
+**1, 2, 3, 4**: Choose your special abilities
+
+**Spacebar** / **Left-click** : use your ability.
+
+![screen1.png](///raw/1ca/43/z/5a253.png)
+
 
 
 # About the Team:
@@ -21,17 +38,22 @@ Enjoy original art, music, and color commentary from Lando Systems.
 # Team Members:
 ---
 
+![screen2.png](///raw/1ca/43/z/5a256.png)
+
+![title-screen.png](///raw/1ca/43/z/5a24c.png)
+
+
+![screen3.png](///raw/1ca/43/z/5a257.png)
+
+
+
 Code:
 - Doug Graham [dsgraham](https://twitter.com/dsgraham) :elephant: [dsgraham on mastodon](https://mastodon.gamedev.place/@dsgraham)
 - Brian Ploeckelman [PalpatinesSmile](https://twitter.com/PalpatinesSmile) :elephant: [brian on mastodon](https://mastodon.gamedev.place/@brian)
 - Jeffrey Hwang :elephant: [jeffreyhwang on mastodon](https://mastodon.gamedev.place/@jeffreyhwang)
-- Brian Rossman
 
 Art:
 - Matt Neumann
 
-Audio (and Code and Story, Triple Threat!):
+Music, Audio, and a bunch of other stuff:
 - Pete Valeo
-
-Testing:
-- Cal Rossman
