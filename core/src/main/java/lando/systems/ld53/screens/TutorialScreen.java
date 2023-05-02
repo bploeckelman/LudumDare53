@@ -161,7 +161,7 @@ public class TutorialScreen extends BaseScreen {
         assets.layout.setText(assets.font, "The Player (You)", textColor, bounds.width, Align.center, true);
         assets.font.draw(batch, assets.layout, bounds.x, bounds.y + 290 - 10);
 
-        assets.layout.setText(assets.font, "Move the player with WASD and press SPACE to use your power\n\nThings bounce around like billiard balls.  Knock the packages into their goals by moving into them, but watch out enemies will show up to harass you.", textColor, bounds.width - 20, Align.center, true);
+        assets.layout.setText(assets.font, "Move the player with WASD and press number keys [1-5] to use your powers\n\nThings bounce around like billiard balls.  Knock the packages into their goals by moving into them, but watch out enemies will show up to harass you.", textColor, bounds.width - 20, Align.center, true);
         assets.font.draw(batch, assets.layout, bounds.x+10, bounds.y + 200 - 10);
     }
 
@@ -192,7 +192,7 @@ public class TutorialScreen extends BaseScreen {
             assets.layout.setText(assets.font, ability.title + " - " + ability.description, textColor, bounds.width - 200, Align.left, true);
             assets.font.draw(batch, assets.layout, bounds.x + 190, bounds.y + 420 - (i * (delta+5)) + 30 + assets.layout.height/2f);
         }
-        assets.layout.setText(assets.font, "Powerups: You can select which powerup you are using with (1-5) and press SPACE to activate, but watch how much stamina you have (The bar at the top)", textColor, bounds.width, Align.center, true);
+        assets.layout.setText(assets.font, "Powerups: You can activate a powerup with the corresponding number key (1-5), but watch how much stamina you have (The bar at the top), great powers come with great costs.", textColor, bounds.width, Align.center, true);
         assets.font.draw(batch, assets.layout, bounds.x, bounds.y + 100 - 10);
 
     }
