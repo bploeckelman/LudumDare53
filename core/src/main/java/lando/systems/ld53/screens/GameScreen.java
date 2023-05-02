@@ -230,42 +230,57 @@ public class GameScreen extends BaseScreen {
             if (player.abilityList.get(0).isUnlocked) {
                 selectSkillUI.autoScrollToSkillInit(0);
                 player.currentAbility = player.abilityList.get(0);
+                player.activateSkill();
             } else {
                 bottomGameUI.buttonTables.get(0).shakeLocker();
             }
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1) && player.currentAbility == player.abilityList.get(0)) {
+            player.activateSkill();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2) && player.currentAbility != player.abilityList.get(1)) {
             if (player.abilityList.get(1).isUnlocked) {
                 selectSkillUI.autoScrollToSkillInit(1);
                 player.currentAbility = player.abilityList.get(1);
+                player.activateSkill();
             } else {
                 bottomGameUI.buttonTables.get(1).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
             }
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2) && player.currentAbility == player.abilityList.get(1)) {
+            player.activateSkill();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3) && player.currentAbility != player.abilityList.get(2)) {
             if (player.abilityList.get(2).isUnlocked) {
                 selectSkillUI.autoScrollToSkillInit(2);
                 player.currentAbility = player.abilityList.get(2);
+                player.activateSkill();
             } else {
                 bottomGameUI.buttonTables.get(2).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
             }
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3) && player.currentAbility == player.abilityList.get(2)) {
+            player.activateSkill();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4) && player.currentAbility != player.abilityList.get(3)) {
             if (player.abilityList.get(3).isUnlocked) {
                 selectSkillUI.autoScrollToSkillInit(3);
                 player.currentAbility = player.abilityList.get(3);
+                player.activateSkill();
             } else {
                 bottomGameUI.buttonTables.get(3).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
             }
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4) && player.currentAbility == player.abilityList.get(3)) {
+            player.activateSkill();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5) && player.currentAbility != player.abilityList.get(4)) {
             if (player.abilityList.get(4).isUnlocked) {
                 selectSkillUI.autoScrollToSkillInit(4);
                 player.currentAbility = player.abilityList.get(4);
+                player.activateSkill();
             } else {
                 bottomGameUI.buttonTables.get(4).lock.addAction(bottomGameUI.buttonTables.get(0).shakeLocker());
                 selectSkillUI.abilityUIMap.get(player.abilityList.get(4)).lock.addAction(selectSkillUI.abilityUIMap.get(player.abilityList.get(4)).shakeLocker());
             }
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5) && player.currentAbility == player.abilityList.get(4)) {
+            player.activateSkill();
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
