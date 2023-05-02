@@ -73,7 +73,7 @@ public class TitleScreen extends BaseScreen {
                 .target(430f))
             .push(Tween.to(titleTextGeniePos, Vector2Accessor.Y, .1f)
                 .target(435f))
-            .push(Tween.to(titleGeniePos, Vector2Accessor.Y, .3f)
+            .push(Tween.to(titleGeniePos, Vector2Accessor.Y, .2f)
                 .target(180f))
             .pushPause(.5f)
             .push(Tween.call((type, source) -> {
