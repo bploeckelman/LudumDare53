@@ -89,7 +89,7 @@ public class TutorialScreen extends BaseScreen {
 
         assets.font.getData().setScale(.5f);
         String continueString = "Click or press a key to continue";
-        if (page == 2) continueString = "Let's start";
+        if (page == 2) continueString = "Let's start!";
         assets.layout.setText(assets.font, continueString, textColor, bounds.width, Align.center, true);
         assets.font.draw(batch, assets.layout, bounds.x, bounds.y + assets.layout.height + 15);
         assets.font.getData().setScale(1f);

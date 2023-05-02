@@ -76,7 +76,7 @@ public class Player implements Entity, Collidable {
 
     public float mass = 20f;
     public float friction = 0.001f;
-    public PlayerAbility currentAbility = PlayerAbility.shield_360;
+    public PlayerAbility currentAbility = PlayerAbility.bomb_throw;
     public List<PlayerAbility> abilityList = Arrays.asList(PlayerAbility.values());
 
     public enum State {

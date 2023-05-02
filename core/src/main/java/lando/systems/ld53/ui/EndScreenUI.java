@@ -56,7 +56,7 @@ public class EndScreenUI extends Group {
 
         nextButton = new TextButton("Next...", storyScreenButtonStyle);
         nextButton.setSize(BUTTON_WIDTH, BUTTON_HEIGHT);
-        nextButton.setPosition(left, startGameButton.getY() + startGameButton.getHeight() + BUTTON_PADDING + 25);
+        nextButton.setPosition(left, startGameButton.getY() + startGameButton.getHeight() + BUTTON_PADDING - 125);
         nextButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -80,7 +80,7 @@ public class EndScreenUI extends Group {
 //        });
 
 
-        addActor(startGameButton);
+//        addActor(startGameButton);
         addActor(nextButton);
 //        addActor(creditButton);
 //        addActor(settingsUI);

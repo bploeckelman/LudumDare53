@@ -37,8 +37,8 @@ public class EndScreen extends BaseScreen {
         clickPhase = 0;
         maxClick = 4;
         isStoryOver = false;
-        startSubtitles = "I think this might just work!\n\n" ;
-        startGenieSubtitles = "...\n\n" ;
+        startSubtitles = "Wow. That was... unbelievable.\n\n I can't believe I made that entire game in 3 days!" ;
+        startGenieSubtitles = "\n\n" ;
         subtitles = startSubtitles;
         genieSubtitles = startGenieSubtitles;
 
@@ -74,70 +74,92 @@ public class EndScreen extends BaseScreen {
 
                 phaseAccum = 0;
 
-                if(clickPhase < maxClick) {
-                    subtitles = startSubtitles;
-
-                }
+//                if(clickPhase < maxClick) {
+//                    subtitles = startSubtitles;
+//
+//                }
 
                 switch (clickPhase) {
                     case 0:
-                        subtitles = "Two days down, and we mostly have a game!\n\n";
-                        genieSubtitles = "... That's...";
+                        subtitles = "Wow. That was... unbelievable.\n\n I can't believe I made that entire game in 3 days!" ;
+                        genieSubtitles = "\n\n" +
+                            "That's because you didn't.";
                         break;
                     case 1:
-                        subtitles = "Two days down, and we mostly have a game!\n\n";;
-                        genieSubtitles = "That is an awfully generous interpretation of \"we\"\n\n" +
-                            "Who exactly do you think is doing all the work here?";
-
+                        subtitles = "An entire game in 3 days, and all it took was an omnipotent phantasm of unspeakable power!" ;
+                        genieSubtitles = "\n\n" +
+                            "Flattery will get you everywhere, kid, but it's too late.\n\n"+
+                            "I've got to say though, that was actually pretty neat.\n\n";
                         break;
 
                     case 2:
-                        subtitles = "What do you mean?\n\n" +
-                            "Other than the programming and graphics and music and gameplay and level design,\n" +
-                            "I'm doing EVERYTHING!\n";
+                        subtitles = "That we got to work together?\n\n";
+
                         genieSubtitles = "\n\n" +
-                            "So you're the \"ideas guy\". Wow.\n\n" +
-                            "What's crunch time like when you're trying to ship ideas?";
+                            "No, bec-";
                         break;
                     case 3:
-                        subtitles = "What do you mean?\n\n" +
-                            "Other than the programming and graphics and music and gameplay and level design,\n" +
-                            "I'm doing EVERYTHING!\n\n";
+                        subtitles = "That we got to work together?\n\n"+
+                            "And become friends??";
+
                         genieSubtitles = "\n\n" +
-                            "So you're the \"ideas guy\". Wow.\n\n" +
-                            "What's crunch time like when you're trying to ship ideas?\n\n" +
-                            "Pretty stressful? Lots of naps, I imagine?";
+                            "No, bec-\n\n";
                         break;
                     case 4:
-                        subtitles = "Only when I get the sleepies!\n\n";
-                        genieSubtitles = "\n\n...";
+                        subtitles = "That we got to work together?\n\n"+
+                            "And become friends??";
+                        genieSubtitles = "\n\n" +
+                            "No, because I realized that all it took to get a developer to give me their eternal soul\n" +
+                            "was some nominal help building a silly video game over a weekend.\n\n";
                         break;
                     case 5:
-                        subtitles = "Only when I get the sleepies!\n\n";
-                        genieSubtitles = "\n\n... \n\nChrist. Let's wrap this up - I've got a lamp that needs rubbing, if you catch my meaning.";
+                        subtitles = "I... What?\n\n";
+                        genieSubtitles = "Did you seriously think outsourcing your work to a cosmic demiurge\nwould be a consequence-free affair?";
                         break;
                   case 6:
-                        subtitles = "Dude! Eew.\n\n";
+                      subtitles = "But... I thought we were going to be friends\n\n" +
+                          "Don't you want to make more games with me?\n\n";
                         genieSubtitles = "\n\n" +
-                            "Whatever, square. Sounds like someone needs THEIR lamp rubbed.";
+                            "";
                         break;
                   case 7:
-                        subtitles = "Also, what's the deal with all those sprites? I feel like I've seen them all before...\n\n";
-                        genieSubtitles = "" +
-                            "Yeah, and?";
+                      subtitles = "But... I thought we were going to be friends\n\n" +
+                          "Don't you want to make more games with me?\n\n" +
+                          "Forever?\n\n";
+                      genieSubtitles = "\n\n" +
+                          "";
                         break;
                   case 8:
-                        subtitles = "Also, what's the deal with all those sprites? I feel like I've seen them all before...\n\n";
-                        genieSubtitles = "" +
-                            "Yeah, and?\n\n" +
-                            "Don't exactly see you burning the midnight oil over here. \n\n" +
-                            "In fact, haven't seen you do much of ANYTHING at this point.\n\n" +
-                            "Let's just bring this thing home.";
+                      subtitles = "But... I thought we were going to be friends\n\n" +
+                          "Don't you want to make more games with me?\n\n" +
+                          "Forever? \n\n" +
+                          "...please?";
+                      genieSubtitles = "\n\n" +
+                          "";
+                        break;
+                  case 9:
+                      subtitles = "But... I thought we were going to be friends\n\n" +
+                          "Don't you want to make more games with me?\n\n" +
+                          "Forever?\n\n" +
+                          "...please?";
+                      genieSubtitles = "\n\n\n\n\n" +
+                          "Oof, wow. We genies don't even have hearts and you're breaking mine, kid.\n\n" +
+                          "Tell you what. Let's see what my schedule looks like for the next game jam and we can see\n" +
+                          "how things work out. \n\n" +
+                          "No promises, but I can probably pencil you in.";
+                        break;
+
+                  case 10:
+                      subtitles = "I'd like that.\n\n" +
+                          "... can I call you dad for the next one?";
+                      genieSubtitles = "\n\n\n\n" +
+                          "Wow.\n\n"+
+                          "Okay, we're done here.";
                         break;
 
 
-                    case 9:
-                        game.setScreen(new GameScreen(GameScreen.Levels.level4));
+                    case 11:
+                        game.setScreen(new CreditScreen(game));
 //                        subtitles = "Us either.\n\n" +
 //                            "That would be a weird, weird premise for a game.\n\n";
                         break;
