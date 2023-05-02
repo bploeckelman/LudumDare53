@@ -35,7 +35,7 @@ public class TitleScreenUI extends Group {
 
         Main.game.audioManager.playMusic(AudioManager.Musics.introMusic);
 
-        float left = screen.windowCamera.viewportWidth * (4.3f / 8f);
+        float left = screen.windowCamera.viewportWidth * (6f / 8f);
         float top = screen.windowCamera.viewportHeight * (1f / 4f);
 
         startGameButton = new TextButton("Start Game", titleScreenButtonStyle);

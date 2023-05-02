@@ -36,18 +36,19 @@ public class TitleScreen extends BaseScreen {
     private TextureRegion titleTextGenie = assets.titleTextGenie.getKeyFrame(0f);
     private TextureRegion titleZZZ = assets.titleZZZ.getKeyFrame(0f);
     private boolean drawUI = false;
+    private boolean showCrunch = false;
 
     private float stateTime;
 
     public TitleScreen() {
         super();
         titlePcPos = new Vector2(0, 700);
-        titleSleepPos = new Vector2(500, 0);
+        titleSleepPos = new Vector2(800, 0);
         titleTextCrunchTimePos = new Vector2(930, 250);
-        titleTextGamePos = new Vector2(170, 430);
-        titleTextGeniePos = new Vector2(670, 435);
-        titleGeniePos = new Vector2(550, 180);
-        titleZZZPos = new Vector2(0, 0);
+        titleTextGamePos = new Vector2(170, 700);
+        titleTextGeniePos = new Vector2(670, 900);
+        titleGeniePos = new Vector2(550, 700);
+        titleZZZPos = new Vector2(480, 120);
         worldCamera.setToOrtho(false, Config.Screen.window_width, Config.Screen.window_height);
         worldCamera.update();
         Gdx.input.setInputProcessor(uiStage);
@@ -63,13 +64,21 @@ public class TitleScreen extends BaseScreen {
         titleGenieFrame = titleGenieAnim.getKeyFrame(stateTime);
 
         Timeline.createSequence()
-            .push(Tween.to(titlePcPos, Vector2Accessor.Y, .2f)
+            .push(Tween.to(titlePcPos, Vector2Accessor.Y, .1f)
                 .target(-120f))
-            .push(Tween.to(titleSleepPos, Vector2Accessor.X, .2f)
-                .target(titleSleepPos.y))
+            .push(Tween.to(titleSleepPos, Vector2Accessor.X, .1f)
+                .target(500f))
+            .pushPause(.5f)
+            .push(Tween.to(titleTextGamePos, Vector2Accessor.Y, .1f)
+                .target(430f))
+            .push(Tween.to(titleTextGeniePos, Vector2Accessor.Y, .1f)
+                .target(435f))
+            .push(Tween.to(titleGeniePos, Vector2Accessor.Y, .3f)
+                .target(180f))
             .pushPause(.5f)
             .push(Tween.call((type, source) -> {
                 drawUI = true;
+                showCrunch = true;
             }))
             .start(tween);
 
@@ -94,8 +103,10 @@ public class TitleScreen extends BaseScreen {
             batch.draw(titleGenieFrame, titleGeniePos.x, titleGeniePos.y, titleGenieFrame.getRegionWidth(), titleGenieFrame.getRegionHeight());
             batch.draw(titleTextGame, titleTextGamePos.x, titleTextGamePos.y, titleTextGame.getRegionWidth(), titleTextGame.getRegionHeight());
             batch.draw(titleTextGenie, titleTextGeniePos.x, titleTextGeniePos.y, titleTextGenie.getRegionWidth(), titleTextGenie.getRegionHeight());
-            batch.draw(titleTextCrunchTime, titleTextCrunchTimePos.x, titleTextCrunchTimePos.y, titleTextCrunchTime.getRegionWidth(), titleTextCrunchTime.getRegionHeight());
-
+            if (showCrunch) {
+                batch.draw(titleTextCrunchTime, titleTextCrunchTimePos.x, titleTextCrunchTimePos.y, titleTextCrunchTime.getRegionWidth(), titleTextCrunchTime.getRegionHeight());
+                batch.draw(titleZZZ, titleZZZPos.x, titleZZZPos.y, titleZZZ.getRegionWidth(), titleZZZ.getRegionHeight());
+            }
         }
 
         batch.end();
