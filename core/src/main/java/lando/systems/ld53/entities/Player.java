@@ -442,8 +442,7 @@ public class Player implements Entity, Collidable {
         float speed = 1000f;
         vel.scl(speed);
 
-        GameScreen screen = (GameScreen) Main.game.currentScreen;
-        Bomb bomb = new Bomb(screen.assets, pos.x, pos.y, vel.x, vel.y);
+        Bomb bomb = new Bomb(screen, pos.x, pos.y, vel.x, vel.y);
         screen.bombs.add(bomb);
 
         VectorPool.freeAll(pos, vel);

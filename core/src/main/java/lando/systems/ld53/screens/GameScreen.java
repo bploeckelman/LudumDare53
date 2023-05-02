@@ -370,8 +370,15 @@ public class GameScreen extends BaseScreen {
             enemySpawner.update(delta);
         }
 
-        for (Enemy enemy : enemies) {
+        for (int i = enemies.size - 1; i >= 0; i--) {
+            Enemy enemy = enemies.get(i);
             enemy.update(delta);
+            if (!enemy.isAlive()) {
+                enemies.removeIndex(i);
+
+                particles.bleed(enemy.getPosition().x, enemy.getPosition().y);
+                game.audioManager.playSound(AudioManager.Sounds.bodyHit, 0.1f);
+            }
         }
 
         bulletEnemy.update(delta);

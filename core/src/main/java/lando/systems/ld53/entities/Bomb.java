@@ -6,13 +6,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import lando.systems.ld53.Assets;
 import lando.systems.ld53.Main;
 import lando.systems.ld53.audio.AudioManager;
+import lando.systems.ld53.entities.enemies.Enemy;
 import lando.systems.ld53.physics.Collidable;
 import lando.systems.ld53.physics.CollisionShape;
 import lando.systems.ld53.physics.CollisionShapeCircle;
 import lando.systems.ld53.physics.Influencer;
+import lando.systems.ld53.screens.GameScreen;
 import lando.systems.ld53.utils.InfluenceRenderer;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
@@ -22,12 +25,14 @@ public class Bomb implements Entity, Collidable {
     private static final float COLLISION_RADIUS = 20;
     private static final float RENDER_SIZE = 66f;
 
+    private final GameScreen screen;
     private final Rectangle renderBounds;
     private final Rectangle collisionBounds;
     private final CollisionShapeCircle collisionShape;
     private final Animation<TextureRegion> animation;
     private final Vector2 velocity = new Vector2();
     private final Vector2 position = new Vector2();
+    private final Vector2 vec2 = new Vector2();
 
     private TextureRegion keyframe;
     private float animTime;
@@ -44,8 +49,9 @@ public class Bomb implements Entity, Collidable {
     private final float fuseDuration = .75f;
     public float fuseTime = 0f;
 
-    public Bomb(Assets assets, float x, float y, float velX, float velY) {
-        this.animation = assets.bomb;
+    public Bomb(GameScreen screen, float x, float y, float velX, float velY) {
+        this.screen = screen;
+        this.animation = screen.assets.bomb;
         this.keyframe = animation.getKeyFrame(0f);
         this.animTime = 0f;
         this.alive = true;
@@ -131,6 +137,16 @@ public class Bomb implements Entity, Collidable {
                     repulsorActive = true;
                     Main.game.currentScreen.screenShaker.addDamage(100);
                     Main.game.audioManager.playSound(AudioManager.Sounds.cannon, 0.3f);
+
+                    // hurt nearby enemies
+                    Array<Enemy> enemies = screen.enemies;
+                    for (Enemy enemy : enemies) {
+                        float dist2 = vec2.set(enemy.getPosition()).sub(getPosition()).len2();
+                        if (dist2 < repulsor.getRange() * repulsor.getRange()) {
+                            // TODO - hurt, not kill?
+                            enemy.kill();
+                        }
+                    }
                 }
             }
             animTime += delta;

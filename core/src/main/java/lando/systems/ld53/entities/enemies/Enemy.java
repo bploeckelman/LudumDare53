@@ -41,6 +41,8 @@ public class Enemy implements Entity, Collidable {
     protected float mass = 10f;
     protected float friction = 0.3f;
 
+    protected boolean alive = false;
+
     public Enemy(GameScreen screen, float x, float y) {
         this.screen = screen;
         this.animation = screen.assets.gobbler;
@@ -52,11 +54,20 @@ public class Enemy implements Entity, Collidable {
         this.velocity = new Vector2();
         this.target = new Vector2();
         this.moveTime = 0f;
+        this.alive = true;
     }
 
     public void updateSize(float size) {
         circle.radius = size / 2f;
         bounds.setPosition(circle.center.x - circle.radius, circle.center.y - circle.radius);
+    }
+
+    public void kill() {
+        alive = false;
+    }
+
+    public boolean isAlive() {
+        return alive;
     }
 
     @Override
@@ -79,10 +90,6 @@ public class Enemy implements Entity, Collidable {
             circle.center.y - circle.radius,
             circle.radius * 2,
             circle.radius * 2);
-    }
-
-    public boolean isAlive() {
-        return true; // TODO make this real
     }
 
     private static final Color debugColor = new Color(0, 1, 1, 0.5f); // Color.CYAN half alpha
@@ -160,4 +167,5 @@ public class Enemy implements Entity, Collidable {
     public boolean shouldCollideWith(Collidable object) {
         return true;
     }
+
 }
