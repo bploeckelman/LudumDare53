@@ -525,8 +525,7 @@ public class Player implements Entity, Collidable {
         if (object instanceof Peg) {
             isStunned = true;
             currentState = State.stun;
-//            Main.game.audioManager.playSound(AudioManager.Sounds.grunt);
-            Main.game.audioManager.playSound(AudioManager.Sounds.grunt, 11f);
+//            Main.game.audioManager.playSound(AudioManager.Sounds.grunt, 1f);
 //            Main.game.assets.grunt1.play();
         }
         else if (object instanceof Cargo) {
